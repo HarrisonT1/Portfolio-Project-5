@@ -7,9 +7,10 @@ from .models import SweetCategory, DietaryTag, Product
 
 def all_products(request):
     products = Product.objects.all()
+    categories = SweetCategory.objects.all()
 
     query = None
-    categories = None
+    search_categories = None
 
     if 'q' in request.GET:
         query = request.GET['q']
@@ -20,13 +21,14 @@ def all_products(request):
             )
 
     if 'category' in request.GET:
-        categories = request.GET['category'].lower().split(',')
-        products = products.filter(sweet_category__slug__in=categories)
+        search_categories = request.GET['category'].lower().split(',')
+        products = products.filter(sweet_category__slug__in=search_categories)
 
     context = {
         'products': products,
         'search': query,
-        'searched_categories': categories,
+        'searched_categories': search_categories,
+        'categories': categories,
     }
 
     return render(request, 'products/product-list.html', context)
