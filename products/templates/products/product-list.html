@@ -33,7 +33,7 @@
                             </div>
                             <strong>£{{ product.price }}</strong>
                             <a href="">Add To Basket</a>
-                            <a href="">Read More</a>
+                            <a href="{% url 'product_detail' product.slug %}">Read More</a>
                         </div>
                     </div>    
                 {% endfor %}

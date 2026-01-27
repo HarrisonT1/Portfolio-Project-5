@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from .models import SweetCategory, DietaryTag, Product
 
@@ -42,3 +42,13 @@ def all_products(request):
     }
 
     return render(request, 'products/product-list.html', context)
+
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+
+    context = {
+        'product': product
+    }
+
+    return render(request, 'products/product-detail.html', context)
