@@ -17,3 +17,22 @@ class DietaryTag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Product(models.Model):
+
+    name = models.CharField(max_length=255, unique=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    sweet_category = models.ForeignKey(
+        SweetCategory,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='products')
+    dietary_tag = models.ManyToManyField(
+        DietaryTag,
+        blank=True,
+        related_name='products')
+    sku = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(null=True, blank=True)
+    in_stock = models.BooleanField(default=True)
