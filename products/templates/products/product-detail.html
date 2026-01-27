@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% load static %}
+
+{% block content %}
+    <div class="container d-flex mt-5">
+        <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+                <strong>{{ product.name }}</strong>
+                <p>{{ product.description }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="number" id="add-quantity">
+                    <label for="add-quantity"></label>
+                    <button type="submit">Add to basket</button>
+                </form>
+            </div>
+            <div class="row col-12 col-md-4">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+        </div>
+    </div>
+{% endblock %}
