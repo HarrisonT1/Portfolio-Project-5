@@ -7,9 +7,19 @@ from django.utils.text import slugify
 class SweetCategory(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        """
+        A function to automatically create a slug name
+        for cleaner urls and database sorting
+        """
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class DietaryTag(models.Model):
