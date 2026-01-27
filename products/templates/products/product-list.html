@@ -8,8 +8,17 @@
                     <h3>Filters</h3>
                     {% for category in categories %}
                         <div class="form-check">
-                            <input type="checkbox" id="category-{{ category.id }}" value="{{ category.slug }}">
+                            <input type="checkbox" id="category-{{ category.id }}" value="{{ category.slug }}" name="category">
                             <label for="category-{{ category.id }}">{{ category.name }}</label>
+                        </div>
+                    {% endfor %}
+                </form>
+                <form method="GET">
+                    <h3>Dietary Needs</h3>
+                    {% for tag in dietary_tags %}
+                        <div class="form-check">
+                            <input type="checkbox" id="tag-{{ tag.id }}" value="{{ tag.slug }}" name="dietary_tag">
+                            <label for="tag-{{ tag.id }}">{{ tag.name }}</label>
                         </div>
                     {% endfor %}
                 </form>

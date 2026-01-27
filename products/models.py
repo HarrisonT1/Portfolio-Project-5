@@ -25,6 +25,16 @@ class SweetCategory(models.Model):
 class DietaryTag(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        A function to automatically create a slug name
+        for cleaner urls and database sorting
+        """
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -58,3 +68,6 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
