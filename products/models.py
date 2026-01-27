@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -22,6 +23,7 @@ class DietaryTag(models.Model):
 class Product(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     sweet_category = models.ForeignKey(
         SweetCategory,
@@ -36,3 +38,12 @@ class Product(models.Model):
     sku = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(null=True, blank=True)
     in_stock = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        """
+        A function to automatically create a slug name
+        for cleaner urls and database sorting
+        """
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
