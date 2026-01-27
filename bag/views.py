@@ -30,14 +30,16 @@ def view_bag(request):
 
 def add_to_bag(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    quantity = request.POST.get('quantity', 1)
+    quantity = int(request.POST.get('quantity', 1))
 
     bag = request.session.get('bag', {})
 
-    if product.id in bag:
-        bag[product.id] += quantity
+    product_id_as_str = str(product.id)
+
+    if product_id_as_str in bag:
+        bag[product_id_as_str] += quantity
     else:
-        bag[product.id] = quantity
+        bag[product_id_as_str] = quantity
 
     request.session['bag'] = bag
 
