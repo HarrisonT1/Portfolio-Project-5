@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load static %}
+
+{% block content %}
+    <div class="container d-flex mt-5">
+        <div class="row">
+            <div class="table-responsive">
+                {% for item in bag_items %}
+                {{ item.product.name }}
+                {{ item.quantity }}
+                {{ item.total_price }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
