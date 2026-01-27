@@ -11,8 +11,8 @@ def all_products(request):
     dietary_tags = DietaryTag.objects.all()
 
     selected_dietary_tags = []
+    selected_category = []
     query = None
-    search_categories = None
 
     if 'q' in request.GET:
         query = request.GET['q']
@@ -23,22 +23,22 @@ def all_products(request):
             )
 
     if 'category' in request.GET:
-        search_categories = request.GET['category'].lower().split(',')
+        selected_category = request.GET.getlist('category')
         products = products.filter(
-            sweet_category__slug__in=search_categories).distinct()
+            sweet_category__slug__in=selected_category).distinct()
 
     if 'dietary_tag' in request.GET:
         selected_dietary_tags = request.GET.getlist('dietary_tag')
         products = products.filter(
-            dietary_tags__slug__in=selected_dietary_tags).distinct()
+            dietary_tag__slug__in=selected_dietary_tags).distinct()
 
     context = {
         'dietary_tags': dietary_tags,
         'products': products,
         'search': query,
-        'searched_categories': search_categories,
         'categories': categories,
         'selected_dietary_tags': selected_dietary_tags,
+        'selected_category': selected_category,
     }
 
     return render(request, 'products/product-list.html', context)
