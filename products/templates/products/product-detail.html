@@ -6,7 +6,7 @@
             <div class="col-12 col-md-8 mx-auto">
                 <strong>{{ product.name }}</strong>
                 <p>{{ product.description }}</p>
-                <form method="POST">
+                <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
                     <input type="number" id="add-quantity">
                     <label for="add-quantity"></label>
