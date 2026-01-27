@@ -1,11 +1,21 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
-    {% if products %}
-        {% for product in products %}
-            <div>
-                {{ product.name }}
-            </div>
-        {% endfor %}
-    {% endif %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            {% for product in products %}
+                <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center mt-3">
+                    <div class="card">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                        </div>
+                        <a href="">Add To Basket</a>
+                        <a href="">Read More</a>
+                    </div>
+                </div>    
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
