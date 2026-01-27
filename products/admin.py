@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from django.utils.html import mark_safe
 from .models import SweetCategory, DietaryTag, Product
 
 # Register your models here.
@@ -18,7 +18,7 @@ class DietaryTagAdmin(admin.ModelAdmin):
 
 
 @admin.register(Product)
-class ProductaAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'sku',

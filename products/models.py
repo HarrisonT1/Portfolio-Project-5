@@ -25,6 +25,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    description = models.TextField()
     sweet_category = models.ForeignKey(
         SweetCategory,
         on_delete=models.SET_NULL,
