@@ -26,3 +26,11 @@ def add_to_bag(request, slug):
     print(bag)
 
     return redirect('product_detail', slug=slug)
+
+
+def remove_from_bag(request, slug):
+    bag = request.session.get('bag', {})
+    bag.pop(slug, None)
+    request.session['bag'] = bag
+
+    return redirect('view_bag')

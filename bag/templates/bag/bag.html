@@ -23,8 +23,8 @@
                             <th>{{ item.product.price }}</th>
                             <th>{{ item.quantity }}</th>
                             <th>£{{ item.bag_total }}</th>
-                            <th><a href="">test</a></th>
-                            <th><a href="">test</a></th>
+                            <th><a href="">Edit</a></th>
+                            <th><a href="{% url 'remove_from_bag' item.product.id %}">Delete</a></th>
                         </tr>
                     {% endfor %}
                 </tbody>
