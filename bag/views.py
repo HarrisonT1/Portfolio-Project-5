@@ -10,16 +10,15 @@ def view_bag(request):
 
 def add_to_bag(request, slug):
     product = get_object_or_404(Product, slug=slug)
+    product_slug = product.slug
     quantity = int(request.POST.get('quantity', 1))
 
     bag = request.session.get('bag', {})
 
-    product_id_as_str = str(product.id)
-
-    if product_id_as_str in bag:
-        bag[product_id_as_str] += quantity
+    if product_slug in bag:
+        bag[product_slug] += quantity
     else:
-        bag[product_id_as_str] = quantity
+        bag[product_slug] = quantity
 
     request.session['bag'] = bag
 
@@ -33,4 +32,17 @@ def remove_from_bag(request, slug):
     bag.pop(slug, None)
     request.session['bag'] = bag
 
+    return redirect('view_bag')
+
+
+def adjust_bag(request, slug):
+    bag = request.session.get('bag', {})
+    quantity = int(request.POST.get('quantity'))
+
+    if quantity > 0:
+        bag[slug] = quantity
+    else:
+        bag.pop(slug, None)
+
+    request.session['bag'] = bag
     return redirect('view_bag')

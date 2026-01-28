@@ -9,8 +9,13 @@ def bag_content(request):
 
     total_price = 0
 
-    for product_id, quantity in bag.items():
-        product = get_object_or_404(Product, id=product_id)
+    for product_slug, quantity in list(bag.items()):
+        try:
+            product = Product.objects.get(slug=product_slug)
+        except Product.DoesNotExist:
+            bag.pop(product_slug)
+            continue
+
         bag_items.append({
             'product': product,
             'quantity': quantity,

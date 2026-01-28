@@ -21,7 +21,14 @@
                             <th>{{ item.product.name }}</th>
                             <th id="bag-image"><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
                             <th>{{ item.product.price }}</th>
-                            <th>{{ item.quantity }}</th>
+                            <th>
+                                <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
+                                    {% csrf_token %}
+                                    <button class="minus-qty" type="button">-</button>
+                                    <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
+                                    <button class="plus-qty" type="button">+</button>
+                                </form>
+                            </th>
                             <th>£{{ item.bag_total }}</th>
                             <th><a href="">Edit</a></th>
                             <th><a href="{% url 'remove_from_bag' item.product.id %}">Delete</a></th>
@@ -36,4 +43,22 @@
         <a href="">Products</a>
     {% endif%}
     {{ total_price }}
+{% endblock %}
+
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.minus-qty').click(function() {
+            var input = $(this).siblings('.qty-input')
+            input.val(parseInt(input.val()) - 1)
+            $(this).closest('form').submit()
+        })
+        $('.plus-qty').click(function() {
+            var input = $(this).siblings('.qty-input')
+            input.val(parseInt(input.val()) + 1)
+            $(this).closest('form').submit()
+        })
+    })
+</script>
 {% endblock %}
