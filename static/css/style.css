@@ -26,3 +26,18 @@
     align-items: center;
     justify-content: center;
 }
+
+/* BAG */
+
+#bag-table {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    border: #FFB347 2px solid;
+}
+
+#bag-image img {
+    width: 10%;
+    min-width: 50px;
+}

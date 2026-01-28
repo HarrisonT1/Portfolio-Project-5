@@ -20,7 +20,7 @@ def bag_content(request):
 
     context = {
         'total_price': total_price,
-        'bag_items': bag_items
+        'bag_items': bag_items,
     }
 
     return context

@@ -1,15 +1,33 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
-    <div class="container d-flex mt-5">
-        <div class="row">
-            <div class="table-responsive">
+    <div class="table-responsive">
+        <table class="table table-striped" id="bag-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for item in bag_items %}
-                {{ item.product.name }}
-                {{ item.quantity }}
-                {{ item.total_price }}
+                    <tr>
+                        <th>{{ item.product.name }}</th>
+                        <th id="bag-image"><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                        <th>{{ item.product.price }}</th>
+                        <th>{{ item.quantity }}</th>
+                        <th>£{{ item.bag_total }}</th>
+                        <th><a href="">test</a></th>
+                        <th><a href="">test</a></th>
+                    </tr>
                 {% endfor %}
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
+    {{ total_price }}
 {% endblock %}
