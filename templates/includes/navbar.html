@@ -5,16 +5,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a href="{% url 'products' %}">All Products</a>
         <form class="d-flex mx-auto" role="search">
             <input class="form-control me-2" type="search" id="navbar-search" placeholder="Search" aria-label="Search"/>
             <!-- <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
         </form>
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-user"></i></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <p>Signed in as: {{ user.name }}</p>
+                    <a href="">Edit Profile</a>
+                </ul>    
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'view_bag' %}"><i class="fa-solid fa-basket-shopping"></i></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <p class="small">Total price: £{{ total_price|default:"0.00" }}</p>
+                    <p class="small">Total items: {{ total_bag_items }}</p>
+                    <a href="{% url 'view_bag' %}">View Bag</a>
+                </ul>    
             </li>
         </ul>
     </div>
