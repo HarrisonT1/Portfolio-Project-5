@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Countries
+    'django_countries'
     # Allauth
     'django.contrib.sites',
     'allauth',
@@ -162,3 +164,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FREE_DELIVERY_THRESHOLD = 30
 STANDARD_DELIVERY_PERCENTAGE = 10
+PREMIUM_DELIVERY_PERCENTAGE = 5
+DELIVERY_OPTIONS = (
+    ('standard', 'Standard Delivery')
+    ('premium', 'Premium Delivery')
+)
