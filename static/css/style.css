@@ -27,9 +27,9 @@
     justify-content: center;
 }
 
-/* BAG */
+/* BAG / CHECKOUT TABLE */
 
-#bag-table {
+.bag-table {
     width: 80%;
     margin: auto;
     margin-top: 50px;
@@ -37,7 +37,7 @@
     border: #FFB347 2px solid;
 }
 
-#bag-image img {
+.bag-image {
     width: 10%;
     min-width: 50px;
 }

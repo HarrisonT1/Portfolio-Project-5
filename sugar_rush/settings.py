@@ -172,3 +172,6 @@ DELIVERY_OPTIONS = (
     ('standard', 'Standard Delivery'),
     ('premium', 'Premium Delivery'),
 )
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

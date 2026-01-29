@@ -44,6 +44,6 @@ def checkout(request):
     context = {
         'form': form,
         'quantity': bag_items,
-        'subtotal': total,
+        'subtotal': subtotal,
     }
     return render(request, 'checkout/checkout.html', context)

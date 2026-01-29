@@ -3,7 +3,7 @@
 {% block content %}
     {% if bag_items %}
         <div class="table-responsive">
-            <table class="table table-striped" id="bag-table">
+            <table class="table table-striped bag-table">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -19,7 +19,7 @@
                     {% for item in bag_items %}
                         <tr>
                             <th>{{ item.product.name }}</th>
-                            <th id="bag-image"><img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                            <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
                             <th>{{ item.product.price }}</th>
                             <th>
                                 <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
