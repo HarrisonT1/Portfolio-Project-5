@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Countries
-    'django_countries'
+    'django_countries',
     # Allauth
     'django.contrib.sites',
     'allauth',
@@ -166,6 +166,6 @@ FREE_DELIVERY_THRESHOLD = 30
 STANDARD_DELIVERY_PERCENTAGE = 10
 PREMIUM_DELIVERY_PERCENTAGE = 5
 DELIVERY_OPTIONS = (
-    ('standard', 'Standard Delivery')
-    ('premium', 'Premium Delivery')
+    ('standard', 'Standard Delivery'),
+    ('premium', 'Premium Delivery'),
 )

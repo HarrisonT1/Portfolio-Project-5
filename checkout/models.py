@@ -13,7 +13,7 @@ class Order(models.Model):
     order_number = models.CharField(max_length=32, editable=False, unique=True)
 
     date_time = models.DateTimeField(auto_now_add=True)
-    country = models.CountryField()
+    country = CountryField()
     postcode = models.CharField(max_length=15)
     city = models.CharField(max_length=80)
     town = models.CharField(max_length=80)
