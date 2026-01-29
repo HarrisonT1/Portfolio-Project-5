@@ -8,6 +8,10 @@ from products.models import Product
 
 def checkout(request):
     bag = request.session.get('bag', {})
+
+    if not bag:
+        return redirect('products')
+
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -24,7 +28,8 @@ def checkout(request):
                 )
 
             request.session['bag'] = {}
-            return redirect('checkout_success', order_number=order.order_number)
+            return redirect(
+                'checkout_success', order_number=order.order_number)
     else:
         form = OrderForm()
 

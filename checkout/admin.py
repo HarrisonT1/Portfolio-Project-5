@@ -4,14 +4,15 @@ from .models import Order, OrderLineItem
 # Register your models here.
 
 
-@admin.register(OrderLineItem)
-class OrderLineItemAdmin(admin.ModelAdmin):
+class OrderLineItemInline(admin.TabularInline):
     model = OrderLineItem
     readonly_fields = ('line_item_total',)
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+
+    inlines = [OrderLineItemInline]
 
     readonly_fields = (
         'order_number',
