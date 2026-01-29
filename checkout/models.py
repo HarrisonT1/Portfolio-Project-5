@@ -3,6 +3,8 @@ from django.db import models
 from django.conf import settings
 from django_countries.fields import CountryField
 
+from products.models import Product
+
 # Create your models here.
 
 
@@ -32,3 +34,17 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_number
+
+
+class OrderLineItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='lineitems')
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(default=1)
+    line_item_total = models.DecimalField(max_digits=6, editable=False, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.product.name} {self.quantity}'
+
+    def save(self, *args, **kwargs):
+        self.line_item_total = self.product.price * self.quantity
+        super().save(*args, **kwargs)
