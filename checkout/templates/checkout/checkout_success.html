@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% load static %} {% load crispy_forms_tags %}
+
+{% block content %}
+<div class="col-12 col-md-6">
+    <div class="table-responsive">
+        <table class="table table-striped bag-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in bag_items %}
+                    <tr>
+                        <th>{{ item.product.name }}</th>
+                        <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                        <th>{{ item.product.price }}</th>
+                        <th>
+                            {{ item.quantity }}
+                        </th>
+                        <th>£{{ item.bag_total }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

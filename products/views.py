@@ -41,7 +41,7 @@ def all_products(request):
         'selected_category': selected_category,
     }
 
-    return render(request, 'products/product-list.html', context)
+    return render(request, 'products/product_list.html', context)
 
 
 def product_detail(request, slug):
@@ -51,4 +51,4 @@ def product_detail(request, slug):
         'product': product
     }
 
-    return render(request, 'products/product-detail.html', context)
+    return render(request, 'products/product_detail.html', context)

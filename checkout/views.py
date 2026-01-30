@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import OrderForm
-from .models import OrderLineItem
+from .models import OrderLineItem, Order
 from products.models import Product
 
 # Create your views here.
@@ -52,3 +52,13 @@ def checkout(request):
         'subtotal': subtotal,
     }
     return render(request, 'checkout/checkout.html', context)
+
+
+def checkout_success(request, order_number):
+    order = get_object_or_404(Order, order_number=order_number)
+
+    context = {
+        'order': order,
+    }
+
+    return render(request, 'checkout/checkout_success.html', context)
