@@ -59,6 +59,34 @@
     min-width: 50px;
 }
 
+/* REVIEWS */
+/* TAKEN FROM MY PROJECT 4 */
+
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label i {
+    font-size: 3rem;
+    color: grey;
+}
+
+.stars label:hover i,
+.stars label:hover ~ label i {
+    color: rgb(255, 217, 0);
+}
+
+.stars input:checked ~ label i {
+    color: rgb(255, 217, 0);
+}
+
+
 /* REMOVE ARROWS FROM INPUT BOX TAKEN FROM https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
     /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
