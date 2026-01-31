@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from django.db.models.functions import Random
 from reviews.models import Review
 
 # Create your views here.
 
 
 def home(request):
-    reviews = Review.objects.filter(approved=True)
+    reviews = Review.objects.filter(approved=True).order_by(Random())[:3]
 
     context = {
         'reviews': reviews,

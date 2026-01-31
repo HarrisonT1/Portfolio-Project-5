@@ -13,16 +13,16 @@
             <div class="reviews container text-center">
                 <h3>{{ review.name }}</h3>
                 <span>
-                    {% if review.star_rating == 1 %}
+                    {% if review.rating == 1 %}
                         <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.star_rating == 2 %}
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.star_rating == 3 %}
+                    {% elif review.rating == 2 %}
                         <span><i class="fa-solid fa-star"></i></span>
                         <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.rating == 3 %}
                         <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.star_rating == 4 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.rating == 4 %}
                         <span><i class="fa-solid fa-star"></i></span>
                         <span><i class="fa-solid fa-star"></i></span>
                         <span><i class="fa-solid fa-star"></i></span>
