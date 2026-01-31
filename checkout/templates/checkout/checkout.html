@@ -9,12 +9,12 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <label>
-                            <input id="s-delivery" type="radio" value="standard" name="delivery_method">
-                            Standary delivery (+£5)
+                            <input type="radio" value="standard" name="delivery_method" checked>
+                            Standary delivery (£5)
                         </label>
                         <label>
-                            <input id="p-delivery" type="radio" value="premium" name="delivery_method">
-                            Premium delivery (+£10)
+                            <input type="radio" value="premium" name="delivery_method">
+                            Premium delivery (+£5)
                         </label>
                         <button type="submit">Checkout</button>
                     </form>
@@ -67,18 +67,23 @@
         console.log(orderTotal)
  
         function updateTotals(delivery_method){
-            let delivery_cost = 0
+            var deliveryCost = 0
             if (orderTotal < FREE_DELIVERY_THRESHOLD) {
-                delivery_cost = (delivery_method === 'premium') ? PREMIUM_DELIVERY_COST : STANDARD_DELIVERY_COST;
+                deliveryCost = (delivery_method === 'premium') ? PREMIUM_DELIVERY_COST : STANDARD_DELIVERY_COST;
             } else {
-                delivery_cost = 0
+                deliveryCost = 0
             }
-            let grandTotal = orderTotal + delivery_cost;
-            console.log(delivery_cost)
+            var grandTotal = orderTotal + deliveryCost;
+            console.log(deliveryCost)
             console.log(delivery_method)
             console.log(grandTotal)
+            $('#delivery-cost').text('Delivery: £' + deliveryCost.toFixed(2))
+            $('#grand-total').text('Grand Total: £' + grandTotal.toFixed(2))
         }
         updateTotals('standard')
+        $('input[name="delivery_method"]').on('change', function() {
+            updateTotals($(this).val())
+        })
     });
 </script>
 {% endblock %}
