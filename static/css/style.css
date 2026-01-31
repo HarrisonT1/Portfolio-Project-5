@@ -22,7 +22,10 @@
     align-items: center;
 }
 
-.hero-overlay
+.hero-content {
+    margin-left: 75px;
+    transform: translateY(-300%);
+}
 
 /* DETAIL BANNER */
 
