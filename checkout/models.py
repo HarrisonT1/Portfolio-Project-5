@@ -23,9 +23,27 @@ class Order(models.Model):
     street_address2 = models.CharField(max_length=80, blank=True)
 
     delivery_method = models.CharField(choices=settings.DELIVERY_OPTIONS)
+    order_total = models.DecimalField(max_digits=8, decimal_places=2)
+    delivery_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    grand_total = models.DecimalField(max_digits=8, decimal_places=2)
 
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
+
+    def create_total(self):
+        self.order_total = self.lineitems.aggregate(
+            models.Sum('line_item_total')
+            )['line_item_total__sum'] or 0
+
+        if self.order_total >= settings.FREE_DELIVERY_THRESHOLD:
+            self.delivery_cost = 0
+        else:
+            if self.delivery_method == 'premium':
+                self.delivery_cost = settings.PREMIUM_DELIVERY_COST
+            else:
+                self.delivery_cost = settings.STANDARD_DELIVERY_COST
+        self.grand_total = self.order_total + self.delivery_cost
+        self.save()
 
     def save(self, *args, **kwargs):
         if not self.order_number:
