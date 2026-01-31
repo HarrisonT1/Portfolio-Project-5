@@ -23,9 +23,9 @@ class Order(models.Model):
     street_address2 = models.CharField(max_length=80, blank=True)
 
     delivery_method = models.CharField(choices=settings.DELIVERY_OPTIONS)
-    order_total = models.DecimalField(max_digits=8, decimal_places=2)
-    delivery_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    grand_total = models.DecimalField(max_digits=8, decimal_places=2)
+    order_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    grand_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
@@ -66,3 +66,4 @@ class OrderLineItem(models.Model):
     def save(self, *args, **kwargs):
         self.line_item_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
+        self.order.create_total()

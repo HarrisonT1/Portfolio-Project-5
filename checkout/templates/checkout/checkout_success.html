@@ -18,6 +18,9 @@
             {% if order.street_address2 %}
                 <p>{{ order.street_address2 }}</p>
             {% endif %}
+            <p>{{ order.order_total }}</p>
+            <p>{{ order.delivery_cost }}</p>
+            <p>{{ order.grand_total }}</p>
         </div>
     </div>
     <hr>
