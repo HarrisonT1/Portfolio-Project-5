@@ -10,6 +10,11 @@
                         {{ form|crispy }}
                         <button type="submit">Checkout</button>
                     </form>
+                    <div>
+                        <p>{{ order_total }}</p>
+                        <p>{{ delivery_cost }}</p>
+                        <p>{{ grand_total }}</p>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="table-responsive">

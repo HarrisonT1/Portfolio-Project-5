@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import OrderForm
 from .models import OrderLineItem, Order
 from products.models import Product
+from django.conf import settings
 
 # Create your views here.
 
@@ -27,6 +28,8 @@ def checkout(request):
                     line_item_total=product.price * quantity
                 )
 
+            order.create_total()
+
             request.session['bag'] = {}
             return redirect(
                 'checkout_success', order_number=order.order_number)
@@ -34,22 +37,37 @@ def checkout(request):
         form = OrderForm()
 
     bag_items = []
-    subtotal = 0
+    order_total = 0
 
     for item_slug, quantity in bag.items():
         product = get_object_or_404(Product, slug=item_slug)
-        total = product.price * quantity
-        subtotal += total
+        line_total = product.price * quantity
+        order_total += line_total
+
         bag_items.append({
             'product': product,
             'quantity': quantity,
-            'total': total
+            'line_total': line_total
         })
+
+    delivery_method = request.POST.get('delivery_method')
+
+    if order_total >= settings.FREE_DELIVERY_THRESHOLD:
+        delivery_cost = 0
+    else:
+        if delivery_method == 'premium':
+            delivery_cost = settings.PREMIUM_DELIVERY_COST
+        else:
+            delivery_cost = settings.STANDARD_DELIVERY_COST
+
+        grand_total = order_total + delivery_cost
 
     context = {
         'form': form,
         'quantity': bag_items,
-        'subtotal': subtotal,
+        'order_total': order_total,
+        'delivery_cost': delivery_cost,
+        'grand_total': grand_total,
     }
     return render(request, 'checkout/checkout.html', context)
 
