@@ -15,5 +15,4 @@ class OrderForm(forms.ModelForm):
             'town',
             'street_address1',
             'street_address2',
-            'delivery_method',
         ]

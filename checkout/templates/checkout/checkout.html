@@ -8,6 +8,14 @@
                     <form method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}
+                        <label>
+                            <input type="radio" value="standard" name="delivery_method">
+                            Standary delivery (+£5)
+                        </label>
+                        <label>
+                            <input type="radio" value="premium" name="delivery_method">
+                            Premium delivery (+£10)
+                        </label>
                         <button type="submit">Checkout</button>
                     </form>
                     <div>
