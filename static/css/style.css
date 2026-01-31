@@ -10,6 +10,20 @@
     height: 3rem;
 }
 
+/* HERO IMAGE */
+
+.hero {
+    position: relative;
+    height: 80vh;
+    background-image: url(/media/hero-image.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay
+
 /* DETAIL BANNER */
 
 .detail-banner-container {
