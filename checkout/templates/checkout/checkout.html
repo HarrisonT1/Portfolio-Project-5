@@ -9,19 +9,19 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <label>
-                            <input type="radio" value="standard" name="delivery_method">
+                            <input id="s-delivery" type="radio" value="standard" name="delivery_method">
                             Standary delivery (+£5)
                         </label>
                         <label>
-                            <input type="radio" value="premium" name="delivery_method">
+                            <input id="p-delivery" type="radio" value="premium" name="delivery_method">
                             Premium delivery (+£10)
                         </label>
                         <button type="submit">Checkout</button>
                     </form>
                     <div>
-                        <p>{{ order_total }}</p>
-                        <p>{{ delivery_cost }}</p>
-                        <p>{{ grand_total }}</p>
+                        <p id="order-total" data-total="{{ order_total }}">{{ order_total }}</p>
+                        <p id="delivery-cost">{{ delivery_cost }}</p>
+                        <p id="grand-total">{{ grand_total }}</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -55,4 +55,30 @@
             </div>
         </div>
     {% endif%}
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var orderTotal = parseFloat($('#order-total').data('total'));
+        var FREE_DELIVERY_THRESHOLD = parseFloat('{{ FREE_DELIVERY_THRESHOLD|floatformat:"2" }}');
+        var STANDARD_DELIVERY_COST = parseFloat('{{ STANDARD_DELIVERY_COST|floatformat:"2" }}');
+        var PREMIUM_DELIVERY_COST = parseFloat('{{ PREMIUM_DELIVERY_COST|floatformat:"2" }}');
+        console.log(orderTotal)
+ 
+        function updateTotals(delivery_method){
+            let delivery_cost = 0
+            if (orderTotal < FREE_DELIVERY_THRESHOLD) {
+                delivery_cost = (delivery_method === 'premium') ? PREMIUM_DELIVERY_COST : STANDARD_DELIVERY_COST;
+            } else {
+                delivery_cost = 0
+            }
+            let grandTotal = orderTotal + delivery_cost;
+            console.log(delivery_cost)
+            console.log(delivery_method)
+            console.log(grandTotal)
+        }
+        updateTotals('standard')
+    });
+</script>
 {% endblock %}

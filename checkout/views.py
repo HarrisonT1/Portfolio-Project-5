@@ -68,6 +68,9 @@ def checkout(request):
         'order_total': order_total,
         'delivery_cost': delivery_cost,
         'grand_total': grand_total,
+        'FREE_DELIVERY_THRESHOLD': settings.FREE_DELIVERY_THRESHOLD,
+        'STANDARD_DELIVERY_COST': settings.STANDARD_DELIVERY_COST,
+        'PREMIUM_DELIVERY_COST': settings.PREMIUM_DELIVERY_COST,
     }
     return render(request, 'checkout/checkout.html', context)
 
