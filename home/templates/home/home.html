@@ -1,10 +1,42 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
-    <div class="hero">
+    <section class="hero">
         <div class="hero-content">
             <h1>Sugar Rush</h1>
             <a href="{% url 'products' %}">Shop Now</a>
         </div>
-    </div>
+    </section>
+
+    <section>
+        {% for review in reviews %}
+            <div class="reviews container text-center">
+                <h3>{{ review.name }}</h3>
+                <span>
+                    {% if review.star_rating == 1 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.star_rating == 2 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.star_rating == 3 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.star_rating == 4 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% else %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% endif %}
+                </span>
+                <p>{{ review.review_message }}</p>
+            </div>
+        {% endfor %}
+    </section>
 {% endblock %}
