@@ -5,7 +5,8 @@ from .models import Review
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = [
-            'rating',
-            'review_message',
-        ]
+        fields = ['rating', 'review_message',]
+        widgets = {
+            'rating': forms.Select(),
+            'review_message': forms.Textarea()
+        }
