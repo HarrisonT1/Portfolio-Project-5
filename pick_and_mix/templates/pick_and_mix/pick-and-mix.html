@@ -6,11 +6,12 @@
     <div class="row">
         {% if pnmbag %}
             {% for bag in pnmbag %}
-            <div class="col-12 col-md-6 mt-5">
-                <h3>{{ bag.name }}</h3>
-                <p>{{ bag.max_weight_in_grams }} grams</p>
-                <p>£{{ bag.price }}</p>
-            </div>
+                <div class="col-12 col-md-6 mt-5">
+                    <h3>{{ bag.name }}</h3>
+                    <p>{{ bag.max_weight_in_grams }} grams</p>
+                    <p>£{{ bag.price }}</p>
+                    <a href="{% url 'pick_and_mix_products' bag.slug %}">Select Bag</a>
+                </div>
             {% endfor %}
         {% endif %}
     </div>

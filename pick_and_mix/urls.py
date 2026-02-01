@@ -4,5 +4,5 @@ from . import views  # import views.py from the current directory
 
 urlpatterns = [
     path('', views.pick_and_mix, name="pick_and_mix"),
-    path('products/', views.pick_and_mix_all_products, name="pick_and_mix_all_products"),
+    path('products/<slug:slug>', views.pick_and_mix_products, name="pick_and_mix_products"),
 ]

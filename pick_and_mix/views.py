@@ -16,7 +16,9 @@ def pick_and_mix(request):
     return render(request, 'pick_and_mix/pick-and-mix.html', context)
 
 
-def pick_and_mix_all_products(request):
+def pick_and_mix_products(request, slug):
+    pnmbag = get_object_or_404(PickAndMixBag, slug=slug)
+
     products = Product.objects.all()
     categories = SweetCategory.objects.all()
     dietary_tags = DietaryTag.objects.all()
@@ -44,6 +46,7 @@ def pick_and_mix_all_products(request):
             dietary_tag__slug__in=selected_dietary_tags).distinct()
 
     context = {
+        'pnmbag': pnmbag,
         'dietary_tags': dietary_tags,
         'products': products,
         'search': query,

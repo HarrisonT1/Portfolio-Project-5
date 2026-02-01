@@ -3,6 +3,9 @@
 {% block content %}
     <div class="side-bar-filters ms-3 container">
         <div class="row">
+            <div class="col-12">
+                Your pick and mix bag currently has {{ pnmbag.max_weight_in_grams }} grams left
+            </div>
             <div class="col-md-3">
                 <form method="GET">
                     <h3>Filters</h3>
@@ -33,7 +36,6 @@
                             </div>
                             <strong>£{{ product.price }}</strong>
                             <a href="">Add To Basket</a>
-                            <a href="{% url 'product_detail' product.slug %}">Read More</a>
                         </div>
                     </div>    
                 {% endfor %}
