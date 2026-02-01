@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from .models import PickAndMixBag
 from products.models import Product, SweetCategory, DietaryTag
@@ -56,3 +56,40 @@ def pick_and_mix_products(request, slug):
     }
 
     return render(request, 'pick_and_mix/pick-and-mix-list.html', context)
+
+
+def pick_and_mix_add(request, bag_slug, product_slug):
+    pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
+    product = get_object_or_404(Product, slug=product_slug)
+
+    quantity = int(request.POST.get('quantity', 1))
+
+    pick_and_mix = request.session.get('pick_and_mix', {
+        'bag_id': pnmbag.id,
+        'max_weight': pnmbag.max_weight_in_grams,
+        'items': {},
+        'total_weight': 0,
+    })
+
+    sweet_category_weight = product.sweet_category.weight_in_grams
+    total_sweet_category_weight = product.sweet_category.weight_in_grams * quantity
+    new_bag_weight = pick_and_mix['total_weight'] + total_sweet_category_weight
+
+    if new_bag_weight > pick_and_mix['max_weight']:
+        return redirect('pick_and_mix_detail', slug=bag_slug)
+
+    item = pick_and_mix['items'].get(product.slug)
+
+    if item:
+        item['quantity'] += quantity
+        item['total_weight'] += total_sweet_category_weight
+    else:
+        pick_and_mix['items'][product.slug] = {
+            'quantity': quantity,
+            'weight': sweet_category_weight,
+            'total_weight': total_sweet_category_weight
+        }
+
+    request.session['pick_and_mix'] = pick_and_mix
+
+    return redirect('pick_and_mix_detail', slug=bag_slug)

@@ -32,10 +32,13 @@
                             <img src="{{ product.image.url }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                <p class="card-text">{{ product.description }}</p>
                             </div>
                             <strong>£{{ product.price }}</strong>
-                            <a href="">Add To Basket</a>
+                            <form method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
+                                {% csrf_token %}
+                                <button type="submit">Add</button>
+                            </form>
                         </div>
                     </div>    
                 {% endfor %}
