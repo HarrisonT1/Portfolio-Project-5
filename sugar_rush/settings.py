@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'checkout',
     'home',
     'reviews',
+    'pick_and_mix'
 ]
 
 MIDDLEWARE = [
