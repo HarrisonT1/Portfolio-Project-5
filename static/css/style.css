@@ -1,3 +1,14 @@
+/* Global rules */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 /* NAVBAR */
 
 .navbar {
@@ -90,9 +101,10 @@
 /* FOOTER */
 
 #footer {
-    height: 50vw;
     width: 100%;
     background-color: #FFB347;
+    bottom: 0;
+    padding: 50px;
 }
 
 #footer li {

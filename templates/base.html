@@ -34,9 +34,11 @@
 <body>
     {% include 'includes/navbar.html' %}
     {% include 'includes/detail_banner.html' %}
-    {% block content %}
+    <main>
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
+    </main>
     {% include 'includes/footer.html' %}
 </body>
 </html>
