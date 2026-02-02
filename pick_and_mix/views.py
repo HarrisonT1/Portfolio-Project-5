@@ -76,7 +76,7 @@ def pick_and_mix_add(request, bag_slug, product_slug):
     new_bag_weight = pick_and_mix['total_weight'] + total_sweet_category_weight
 
     if new_bag_weight > pick_and_mix['max_weight']:
-        return redirect('pick_and_mix_detail', slug=bag_slug)
+        return redirect('pick_and_mix_products', slug=bag_slug)
 
     item = pick_and_mix['items'].get(product.slug)
 
@@ -90,6 +90,9 @@ def pick_and_mix_add(request, bag_slug, product_slug):
             'total_weight': total_sweet_category_weight
         }
 
+    pick_and_mix['total_weight'] = new_bag_weight
     request.session['pick_and_mix'] = pick_and_mix
 
-    return redirect('pick_and_mix_detail', slug=bag_slug)
+    print(pick_and_mix)
+
+    return redirect('pick_and_mix_products', slug=bag_slug)

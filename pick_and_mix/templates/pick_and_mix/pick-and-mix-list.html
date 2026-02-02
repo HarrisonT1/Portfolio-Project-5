@@ -4,7 +4,7 @@
     <div class="side-bar-filters ms-3 container">
         <div class="row">
             <div class="col-12">
-                Your pick and mix bag currently has {{ pnmbag.max_weight_in_grams }} grams left
+                Your pick and mix bag currently has {{ remaining_weight }} grams left
             </div>
             <div class="col-md-3">
                 <form method="GET">
@@ -34,9 +34,10 @@
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
-                            <strong>£{{ product.price }}</strong>
+                            <strong>{{ product.sweet_category.weight_in_grams }}g per item</strong>
                             <form method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                 {% csrf_token %}
+                                <input type="number", name="quantity", value="1" min="1">
                                 <button type="submit">Add</button>
                             </form>
                         </div>

@@ -85,7 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'bag.contexts.bag_content'
+                'bag.contexts.bag_content',
+                'pick_and_mix.contexts.pick_and_mix_content',
             ],
         },
     },
