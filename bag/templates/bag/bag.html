@@ -1,8 +1,8 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
-
     {% if bag_items %}
+        <h2 class="text-center">Products</h2>
         <div class="table-responsive">
             <table class="table table-striped bag-table">
                 <thead>
@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     {% for item in bag_items %}
-                        {% if item.product %}
+                        {% if item.type == 'product' %}
                             <tr>
                                 <th>{{ item.product.name }}</th>
                                 <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
@@ -40,34 +40,37 @@
                 </tbody>
             </table>
         </div>
+        <h2 class="text-center mt-2">Pick and Mix</h2>
         <div class="table-responsive">
             <table class="table table-striped bag-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Bag Size</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Remove</th>
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in bag_items %}
-                        {% if item.pick_and_mix %}
-                        <tr>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                            <td>{{ item.price }}</td>
-                        </tr>
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
+                {% for item in bag_items %}
+                    {% if item.type == 'pick_and_mix' %}
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Bag Size (in grams)</th>
+                                <th>Price</th>
+                                <th>Products</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ item.bag_name }}</td>
+                                <td>{{ item.max_weight }}g</td>
+                                <td>£{{ item.price|floatformat:2 }}</td>
+                                <td>
+                                    <ul>
+                                        {% for sweet in item.items %}
+                                            <li>
+                                                {{ sweet.name }} x {{ sweet.total_weight}}g
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% endif %}
+                {% endfor %}
             </table>
         </div>
     {% else %}
