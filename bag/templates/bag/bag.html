@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
+
     {% if bag_items %}
         <div class="table-responsive">
             <table class="table table-striped bag-table">
@@ -17,22 +18,54 @@
                 </thead>
                 <tbody>
                     {% for item in bag_items %}
+                        {% if item.product %}
+                            <tr>
+                                <th>{{ item.product.name }}</th>
+                                <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                                <th>{{ item.product.price }}</th>
+                                <th>
+                                    <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
+                                        {% csrf_token %}
+                                        <button class="minus-qty" type="button">-</button>
+                                        <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
+                                        <button class="plus-qty" type="button">+</button>
+                                    </form>
+                                </th>
+                                <th>£{{ item.bag_total }}</th>
+                                <th><a href="">Edit</a></th>
+                                <th><a href="{% url 'remove_from_bag' item.product.slug %}">Delete</a></th>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped bag-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Bag Size</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in bag_items %}
+                        {% if item.pick_and_mix %}
                         <tr>
-                            <th>{{ item.product.name }}</th>
-                            <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
-                            <th>{{ item.product.price }}</th>
-                            <th>
-                                <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
-                                    {% csrf_token %}
-                                    <button class="minus-qty" type="button">-</button>
-                                    <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
-                                    <button class="plus-qty" type="button">+</button>
-                                </form>
-                            </th>
-                            <th>£{{ item.bag_total }}</th>
-                            <th><a href="">Edit</a></th>
-                            <th><a href="{% url 'remove_from_bag' item.product.id %}">Delete</a></th>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price }}</td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>

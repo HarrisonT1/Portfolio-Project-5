@@ -39,7 +39,7 @@ def pick_and_mix_add_basket(request, bag_slug):
 
     bag[unique_bag_id] = {
         'quantity': 1,
-        'price': pnmbag.price,
+        'price': float(pnmbag.price),
         'pick_and_mix': pick_and_mix,
     }
 

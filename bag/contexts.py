@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from decimal import Decimal
 from products.models import Product
 
 
@@ -7,23 +8,33 @@ def bag_content(request):
     bag_items = []
     total_bag_items = 0
 
-    total_price = 0
+    total_price = Decimal('0.00')
 
-    for product_slug, quantity in list(bag.items()):
-        try:
-            product = Product.objects.get(slug=product_slug)
-        except Product.DoesNotExist:
-            bag.pop(product_slug)
-            continue
+    for item_id, item in bag.items():
+        if isinstance(item, dict) and 'pick_and_mix' in item:
+            bag_items.append({
+                'pick_and_mix': item,
+                'quantity': item.get('quantity', 1),
+                'price': item.get('price', Decimal('0.00')),
+                'item_id': item_id,
+            })
+            total_price += Decimal(item.get('price', 0)) * item.get('quantity', 1)
+            total_bag_items += item.get('quantity', 1)
+        else:
+            try:
+                product = Product.objects.get(slug=item_id)
+            except Product.DoesNotExist:
+                bag.pop(item_id)
+                continue
 
-        bag_items.append({
-            'product': product,
-            'quantity': quantity,
-            'bag_total': product.price * quantity
-        })
+            bag_items.append({
+                'product': product,
+                'quantity': item,
+                'bag_total': product.price * item
+            })
 
-        total_price += product.price * quantity
-        total_bag_items += quantity
+            total_price += product.price * item
+            total_bag_items += item
 
     context = {
         'total_price': total_price,
