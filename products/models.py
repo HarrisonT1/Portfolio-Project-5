@@ -8,6 +8,7 @@ class SweetCategory(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, blank=True)
+    weight_in_grams = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
