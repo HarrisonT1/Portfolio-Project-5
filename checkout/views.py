@@ -19,8 +19,11 @@ def checkout(request):
             order = form.save(commit=False)
             order.save()
 
-            for item_slug, quantity in bag.items():
+            for item_slug, item_data in bag.items():
+                if not isinstance(item_data, int):
+                    continue
                 product = get_object_or_404(Product, slug=item_slug)
+                quantity = item_data
                 OrderLineItem.objects.create(
                     order=order,
                     product=product,
@@ -39,7 +42,10 @@ def checkout(request):
     bag_items = []
     order_total = 0
 
-    for item_slug, quantity in bag.items():
+    for item_slug, item_data in bag.items():
+        if not isinstance(item_data, int):
+            continue
+        quantity = item_data
         product = get_object_or_404(Product, slug=item_slug)
         line_total = product.price * quantity
         order_total += line_total
@@ -71,6 +77,7 @@ def checkout(request):
         'FREE_DELIVERY_THRESHOLD': settings.FREE_DELIVERY_THRESHOLD,
         'STANDARD_DELIVERY_COST': settings.STANDARD_DELIVERY_COST,
         'PREMIUM_DELIVERY_COST': settings.PREMIUM_DELIVERY_COST,
+        'stripe_public_key': "pk_test_51Sp6zII10BMycAneUF1SzLC5123VXXviT4RGzsg2sDdlwpIuaGGOVY9nivnH7edlSHxYo078MvSSJxtCFQUuWOyp00V50a910Y",
     }
     return render(request, 'checkout/checkout.html', context)
 

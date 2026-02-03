@@ -43,16 +43,16 @@
         <h2 class="text-center mt-2">Pick and Mix</h2>
         <div class="table-responsive">
             <table class="table table-striped bag-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Bag Size (in grams)</th>
+                        <th>Price</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
                 {% for item in bag_items %}
                     {% if item.type == 'pick_and_mix' %}
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Bag Size (in grams)</th>
-                                <th>Price</th>
-                                <th>Products</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
                                 <td>{{ item.bag_name }}</td>
