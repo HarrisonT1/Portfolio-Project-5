@@ -3,6 +3,7 @@ from django.conf import settings
 import stripe
 from .models import OrderLineItem
 from products.models import Product
+from pick_and_mix.models import PickAndMixBag
 
 
 def calc_delivery_cost(order_total, delivery_method='standard'):
@@ -42,30 +43,34 @@ def create_line_items(bag, order=None):
                     order=order,
                     product=product,
                     quantity=quantity,
-                    line_item_total=line_total
                 )
         # pick and mix items
         elif isinstance(item_data, dict) and 'pick_and_mix' in item_data:
-            pnm_items = item_data['pick_and_mix'].get('items', {})
-            for slug, data in pnm_items.items():
+            pnm_items = item_data['pick_and_mix']
+            bag_slug = pnm_items['bag_slug']
+            pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
+            bag_total = 0
+            for slug, data in pnm_items['items'].items():
                 product = get_object_or_404(Product, slug=slug)
-                quantity = data['quantity']
-                line_total = product.price * quantity
-                order_total += line_total
 
-                bag_items.append({
-                    'product': product,
-                    'quantity': quantity,
-                    'line_total': line_total
-                })
+                bag_total += product.price * data['quantity']
 
-                if order:
-                    OrderLineItem.objects.create(
-                        order=order,
-                        product=product,
-                        quantity=quantity,
-                        line_item_total=line_total
-                    )
+            order_total += bag_total
+
+            bag_items.append({
+                'pick_and_mix_bag': pnmbag,
+                'quantity': 1,
+                'line_total': bag_total,
+            })
+
+            if order:
+                OrderLineItem.objects.create(
+                    order=order,
+                    product=None,
+                    quantity=1,
+                    line_item_total=line_total,
+                    pick_and_mix_bag=pnmbag,
+                )
 
     return bag_items, order_total
 

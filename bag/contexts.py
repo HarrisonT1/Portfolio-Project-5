@@ -13,7 +13,7 @@ def bag_content(request):
 
     for item_id, item in bag.items():
         if isinstance(item, dict) and 'pick_and_mix' in item:
-            pnm = item['pick_and_mix']
+            pnm = item.get('pick_and_mix', {})
             friendly_display = []
 
             for slug, data in pnm.get('items', {}).items():
@@ -28,7 +28,15 @@ def bag_content(request):
                     'total_weight': data['total_weight'],
                 })
 
-            bag_object = PickAndMixBag.objects.get(id=pnm.get('bag_id'))
+            bag_slug = pnm.get('bag_slug', '')
+
+            if bag_slug:
+                try:
+                    bag_object = PickAndMixBag.objects.get(id=pnm.get('bag_id'))
+                except PickAndMixBag.DoesNotExist:
+                    bag_object = None
+            else:
+                bag_object = None
 
             bag_items.append({
                 'type': 'pick_and_mix',
@@ -36,8 +44,8 @@ def bag_content(request):
                 'quantity': item.get('quantity', 1),
                 'price': Decimal(item.get('price', 0)),
                 'bag_id': pnm.get('bag_id'),
-                'bag_name': bag_object.name,
-                'max_weight': bag_object.max_weight_in_grams,
+                'bag_name': bag_object.name if bag_object else '',
+                'max_weight': bag_object.max_weight_in_grams if bag_object else 0,
                 'items': friendly_display,
             })
             total_price += Decimal(item.get('price', 0)) * item.get('quantity', 1)

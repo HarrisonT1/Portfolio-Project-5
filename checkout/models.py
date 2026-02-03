@@ -4,6 +4,7 @@ from django.conf import settings
 from django_countries.fields import CountryField
 
 from products.models import Product
+from pick_and_mix.models import PickAndMixBag
 
 # Create your models here.
 
@@ -56,14 +57,22 @@ class Order(models.Model):
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='lineitems')
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(default=1)
-    line_item_total = models.DecimalField(max_digits=6, editable=False, decimal_places=2)
+    line_item_total = models.DecimalField(max_digits=6, decimal_places=2)
+    pick_and_mix_bag = models.ForeignKey(PickAndMixBag, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'{self.product.name} x {self.quantity}'
+        if self.product:
+            return f'{self.product.name} x {self.quantity}'
+        elif self.pick_and_mix_bag:
+            return f'{self.pick_and_mix_bag.name} x {self.quantity}'
+        return f'Product x {self.quantity}'
 
     def save(self, *args, **kwargs):
-        self.line_item_total = self.product.price * self.quantity
+        if self.product and self.quantity:
+            self.line_item_total = self.product.price * self.quantity
+        else:
+            self.line_item_total = 0
         super().save(*args, **kwargs)
         self.order.create_total()

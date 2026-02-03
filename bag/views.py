@@ -38,7 +38,10 @@ def pick_and_mix_add_basket(request, bag_slug):
     bag[unique_bag_id] = {
         'quantity': 1,
         'price': float(pnmbag.price),
-        'pick_and_mix': pick_and_mix,
+        'pick_and_mix': {
+            'bag_slug': pnmbag.slug,
+            'items': pick_and_mix.get('items', {}),
+        }
     }
 
     request.session['bag'] = bag
