@@ -77,7 +77,8 @@ def checkout(request):
         'FREE_DELIVERY_THRESHOLD': settings.FREE_DELIVERY_THRESHOLD,
         'STANDARD_DELIVERY_COST': settings.STANDARD_DELIVERY_COST,
         'PREMIUM_DELIVERY_COST': settings.PREMIUM_DELIVERY_COST,
-        'stripe_public_key': "pk_test_51Sp6zII10BMycAneUF1SzLC5123VXXviT4RGzsg2sDdlwpIuaGGOVY9nivnH7edlSHxYo078MvSSJxtCFQUuWOyp00V50a910Y",
+        'stripe_public_key': 'pk_test_51Sp6zII10BMycAneUF1SzLC5123VXXviT4RGzsg2sDdlwpIuaGGOVY9nivnH7edlSHxYo078MvSSJxtCFQUuWOyp00V50a910Y',
+        'client_secret': 'test_key',
     }
     return render(request, 'checkout/checkout.html', context)
 
