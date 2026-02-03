@@ -1,13 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
+import stripe
 from .forms import OrderForm
 from .models import OrderLineItem, Order
 from products.models import Product
-from django.conf import settings
 
 # Create your views here.
 
 
 def checkout(request):
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    
     bag = request.session.get('bag', {})
 
     if not bag:
@@ -66,7 +70,15 @@ def checkout(request):
         else:
             delivery_cost = settings.STANDARD_DELIVERY_COST
 
-        grand_total = order_total + delivery_cost
+    grand_total = order_total + delivery_cost
+
+    stripe_total = round(grand_total * 100)
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+    print(intent)
 
     context = {
         'form': form,
@@ -77,9 +89,10 @@ def checkout(request):
         'FREE_DELIVERY_THRESHOLD': settings.FREE_DELIVERY_THRESHOLD,
         'STANDARD_DELIVERY_COST': settings.STANDARD_DELIVERY_COST,
         'PREMIUM_DELIVERY_COST': settings.PREMIUM_DELIVERY_COST,
-        'stripe_public_key': 'pk_test_51Sp6zII10BMycAneUF1SzLC5123VXXviT4RGzsg2sDdlwpIuaGGOVY9nivnH7edlSHxYo078MvSSJxtCFQUuWOyp00V50a910Y',
-        'client_secret': 'test_key',
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
     }
+
     return render(request, 'checkout/checkout.html', context)
 
 

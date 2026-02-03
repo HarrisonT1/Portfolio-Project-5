@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 p-5">
-                    <form method="POST">
+                    <form method="POST" id="payment-form">
                         {% csrf_token %}
                         {{ form|crispy }}
                         <label>
@@ -22,8 +22,9 @@
                         </label>
                             <div class="mb-3" id="card-element"></div>
                             <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
-                        <button type="submit">Checkout</button>
+                        <button id="submit-button" type="submit">Checkout</button>
                     </form>
+
                     <div>
                         <p id="order-total" data-total="{{ order_total }}">{{ order_total }}</p>
                         <p id="delivery-cost">{{ delivery_cost }}</p>
