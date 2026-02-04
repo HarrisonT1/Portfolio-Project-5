@@ -71,6 +71,7 @@ def create_line_items(bag, order=None):
                     line_item_total=line_total,
                     pick_and_mix_bag=pnmbag,
                 )
+    print(bag_items, order_total)
 
     return bag_items, order_total
 
