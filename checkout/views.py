@@ -21,7 +21,7 @@ def checkout(request):
         if form.is_valid():
             order = create_order(form)
             bag_items, order_total = create_line_items(bag, order=order)
-            order.create_total()
+            order.update_total()
             request.session['bag'] = {}
 
             return redirect('checkout_success', order_number=order.order_number)

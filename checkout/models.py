@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django_countries.fields import CountryField
+from decimal import Decimal
 
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -31,13 +32,13 @@ class Order(models.Model):
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
 
-    def create_total(self):
+    def update_total(self):
         self.order_total = self.lineitems.aggregate(
             models.Sum('line_item_total')
-            )['line_item_total__sum'] or 0
+            )['line_item_total__sum'] or Decimal('0.00')
 
         if self.order_total >= settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost = 0
+            self.delivery_cost = Decimal('0.00')
         else:
             if self.delivery_method == 'premium':
                 self.delivery_cost = settings.PREMIUM_DELIVERY_COST
@@ -75,4 +76,4 @@ class OrderLineItem(models.Model):
         else:
             self.line_item_total = 0
         super().save(*args, **kwargs)
-        self.order.create_total()
+        self.order.update_total()
