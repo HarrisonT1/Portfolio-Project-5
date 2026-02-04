@@ -20,20 +20,26 @@ def checkout(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             order = create_order(form)
-            bag_items, order_total = create_line_items(bag, order=order)
+            delivery_method = request.POST.get('delivery_method', 'standard')
+            order.delivery_method = delivery_method
+            order.save(update_fields=['delivery_method'])
+
+            create_line_items(bag, order=order)
+
             order.update_total()
+
+            intent = stripe_payment_intent(order.grand_total, stripe_secret_key)
+
             request.session['bag'] = {}
 
             return redirect('checkout_success', order_number=order.order_number)
     else:
         form = OrderForm()
-        bag_items, order_total = create_line_items(bag)
 
-    delivery_method = request.POST.get('delivery_method', 'standard')
+    bag_items, order_total = create_line_items(bag)
+
     delivery_cost = calc_delivery_cost(order_total, delivery_method)
     grand_total = order_total + delivery_cost
-
-    intent = stripe_payment_intent(grand_total, stripe_secret_key)
 
     context = {
         'form': form,
