@@ -22,9 +22,6 @@ def create_line_items(bag, order=None):
     bag_items = []
     order_total = Decimal('0.00')
 
-    if not bag:
-        return redirect('products')
-
     for item_slug, item_data in bag.items():
         # regular items
         if isinstance(item_data, int):
@@ -51,9 +48,15 @@ def create_line_items(bag, order=None):
             bag_slug = pnm_items['bag_slug']
             pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
 
-            quantity = item_data.get('quantity', 1)
-            bag_total = pnmbag.price * quantity
+            pnm_contents = []
+            pnm_data = item_data['pick_and_mix']
+            for slug, data in pnm_data['items'].items():
+                product = get_object_or_404(Product, slug=slug)
+                pnm_contents.append(f'{product.name} X {data["quantity"]}')
 
+            pnm_contents_as_str = ', '.join(pnm_contents)
+
+            bag_total = pnmbag.price
             order_total += bag_total
 
             bag_items.append({
@@ -69,6 +72,7 @@ def create_line_items(bag, order=None):
                     quantity=1,
                     line_item_total=bag_total,
                     pick_and_mix_bag=pnmbag,
+                    pick_and_mix_item=pnm_contents_as_str,
                 )
 
     return bag_items, order_total

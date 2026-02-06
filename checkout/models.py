@@ -62,6 +62,7 @@ class OrderLineItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     line_item_total = models.DecimalField(max_digits=6, decimal_places=2)
     pick_and_mix_bag = models.ForeignKey(PickAndMixBag, null=True, blank=True, on_delete=models.SET_NULL)
+    pick_and_mix_item = models.TextField(blank=True, null=True)
 
     def __str__(self):
         if self.product:

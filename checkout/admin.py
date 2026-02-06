@@ -7,8 +7,13 @@ from .models import Order, OrderLineItem
 class OrderLineItemInline(admin.TabularInline):
     model = OrderLineItem
     extra = 0
-    fields = ('product', 'quantity', 'pick_and_mix_bag')
-    readonly_fields = ('line_item_total',)
+    fields = (
+        'product',
+        'pick_and_mix_bag',
+        'pick_and_mix_item',
+        'quantity',
+        'line_item_total',
+    )
 
 
 @admin.register(Order)
