@@ -16,3 +16,14 @@ class UserAccountForm(forms.ModelForm):
             'default_street_address1',
             'default_street_address2',
         )
+        labels = {
+            'default_full_name': 'Full name',
+            'default_email': 'Email',
+            'default_phone_number': 'Phone number',
+            'default_country': 'Country',
+            'default_postcode': 'Postcode',
+            'default_city': 'City',
+            'default_town': 'Town',
+            'default_street_address1': 'Street address 1',
+            'default_street_address2': 'Street address 2',
+        }
