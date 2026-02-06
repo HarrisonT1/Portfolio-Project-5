@@ -29,5 +29,4 @@ urlpatterns = [
     path('reviews/', include('reviews.urls')),
     path('pick_and_mix/', include('pick_and_mix.urls')),
     path('accounts/', include('accounts.urls')),
-    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
