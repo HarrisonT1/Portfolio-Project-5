@@ -98,7 +98,7 @@ $(document).ready(function() {
                 }
             });
         }).fail(function (){
-            location.reload
+            location.reload()
         })
     });
 })

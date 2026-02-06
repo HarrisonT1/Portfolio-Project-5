@@ -93,12 +93,16 @@ def checkout_success(request, order_number):
 @require_POST
 def cache_checkout_data(request):
     try:
-        pid = request.POST.get('client_secret').split('_secret')[0]
+        client_secret = request.POST.get('client_secret')
+        if not client_secret:
+            return HttpResponse('Missing client secret', status=400)
+
+        pid = client_secret.split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'bag': json.dumps(request.session.get('bag', {})),
-            'username': request.user,
+            'username': request.user.username if request.user.is_authenticated else 'Anonymous',
+            'bag_summary': f"{len(request.session.get('bag', {}))} items"
         })
         return HttpResponse(status=200)
     except Exception as e:
-        return HttpResponse(content=e, status=400)
+        return HttpResponse(content=str(e), status=400)
