@@ -3,5 +3,5 @@ from . import views  # import views.py from the current directory
 
 
 urlpatterns = [
-    path('profile/', views.view_account, name="accounts"),
+    path('', views.view_account, name="accounts"),
 ]

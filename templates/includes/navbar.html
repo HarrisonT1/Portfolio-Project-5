@@ -8,15 +8,32 @@
         <a href="{% url 'products' %}">All Products</a>
         <form class="d-flex mx-auto" role="search">
             <input class="form-control me-2" type="search" id="navbar-search" placeholder="Search" aria-label="Search"/>
-            <!-- <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
             <li class="nav-item dropdown">
                 <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <p>Signed in as: {{ user.name }}</p>
-                    <a href="">Edit Profile</a>
-                </ul>    
+                {% if user.is_authenticated %}
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <p>Signed in as: {{ user.username }}</p>
+                        <li>
+                            <a href="{% url 'accounts' %}">Edit Profile</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_logout' %}">Sign Out</a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <p>You are currently not logged in</p>
+                        <li>
+                            <a href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_signup' %}">Create Account</a>
+                        </li>
+                    </ul>
+                {% endif %} 
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
