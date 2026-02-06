@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
+from decimal import Decimal
 import stripe
 from .models import OrderLineItem
 from products.models import Product
@@ -19,7 +20,7 @@ def calc_delivery_cost(order_total, delivery_method='standard'):
 
 def create_line_items(bag, order=None):
     bag_items = []
-    order_total = 0
+    order_total = Decimal('0.00')
 
     if not bag:
         return redirect('products')
@@ -49,11 +50,9 @@ def create_line_items(bag, order=None):
             pnm_items = item_data['pick_and_mix']
             bag_slug = pnm_items['bag_slug']
             pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
-            bag_total = 0
-            for slug, data in pnm_items['items'].items():
-                product = get_object_or_404(Product, slug=slug)
 
-                bag_total += product.price * data['quantity']
+            quantity = item_data.get('quantity', 1)
+            bag_total = pnmbag.price * quantity
 
             order_total += bag_total
 
@@ -68,7 +67,7 @@ def create_line_items(bag, order=None):
                     order=order,
                     product=None,
                     quantity=1,
-                    line_item_total=line_total,
+                    line_item_total=bag_total,
                     pick_and_mix_bag=pnmbag,
                 )
 

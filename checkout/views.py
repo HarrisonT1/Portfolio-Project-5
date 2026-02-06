@@ -32,8 +32,6 @@ def checkout(request):
 
             create_line_items(bag, order=order)
 
-            order.update_total()
-
             request.session['bag'] = {}
 
             return redirect('checkout_success', order_number=order.order_number)
@@ -42,6 +40,8 @@ def checkout(request):
 
         if not bag:
             return redirect('products')
+
+        form = OrderForm()
 
         if request.user.is_authenticated:
             account, _ = UserAccount.objects.get_or_create(user=request.user)

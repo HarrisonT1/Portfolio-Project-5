@@ -71,9 +71,9 @@ class OrderLineItem(models.Model):
         return f'Product x {self.quantity}'
 
     def save(self, *args, **kwargs):
-        if self.product and self.quantity:
+        if self.product:
             self.line_item_total = self.product.price * self.quantity
-        else:
-            self.line_item_total = 0
+        elif self.pick_and_mix_bag:
+            self.line_item_total = self.pick_and_mix_bag.price * self.quantity
         super().save(*args, **kwargs)
         self.order.update_total()
