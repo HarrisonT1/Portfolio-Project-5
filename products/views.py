@@ -10,25 +10,21 @@ def all_products(request):
     categories = SweetCategory.objects.all()
     dietary_tags = DietaryTag.objects.all()
 
-    selected_dietary_tags = []
-    selected_category = []
-    query = None
+    selected_dietary_tags = request.GET.getlist('dietary_tag')
+    selected_category = request.GET.getlist('category')
+    query = request.GET.get('q', '')
 
-    if 'q' in request.GET:
-        query = request.GET['q']
-        if query:
-            products = products.filter(
-                Q(name__icontains=query) |
-                Q(description__icontains=query)
-            )
+    if query:
+        products = products.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        )
 
-    if 'category' in request.GET:
-        selected_category = request.GET.getlist('category')
+    if selected_category:
         products = products.filter(
             sweet_category__slug__in=selected_category).distinct()
 
-    if 'dietary_tag' in request.GET:
-        selected_dietary_tags = request.GET.getlist('dietary_tag')
+    if selected_dietary_tags:
         products = products.filter(
             dietary_tag__slug__in=selected_dietary_tags).distinct()
 
