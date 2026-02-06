@@ -11,7 +11,7 @@ class UserAccount(models.Model):
     default_full_name = models.CharField(max_length=60, blank=True)
     default_email = models.CharField(max_length=60, blank=True)
     default_phone_number = models.CharField(max_length=60, blank=True)
-    default_country = CountryField(max_length=60, blank=True)
+    default_country = CountryField(max_length=60, blank=True, blank_label='Select a country')
     default_postcode = models.CharField(max_length=60, blank=True)
     default_city = models.CharField(max_length=60, blank=True)
     default_town = models.CharField(max_length=60, blank=True)

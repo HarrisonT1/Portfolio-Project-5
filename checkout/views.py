@@ -6,6 +6,7 @@ import json
 from .forms import OrderForm
 from .models import Order
 from .utils import calc_delivery_cost, create_line_items, create_order, stripe_payment_intent
+from accounts.models import UserAccount
 
 # Create your views here.
 
@@ -37,12 +38,24 @@ def checkout(request):
 
             return redirect('checkout_success', order_number=order.order_number)
     else:
-        form = OrderForm()
-
         bag = request.session.get('bag', {})
 
         if not bag:
             return redirect('products')
+
+        if request.user.is_authenticated:
+            account, _ = UserAccount.objects.get_or_create(user=request.user)
+            form = OrderForm(initial={
+                'full_name': account.default_full_name,
+                'email': account.default_email,
+                'phone_number': account.default_phone_number,
+                'country': account.default_country,
+                'postcode': account.default_postcode,
+                'city': account.default_city,
+                'town': account.default_town,
+                'street_address1': account.default_street_address1,
+                'street_address2': account.default_street_address2,
+            })
 
         bag_items, order_total = create_line_items(bag)
 
