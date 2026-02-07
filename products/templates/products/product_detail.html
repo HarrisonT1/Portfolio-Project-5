@@ -8,22 +8,66 @@
                 <p>{{ product.description }}</p>
                 <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
-                    <input type="number" id="add-quantity" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
+                    <button class="minus-qty" type="button">-</button>
+                    <input type="number" id="add-quantity" class="qty-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
                     <label for="add-quantity"></label>
+                    <button class="plus-qty" type="button">+</button>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     <button class="btn button-effect" type="submit">Add To Basket</button>
                 </form>
-                {% if product.stock_level == 0 %}
-                    <p class="text-danger">Out of stock</p>
-                {% elif product.stock_level < 5 %}
-                    <p class="text-warning">Stock Remaining: {{product.stock_level}}</p>
-                {% else %}
-                    <p>Stock Remaining: {{product.stock_level}}</p>
-                {% endif %}
+                <div class="mt-3">
+                    {% if product.stock_level == 0 %}
+                        <p class="text-danger">Out of stock</p>
+                    {% elif product.stock_level < 5 %}
+                        <p class="text-warning">Stock Remaining: {{product.stock_level}}</p>
+                    {% else %}
+                        <p>Stock Remaining: {{product.stock_level}}</p>
+                    {% endif %}
+                </div>
             </div>
             <div class="row col-12 col-md-4">
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.qty-input').each(function() {
+            var $input = $(this)
+            var $minusBtn = $input.siblings('.minus-qty')
+            var $plusBtn = $input.siblings('.plus-qty')
+            var max = parseInt($input.attr('max'))
+            
+            function updateButtons() {
+                var qty = parseInt($input.val());
+                
+                $minusBtn.prop('disabled', qty <= 1);
+                $plusBtn.prop('disabled', qty >=max);
+            }
+        
+            updateButtons()
+
+            $minusBtn.click(function() {
+                var qty = parseInt($input.val())
+                if (qty > 1) {
+                    $input.val(qty - 1)
+                    updateButtons()
+                }
+            })
+            $plusBtn.click(function() {
+                var qty = parseInt($input.val())
+                if (qty < max) {
+                    $input.val(qty + 1)
+                    updateButtons();
+                }
+            })
+            $input.on('input', function() {
+                updateButtons();
+            })
+        })
+    })
+</script>
 {% endblock %}
