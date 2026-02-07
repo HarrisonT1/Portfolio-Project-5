@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <a href="{% url 'products' %}">All Products</a>
-        <form class="d-flex mx-auto" role="search">
+        <form class="d-flex mx-auto" role="search" action="{% url 'products' %}">
             <input name="q" class="form-control me-2" type="search" id="navbar-search" placeholder="Search" aria-label="Search"/>
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
@@ -17,7 +17,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <p>Signed in as: {{ user.username }}</p>
                         <li>
-                            <a href="{% url 'accounts' %}">Edit Profile</a>
+                            <a href="{% url 'profile' %}">Edit Profile</a>
                         </li>
                         <li>
                             <a href="{% url 'account_logout' %}">Sign Out</a>
