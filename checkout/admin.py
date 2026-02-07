@@ -39,9 +39,10 @@ class OrderAdmin(admin.ModelAdmin):
         'street_address1',
         'street_address2',
         'delivery_method',
+        'order_fulfilled',
     )
 
-    list_filter = ('date_time',)
+    list_filter = ('date_time', 'order_fulfilled',)
 
     search_fields = (
         'order_number',

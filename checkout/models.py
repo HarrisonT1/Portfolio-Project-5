@@ -29,6 +29,8 @@ class Order(models.Model):
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
+    order_fulfilled = models.BooleanField(default=False)
+
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
 
