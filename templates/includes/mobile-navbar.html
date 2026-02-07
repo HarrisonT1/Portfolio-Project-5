@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary d-flex d-lg-none">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sugar Rush mobile</a>
+        </button>
+
+        <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    {% if user.is_authenticated %}
+                        <p>Signed in as: {{ user.username }}</p>
+                        <li>
+                            <a href="{% url 'profile' %}">Edit Profile</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_logout' %}">Sign Out</a>
+                        </li>
+                    {% else %}
+                        <p>You are currently not logged in</p>
+                        <li>
+                            <a href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_signup' %}">Create Account</a>
+                        </li>
+                    {% endif %} 
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <p class="small">Total price: £{{ total_price|default:"0.00" }}</p>
+                    <p class="small">Total items: {{ total_bag_items }}</p>
+                    <a href="{% url 'view_bag' %}">View Bag</a>
+                </ul>    
+            </li>
+        </ul>
+    </div>
+</nav>
