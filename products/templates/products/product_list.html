@@ -23,21 +23,25 @@
                 </form>
             </div>
             <div class="col-md-9 row justify-content-center mt-5">
-                {% for product in products %}
-                    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center mt-3">
-                        <div class="card">
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                {% if products %}
+                    {% for product in products %}
+                        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center mt-3">
+                            <div class="card">
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                </div>
+                                <strong>£{{ product.price }}</strong>
+                                <a href="">Add To Basket</a>
+                                <a href="{% url 'product_detail' product.slug %}">Read More</a>
                             </div>
-                            <strong>£{{ product.price }}</strong>
-                            <a href="">Add To Basket</a>
-                            <a href="{% url 'product_detail' product.slug %}">Read More</a>
-                        </div>
-                    </div>    
-                {% endfor %}
-            </div>
+                        </div>    
+                    {% endfor %}
+                {% else %}
+                        <p>No Results Found</p>
+                {% endif %}
+                </div>
         </div>
     </div>
 {% endblock %}
