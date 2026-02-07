@@ -8,9 +8,10 @@
                 <p>{{ product.description }}</p>
                 <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
-                    <input type="number" id="add-quantity">
+                    <input type="number" id="add-quantity" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
                     <label for="add-quantity"></label>
-                    <button type="submit">Add to basket</button>
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    <button class="btn button-effect" type="submit">Add To Basket</button>
                 </form>
                 {% if product.stock_level == 0 %}
                     <p class="text-danger">Out of stock</p>

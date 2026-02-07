@@ -37,7 +37,7 @@ def create_line_items(bag, order=None):
             })
 
             if order:
-                if product.stock < quantity:
+                if product.stock_level < quantity:
                     raise ValueError(f"Not enough stock for {product.name}")
 
                 OrderLineItem.objects.create(
@@ -64,7 +64,7 @@ def create_line_items(bag, order=None):
                 pnm_contents.append(f'{product.name} X {quantity}')
 
                 if order:
-                    if product.stock < quantity:
+                    if product.stock_level < quantity:
                         raise ValueError(f"Not enough stock for {product.name}")
                     product.stock_level -= quantity
                     product.save()

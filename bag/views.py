@@ -24,7 +24,8 @@ def add_to_bag(request, slug):
 
     request.session['bag'] = bag
 
-    return redirect('product_detail', slug=slug)
+    redirect_url = request.POST.get('redirect_url', '/')
+    return redirect(redirect_url)
 
 
 def pick_and_mix_add_basket(request, bag_slug):

@@ -27,14 +27,30 @@
                     {% for product in products %}
                         <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center mt-3">
                             <div class="card">
-                                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                <a href="{% url 'product_detail' product.slug %}">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                </a>
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <h5 class="card-title">
+                                        <a href="{% url 'product_detail' product.slug %}">
+                                            {{ product.name }}
+                                        </a>
+                                    </h5>
                                     <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                                 </div>
                                 <strong>£{{ product.price }}</strong>
-                                <a href="">Add To Basket</a>
-                                <a href="{% url 'product_detail' product.slug %}">Read More</a>
+                                <div class="d-flex text-center">
+                                    {% if product.stock_level == 0 %}
+                                        <button class="btn text-danger flex-fill" disabled>Out Of Stock</button>
+                                    {% else %}
+                                    <form method="POST" action="{% url 'add_to_bag' product.slug %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                        <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
+                                    </form>
+                                    {% endif %}
+                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}">Read More</a>
+                                </div>
                             </div>
                         </div>    
                     {% endfor %}

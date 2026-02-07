@@ -55,6 +55,22 @@ main {
     justify-content: center;
 }
 
+/* PRODUCT LIST */
+
+.card a {
+    text-decoration: none;
+    color: black;
+}
+
+.card a:hover {
+    color: black;
+}
+
+.button-effect:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(20, 20, 204, 0.15);
+}
+
 /* BAG / CHECKOUT TABLE */
 
 .bag-table {
