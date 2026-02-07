@@ -1,12 +1,24 @@
 /* Global rules */
+:root {
+    --main-font: 'pacifico', 'cursive';
+    --secondary-font: 'roboto', sans-serif;
+    --main-color: #FFB347;
+    --secondary-color: blue;
+}
+
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: var(--secondary-font);
 }
 
 main {
     flex: 1;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--main-font);
 }
 
 /* NAVBAR */
@@ -43,7 +55,7 @@ main {
 .detail-banner-container {
     width: 100%;
     height: 60px;
-    background-color: blue;
+    background-color: var(--secondary-color);
 }
 
 .banner-text {

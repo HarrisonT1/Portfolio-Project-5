@@ -4,7 +4,7 @@
     <div class="container d-flex mt-5">
         <div class="row">
             <div class="col-12 col-md-8 mx-auto">
-                <strong>{{ product.name }}</strong>
+                <h2><strong>{{ product.name }}</strong></h2>
                 <p>{{ product.description }}</p>
                 <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
