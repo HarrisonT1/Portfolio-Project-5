@@ -12,6 +12,13 @@
                     <label for="add-quantity"></label>
                     <button type="submit">Add to basket</button>
                 </form>
+                {% if product.stock_level == 0 %}
+                    <p class="text-danger">Out of stock</p>
+                {% elif product.stock_level < 5 %}
+                    <p class="text-warning">Stock Remaining: {{product.stock_level}}</p>
+                {% else %}
+                    <p>Stock Remaining: {{product.stock_level}}</p>
+                {% endif %}
             </div>
             <div class="row col-12 col-md-4">
                 <img src="{{ product.image.url }}" alt="{{ product.name }}">

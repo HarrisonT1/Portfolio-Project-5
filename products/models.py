@@ -60,6 +60,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=50, blank=True, null=True)
     image = models.ImageField(null=True, blank=True)
     in_stock = models.BooleanField(default=True)
+    stock_level = models.PositiveIntegerField(default=75)
 
     def save(self, *args, **kwargs):
         """

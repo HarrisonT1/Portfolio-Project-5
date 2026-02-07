@@ -37,11 +37,18 @@ def create_line_items(bag, order=None):
             })
 
             if order:
+                if product.stock < quantity:
+                    raise ValueError(f"Not enough stock for {product.name}")
+
                 OrderLineItem.objects.create(
                     order=order,
                     product=product,
                     quantity=quantity,
                 )
+
+                product.stock_level -= quantity
+                product.save()
+
         # pick and mix items
         elif isinstance(item_data, dict) and 'pick_and_mix' in item_data:
             pnm_items = item_data['pick_and_mix']
@@ -52,7 +59,15 @@ def create_line_items(bag, order=None):
             pnm_data = item_data['pick_and_mix']
             for slug, data in pnm_data['items'].items():
                 product = get_object_or_404(Product, slug=slug)
-                pnm_contents.append(f'{product.name} X {data["quantity"]}')
+                quantity = data["quantity"]
+
+                pnm_contents.append(f'{product.name} X {quantity}')
+
+                if order:
+                    if product.stock < quantity:
+                        raise ValueError(f"Not enough stock for {product.name}")
+                    product.stock_level -= quantity
+                    product.save()
 
             pnm_contents_as_str = ', '.join(pnm_contents)
 

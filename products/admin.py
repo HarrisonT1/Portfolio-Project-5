@@ -26,6 +26,11 @@ class ProductAdmin(admin.ModelAdmin):
         'sweet_category',
         'image',
         'in_stock',
+        'stock_level',
+    )
+
+    list_editable = (
+        'stock_level',
     )
 
     search_fields = (
