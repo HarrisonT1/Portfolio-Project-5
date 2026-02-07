@@ -3,7 +3,7 @@
     --main-font: 'pacifico', 'cursive';
     --secondary-font: 'roboto', sans-serif;
     --main-color: #FFB347;
-    --secondary-color: blue;
+    --secondary-color: #007bff;
 }
 
 body {
@@ -19,6 +19,12 @@ main {
 
 h1, h2, h3, h4 {
     font-family: var(--main-font);
+}
+
+h1 {
+    color: var(--main-color);
+    font-size: 6rem;
+    font: bold;
 }
 
 /* NAVBAR */
@@ -45,9 +51,26 @@ h1, h2, h3, h4 {
     align-items: center;
 }
 
+.cta-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    background-color: #FFB347;
+    border-radius: 0.4rem;
+    font-family: var(--main-font);
+    text-decoration: none;
+    color: black;
+    font-size: 3rem;
+}
+
+.cta-button:hover {
+    background-color: #ffa322;
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
 .hero-content {
-    margin-left: 75px;
-    transform: translateY(-300%);
+    margin-left: 100px;
+    transform: translateY(-50%);
 }
 
 /* DETAIL BANNER */
@@ -71,10 +94,6 @@ h1, h2, h3, h4 {
 
 .card a {
     text-decoration: none;
-    color: black;
-}
-
-.card a:hover {
     color: black;
 }
 
@@ -197,3 +216,16 @@ h1, h2, h3, h4 {
     input[type=number] {
     -moz-appearance: textfield;
     }
+
+
+@media (max-width: 756px) {
+    .hero-content {
+        text-align: center;
+        margin: auto;
+        margin-top: 500px;
+    }
+
+    .banner-text {
+        font-size: 1.2rem;
+    }
+}
