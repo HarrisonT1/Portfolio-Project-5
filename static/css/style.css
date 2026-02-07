@@ -83,6 +83,26 @@ h1, h2, h3, h4 {
     box-shadow: 0 4px 10px rgba(20, 20, 204, 0.15);
 }
 
+#filter-button {
+    width: 100px;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+
+.fa-caret-right {
+    transition: transform 0.3s ease;
+}
+
+#filter-button.collapsed .fa-caret-right {
+    transform: rotate(0deg);
+}
+#filter-button:not(.collapsed) .fa-caret-right {
+    transform: rotate(90deg);
+}
+
+
 /* BAG / CHECKOUT TABLE */
 
 .bag-table {

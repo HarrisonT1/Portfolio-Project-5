@@ -9,10 +9,13 @@
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
-            <div class="col-12 col-md-3 text-center text-md-start">
+            <button id="filter-button" class="d-md-none collapsed mx-auto" type="button" data-bs-target="#mobile-filter" data-bs-toggle="collapse" aria-expanded="false" aria-controls="mobile-filter">
+                <p>Filters <i class="fa-solid fa-caret-right"></i></p>
+            </button>
+            <div class="col-12 col-md-3 text-center text-md-start collapse d-md-block" id="mobile-filter">
                 <form method="GET" class="mt-5">
                     <div>
-                        <h3>Filters</h3>
+                        <h3>Category</h3>
                         {% for category in categories %}
                             <div class="form-check ps-0">
                                 <input type="checkbox" id="category-{{ category.id }}" value="{{ category.slug }}" name="category" {% if category.slug in selected_category %}checked{% endif %}>
@@ -35,8 +38,8 @@
             <div class="col-12 col-md-9 row justify-content-center mt-5">
                 {% if products %}
                     {% for product in products %}
-                        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
-                            <div class="card">
+                        <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
+                            <div class="card mb-5">
                                 <a href="{% url 'product_detail' product.slug %}">
                                     <img src="{{ product.image.url }}" class="card-img-top" alt="...">
                                 </a>
