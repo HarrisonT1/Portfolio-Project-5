@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary pt-0" id="category-navbar">
+    <div class="container-fluid justify-content-center">
+        <ul class="navbar-nav d-flex flex-column flex-lg-row text-center">
+            <li class="nav-item dropdown m-0">
+                <a class="nav-link" href="#" id="categories" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                <div class="dropdown-menu border-0" aria-labelledby="categories">
+                    <a href="{% url 'products' %}?category=bites" class="dropdown-item">Bites</a>
+                    <a href="{% url 'products' %}?category=sharing_treats" class="dropdown-item">Sharing Treats</a>
+                    <a href="{% url 'products' %}?category=seasonal" class="dropdown-item">Seasonal</a>
+                    <a href="{% url 'products' %}?category=boxes_and_gifts" class="dropdown-item">Boxes & Gifts</a>
+                    <a href="{% url 'products' %}?category=bags" class="dropdown-item">Bags</a>
+                    <a href="{% url 'products' %}?category=bars" class="dropdown-item">Bars</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown m-0">
+                <a class="nav-link" href="#" id="dietary-needs" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dietary Options
+                </a>
+                <div class="dropdown-menu border-0" aria-labelledby="dietary-needs">
+                    <a href="{% url 'products' %}?category=vegan" class="dropdown-item">Vegan</a>
+                    <a href="{% url 'products' %}?category=vegetarian" class="dropdown-item">Vegetarian</a>
+                    <a href="{% url 'products' %}?category=gluten_free" class="dropdown-item">Gluten-Free</a>
+                    <a href="{% url 'products' %}?category=dairy_free" class="dropdown-item">Dairy-Free</a>
+                    <a href="{% url 'products' %}?category=nut_free" class="dropdown-item">Nut-Free</a>
+                    <a href="{% url 'products' %}?category=contains_nuts" class="dropdown-item">Contains Nuts</a>
+                    <a href="{% url 'products' %}?category=sugar_free" class="dropdown-item">Sugar-Free</a>
+                    <a href="{% url 'products' %}?category=halal" class="dropdown-item">Halal</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

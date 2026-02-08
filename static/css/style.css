@@ -34,6 +34,10 @@ h1 {
     font-size: 2rem;
 }
 
+.navbar i {
+    font-size: 2.5rem;
+}
+
 #navbar-search {
     width: 30rem;
     height: 3rem;
@@ -84,6 +88,16 @@ h1 {
 .hero-content {
     margin-left: 100px;
     transform: translateY(-50%);
+}
+
+/* CAREGORY NAVBAR */
+
+#category-navbar li {
+    font-size: 2rem;
+}
+
+.dropdown-menu a {
+    font-size: 0.9rem;
 }
 
 /* DETAIL BANNER */
