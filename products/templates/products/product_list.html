@@ -4,9 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 d-lg-none d-flex my-auto mt-4 mb-4">
-                <form id="product-search" class="d-flex w-100 justify-content-center" role="search" action="{% url 'products' %}">
-                    <input name="q" class="form-control flex-grow-1" type="search" id="navbar-search" placeholder="Search" aria-label="Search"/>
-                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <form id="product-search" class="d-flex w-100 justify-content-center position-relative" role="search" action="{% url 'products' %}">
+                    <input type="search" name="q" class="form-control rounded-pill ps-3 pe-5" placeholder="Search" aria-label="Search"/>
+                    <button type="submit" class="btn position-absolute end-0 top-50 translate-middle-y pe-3 ps-3 border-0 bg-transparent search-bar-icon" aria-label="Submit search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </form>
             </div>
             <button id="filter-button" class="d-md-none collapsed mx-auto" type="button" data-bs-target="#mobile-filter" data-bs-toggle="collapse" aria-expanded="false" aria-controls="mobile-filter">

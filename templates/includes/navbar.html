@@ -1,14 +1,16 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary d-none d-lg-flex">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sugar Rush</a>
+        <h2><a class="navbar-brand" href="{% url 'home' %}">Sugar Rush</a></h2>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex mx-auto" role="search" action="{% url 'products' %}">
-                <input name="q" class="form-control me-2" type="search" id="navbar-search" placeholder="Search" aria-label="Search"/>
-                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+        <form class="d-flex mx-auto position-relative" role="search" action="{% url 'products' %}" method="GET">
+            <input type="search" name="q" class="form-control rounded-pill ps-3 pe-5" placeholder="Search" aria-label="Search"/>
+            <button type="submit" class="btn position-absolute end-0 top-50 translate-middle-y pe-3 ps-3 border-0 bg-transparent search-bar-icon" aria-label="Submit search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
