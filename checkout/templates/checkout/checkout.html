@@ -12,16 +12,26 @@
                     <form method="POST" id="payment-form">
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <label>
-                            <input type="radio" value="standard" name="delivery_method" checked>
-                            Standary delivery (£5)
-                        </label>
-                        <label>
-                            <input type="radio" value="premium" name="delivery_method">
-                            Premium delivery (+£5)
-                        </label>
-                            <div class="mb-3" id="card-element"></div>
-                            <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                        <div>
+                            <label>
+                                <input type="radio" value="standard" name="delivery_method" checked>
+                                Standary delivery (£5)
+                            </label>
+                            <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="3-5 Working Days">
+                                <i class="fa-regular fa-circle-question"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <label class="mb-3">
+                                <input type="radio" value="premium" name="delivery_method">
+                                Premium delivery (£10)
+                            </label>
+                            <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="Next Day Delivery">
+                                <i class="fa-regular fa-circle-question"></i>
+                            </span>
+                        </div>
+                        <div class="mb-3" id="card-element"></div>
+                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                         <button id="submit-button" class="btn button-effect" type="submit">Checkout</button>
                     </form>
 
@@ -33,52 +43,56 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="table-responsive">
-                        <table class="table table-striped bag-table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Image</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in bag_items %}
-                                    {% if item.product %}
-                                        <tr>
-                                            <th>{{ item.product.name }}</th>
-                                            <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
-                                            <th>{{ item.product.price }}</th>
-                                            <th>
-                                                {{ item.quantity }}
-                                            </th>
-                                            <th>£{{ item.line_total }}</th>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <table class="table table-striped bag-table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Products</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in bag_items %}
-                                    {% if item.pick_and_mix_bag %}
-                                        <tr>
-                                            <th>{{ item.pick_and_mix_bag.name }}</th>
-                                            <th>{{ item.pick_and_mix_bag.price }}</th>
-                                            <th>{{ item.pick_and_mix_item }}</th>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        {% if product_items %}
+                            <table class="table table-striped bag-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Image</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in bag_items %}
+                                        {% if item.product %}
+                                            <tr>
+                                                <th>{{ item.product.name }}</th>
+                                                <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                                                <th>{{ item.product.price }}</th>
+                                                <th>
+                                                    {{ item.quantity }}
+                                                </th>
+                                                <th>£{{ item.line_total }}</th>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                        {% if pick_and_mix_items %}
+                            <table class="table table-striped bag-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Products</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in bag_items %}
+                                        {% if item.pick_and_mix_bag %}
+                                            <tr>
+                                                <th>{{ item.pick_and_mix_bag.name }}</th>
+                                                <th>{{ item.pick_and_mix_bag.price }}</th>
+                                                <th>{{ item.pick_and_mix_item }}</th>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -91,6 +105,13 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script type="text/javascript">
+        $(function () {
+            $('[data-bs-toggle="info"]').each(function () {
+                new bootstrap.Tooltip(this, {
+                    trigger: 'click focus'
+                })
+            })
+        })
         $(document).ready(function() {
             var orderTotal = parseFloat($('#order-total').data('total'));
             var FREE_DELIVERY_THRESHOLD = parseFloat('{{ FREE_DELIVERY_THRESHOLD|floatformat:"2" }}');

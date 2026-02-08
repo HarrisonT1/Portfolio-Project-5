@@ -67,10 +67,15 @@ def bag_content(request):
             total_price += product.price * item
             total_bag_items += item
 
+    product_items = [item for item in bag_items if item['type'] == 'product']
+    pick_and_mix_items = [item for item in bag_items if item['type'] == 'pick_and_mix']
+
     context = {
         'total_price': total_price,
         'bag_items': bag_items,
         'total_bag_items': total_bag_items,
+        'product_items': product_items,
+        'pick_and_mix_items': pick_and_mix_items,
     }
 
     return context
