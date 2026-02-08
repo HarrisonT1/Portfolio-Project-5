@@ -26,9 +26,9 @@
                                 <th>
                                     <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
                                         {% csrf_token %}
-                                        <button class="minus-qty" type="button">-</button>
+                                        <button class="minus-qty btn button-effect" type="button">-</button>
                                         <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
-                                        <button class="plus-qty" type="button">+</button>
+                                        <button class="plus-qty btn button-effect" type="button">+</button>
                                     </form>
                                 </th>
                                 <th>£{{ item.bag_total }}</th>

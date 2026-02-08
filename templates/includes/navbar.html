@@ -15,33 +15,33 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                     {% if user.is_authenticated %}
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
                             <p>Signed in as: {{ user.username }}</p>
                             <li>
-                                <a href="{% url 'profile' %}">Edit Profile</a>
+                                <a class="btn button-effect" href="{% url 'profile' %}">Edit Profile</a>
                             </li>
                             <li>
-                                <a href="{% url 'account_logout' %}">Sign Out</a>
+                                <a class="btn button-effect" href="{% url 'account_logout' %}">Sign Out</a>
                             </li>
                         </ul>
                     {% else %}
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
                             <p>You are currently not logged in</p>
                             <li>
-                                <a href="{% url 'account_login' %}">Login</a>
+                                <a class="btn button-effect" href="{% url 'account_login' %}">Login</a>
                             </li>
                             <li>
-                                <a href="{% url 'account_signup' %}">Create Account</a>
+                                <a class="btn button-effect" href="{% url 'account_signup' %}">Create Account</a>
                             </li>
                         </ul>
                     {% endif %} 
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
                         <p class="small">Total price: £{{ total_price|default:"0.00" }}</p>
                         <p class="small">Total items: {{ total_bag_items }}</p>
-                        <a href="{% url 'view_bag' %}">View Bag</a>
+                        <a class="btn button-effect" href="{% url 'view_bag' %}">View Bag</a>
                     </ul>    
                 </li>
             </ul>

@@ -27,6 +27,11 @@ h1 {
     font: bold;
 }
 
+.btn:disabled {
+    border: 0;
+    box-shadow: 0;
+}
+
 /* NAVBAR */
 
 .navbar {

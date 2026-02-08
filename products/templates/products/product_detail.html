@@ -8,10 +8,10 @@
                 <p>{{ product.description }}</p>
                 <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
-                    <button class="minus-qty" type="button">-</button>
-                    <input type="number" id="add-quantity" class="qty-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
+                    <button class="minus-qty btn button-effect" type="button">-</button>
+                    <input type="number" id="add-quantity" class="qty-input border-0 text-center" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
                     <label for="add-quantity"></label>
-                    <button class="plus-qty" type="button">+</button>
+                    <button class="plus-qty btn button-effect" type="button">+</button>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     <button class="btn button-effect" type="submit">Add To Basket</button>
                 </form>
