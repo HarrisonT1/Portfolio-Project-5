@@ -5,25 +5,22 @@
         <div class="hero-content">
             <h1 class="mb-5">Sugar Rush</h1>
             <div>
-            <a class="cta-button" href="{% url 'products' %}">Shop Now</a></div>
+                <p class="w-50">
+                    Sweet bags, chocolate treats, and pick-and-mix 
+                    favourites — handcrafted and packed fresh.
+                    Made for gifting, sharing, or treating yourself.
+                </p>
+                <a class="cta-button" href="{% url 'products' %}">Shop Now</a>
+            </div>
         </div>
     </section>
 
     <section>
         {% for review in reviews %}
-            <div class="reviews container text-center">
+            <div class="reviews container text-center mt-5">
                 <h3>{{ review.name }}</h3>
                 <span>
-                    {% if review.rating == 1 %}
-                        <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.rating == 2 %}
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.rating == 3 %}
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                        <span><i class="fa-solid fa-star"></i></span>
-                    {% elif review.rating == 4 %}
+                    {% if review.rating == 4 %}
                         <span><i class="fa-solid fa-star"></i></span>
                         <span><i class="fa-solid fa-star"></i></span>
                         <span><i class="fa-solid fa-star"></i></span>
