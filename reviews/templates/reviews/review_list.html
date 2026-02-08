@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% load static %}
+
+{% block content %}
+{% if reviews %}
+<div class="container">
+    <h2 class="text-center mt-5 text-decoration-underline">All Reviews</h2>
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for review in reviews %}
+            <div class="reviews text-center mx-5 my-5">
+                <h3>{{ review.name }}</h3>
+                <span>
+                    {% if review.rating == 1 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.rating == 2 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.rating == 3 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% elif review.rating == 4 %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% else %}
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                        <span><i class="fa-solid fa-star"></i></span>
+                    {% endif %}
+                </span>
+                <p>{{ review.review_message }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>    
+{% else %}
+<p class="text-center mt-5 px-5">Sorry there are no approved reviews currently, you can create one <a href="{% url 'review' %}">here</a>.</p>
+{% endif %}
+
+{% endblock %}
+

@@ -173,6 +173,12 @@ h1 {
     width: 100%;
 }
 
+/* REVIEWS */
+
+.reviews {
+    width: 400px;
+}
+
 /* BAG / CHECKOUT TABLE */
 
 .bag-table {
