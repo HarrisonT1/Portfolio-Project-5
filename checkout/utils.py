@@ -78,6 +78,7 @@ def create_line_items(bag, order=None):
                 'pick_and_mix_bag': pnmbag,
                 'quantity': 1,
                 'line_total': bag_total,
+                'pick_and_mix_item': pnm_contents_as_str,
             })
 
             if order:

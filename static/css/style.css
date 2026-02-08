@@ -203,6 +203,12 @@ h1 {
     min-width: 50px;
 }
 
+/* CHECKOUT */
+
+#id_country {
+    border: 1px solid black;
+}
+
 /* REVIEWS */
 /* TAKEN FROM MY PROJECT 4 */
 
@@ -274,7 +280,8 @@ input[type=number] {
 
 /* REMOVE FOCUS ON SEARCH BAR TAKEN FROM https://stackoverflow.com/questions/3397113/how-to-remove-focus-border-outline-around-text-input-boxes-chrome */
 
-.form-control:focus {
+.form-control:focus,
+#id_country:focus {
     border-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
