@@ -83,6 +83,13 @@ def checkout(request):
         grand_total = order_total + delivery_cost
         intent = stripe_payment_intent(grand_total, stripe_secret_key)
 
+        free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
+
+        if order_total < free_delivery_threshold:
+            amount_needed_for_free_delivery = free_delivery_threshold - order_total
+        else:
+            amount_needed_for_free_delivery = 0
+
         context = {
             'form': form,
             'bag_items': bag_items,
@@ -95,6 +102,7 @@ def checkout(request):
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
             'delivery_method': delivery_method,
+            'amount_needed_for_free_delivery': amount_needed_for_free_delivery
         }
 
         return render(request, 'checkout/checkout.html', context)

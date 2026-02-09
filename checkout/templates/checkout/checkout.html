@@ -27,8 +27,8 @@
                         {% endif %}
                         <div>
                             <label>
-                                <input type="radio" value="standard" name="delivery_method" checked>
-                                Standary delivery (£5)
+                                <input type="radio" value="standard" name="delivery_method" checked {% if order_total >= 30 %} disabled {% endif %}>
+                                Standard delivery (£5)
                             </label>
                             <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="3-5 Working Days">
                                 <i class="fa-regular fa-circle-question"></i>
@@ -36,22 +36,29 @@
                         </div>
                         <div>
                             <label class="mb-3">
-                                <input type="radio" value="premium" name="delivery_method">
+                                <input type="radio" value="premium" name="delivery_method" {% if order_total >= 30 %} disabled {% endif %}>
                                 Premium delivery (£10)
                             </label>
                             <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="Next Day Delivery">
                                 <i class="fa-regular fa-circle-question"></i>
                             </span>
                         </div>
+                        <div>
+                            {% if order_total >= 30 %}
+                                <p class="fw-bold">You have hit the free delivery threshold</p>
+                            {% else %}
+                                <p id="delivery-cost">Delivery cost: £{{ delivery_cost }}</p>
+                                <p>Spend £{{ amount_needed_for_free_delivery }} more for free delivery (Excluding delivery costs)</p>
+                            {% endif %}
+                        </div>
                         <div class="mb-3" id="card-element"></div>
                         <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                        <p id="grand-total">{{ grand_total }}</p>
                         <button id="submit-button" class="btn button-effect" type="submit">Checkout</button>
                     </form>
 
-                    <div>
+                    <div class="d-none">
                         <p id="order-total" data-total="{{ order_total }}">{{ order_total }}</p>
-                        <p id="delivery-cost">{{ delivery_cost }}</p>
-                        <p id="grand-total">{{ grand_total }}</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
