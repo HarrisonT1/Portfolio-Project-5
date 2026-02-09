@@ -13,7 +13,7 @@ def view_account(request):
         form = UserAccountForm(request.POST, instance=account)
         if form.is_valid():
             form.save()
-            return redirect('accounts')
+            return redirect('profile')
     else:
         form = UserAccountForm(instance=account)
 

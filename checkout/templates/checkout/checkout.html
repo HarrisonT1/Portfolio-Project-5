@@ -11,7 +11,20 @@
                 <div class="col-12 col-lg-6 p-5">
                     <form method="POST" id="payment-form">
                         {% csrf_token %}
-                        {{ form|crispy }}
+                        {{ form.full_name|as_crispy_field }}
+                        {{ form.email|as_crispy_field }}
+                        {{ form.phone_number|as_crispy_field }}
+                        {{ form.country|as_crispy_field }}
+                        {{ form.postcode|as_crispy_field }}
+                        {{ form.city|as_crispy_field }}
+                        {{ form.town|as_crispy_field }}
+                        {{ form.street_address1|as_crispy_field }}
+                        {{ form.street_address2|as_crispy_field }}
+                        {% if user.is_authenticated %}
+                            {{ form.save_info|as_crispy_field }}
+                        {% else %}
+                            <p>To save information for next time you can <a href="{% url 'account_signup' %}">Create an account</a> or <a href="{% url 'account_login' %}">Log in</a></p>
+                        {% endif %}
                         <div>
                             <label>
                                 <input type="radio" value="standard" name="delivery_method" checked>

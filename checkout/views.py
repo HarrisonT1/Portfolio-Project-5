@@ -32,6 +32,21 @@ def checkout(request):
 
             create_line_items(bag, order=order)
 
+            if request.user.is_authenticated and form.cleaned_data.get('save_info'):
+                account, _ = UserAccount.objects.get_or_create(user=request.user)
+
+                account.default_full_name = order.full_name
+                account.default_email = order.email
+                account.default_phone_number = order.phone_number
+                account.default_country = order.country
+                account.default_postcode = order.postcode
+                account.default_city = order.city
+                account.default_town = order.town
+                account.default_street_address1 = order.street_address1
+                account.default_street_address2 = order.street_address2
+
+                account.save()
+
             request.session['bag'] = {}
 
             return redirect('checkout_success', order_number=order.order_number)
