@@ -8,7 +8,7 @@
     {% if bag_items %}
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-6 p-5">
+                <div class="col-12 col-lg-6 p-5">
                     <form method="POST" id="payment-form">
                         {% csrf_token %}
                         {{ form|crispy }}
@@ -41,7 +41,7 @@
                         <p id="grand-total">{{ grand_total }}</p>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-lg-6">
                     <div class="table-responsive">
                         {% if product_items %}
                             <table class="table table-striped bag-table">
