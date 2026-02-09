@@ -27,6 +27,11 @@ def checkout(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             order = create_order(form)
+
+            if request.user.is_authenticated:
+                account, _ = UserAccount.objects.get_or_create(user=request.user)
+                order.user = account
+
             order.delivery_method = delivery_method
             order.save(update_fields=['delivery_method'])
 
@@ -98,8 +103,22 @@ def checkout(request):
 def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
+    bag_items = order.lineitems.all()
+
+    for item in bag_items:
+        if item.product:
+            item.line_total = item.product.price * item.quantity
+        else:
+            item.line_total = 0
+
+    product_items = bag_items.filter(product__isnull=False).exists()
+    pick_and_mix_items = bag_items.filter(pick_and_mix_bag__isnull=False).exists()
+
     context = {
         'order': order,
+        'bag_items': bag_items,
+        'product_items': product_items,
+        'pick_and_mix_items': pick_and_mix_items,
     }
 
     return render(request, 'checkout/checkout_success.html', context)

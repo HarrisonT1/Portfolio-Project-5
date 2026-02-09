@@ -6,11 +6,20 @@ from decimal import Decimal
 
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
+from accounts.models import UserAccount
 
 # Create your models here.
 
 
 class Order(models.Model):
+    user = models.ForeignKey(
+        UserAccount,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='orders'
+    )
+
     full_name = models.CharField(max_length=50)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
