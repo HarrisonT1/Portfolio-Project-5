@@ -122,6 +122,11 @@ h1 {
     font-size: 0.9rem;
 }
 
+#category-navbar .nav-link {
+    font-size: 1.5rem;
+    color: black;
+}
+
 /* DETAIL BANNER */
 
 .detail-banner-container {

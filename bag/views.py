@@ -24,6 +24,8 @@ def add_to_bag(request, slug):
 
     request.session['bag'] = bag
 
+    print(bag)
+
     redirect_url = request.POST.get('redirect_url', '/')
     return redirect(redirect_url)
 

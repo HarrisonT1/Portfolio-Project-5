@@ -32,7 +32,7 @@ def bag_content(request):
 
             if bag_slug:
                 try:
-                    bag_object = PickAndMixBag.objects.get(id=pnm.get('bag_id'))
+                    bag_object = PickAndMixBag.objects.get(slug=bag_slug)
                 except PickAndMixBag.DoesNotExist:
                     bag_object = None
             else:
