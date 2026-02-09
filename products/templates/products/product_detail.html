@@ -13,7 +13,7 @@
                     <label for="add-quantity"></label>
                     <button class="plus-qty btn button-effect" type="button">+</button>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <button class="btn button-effect" type="submit">Add To Basket</button>
+                    <button class="btn button-effect" {% if product.stock_level == 0 %}disabled{% endif %} type="submit">Add To Basket</button>
                 </form>
                 <div class="mt-3">
                     {% if product.stock_level == 0 %}

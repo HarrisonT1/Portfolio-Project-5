@@ -73,7 +73,7 @@
                                 <td>{{ item.max_weight }}g</td>
                                 <td>£{{ item.price|floatformat:2 }}</td>
                                 <td>
-                                    <ul>
+                                    <ul class="list-unstyled">
                                         {% for sweet in item.items %}
                                             <li>
                                                 {{ sweet.name }} x {{ sweet.total_weight}}g
