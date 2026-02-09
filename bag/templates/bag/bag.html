@@ -12,8 +12,8 @@
                         <th>Price</th>
                         <th>Qty</th>
                         <th>Total</th>
-                        <th>Remove</th>
-                        <th>Edit</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,54 +24,67 @@
                                 <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
                                 <th>{{ item.product.price }}</th>
                                 <th>
-                                    <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
-                                        {% csrf_token %}
-                                        <button class="minus-qty btn button-effect" type="button">-</button>
-                                        <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
-                                        <button class="plus-qty btn button-effect" type="button">+</button>
-                                    </form>
+                                    <span class="qty-display">{{ item.quantity }}</span>
+                                    <div class="qty-form-container d-none">
+                                        <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
+                                            {% csrf_token %}
+                                            <div class="d-flex align-items-center gap-2">
+                                                <button class="minus-qty btn button-effect" type="button">-</button>
+                                                <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
+                                                <button class="plus-qty btn button-effect" type="button">+</button>
+                                            </div>
+                                            <div>
+                                                <button class="btn button-effect" type="submit">Confirm</button>
+                                                <button class="cancel-btn btn button-effect" href="#">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </th>
                                 <th>£{{ item.bag_total }}</th>
-                                <th><a href="">Edit</a></th>
-                                <th><a href="{% url 'remove_from_bag' item.product.slug %}">Delete</a></th>
+                                <th>
+                                    <button type="button" class="edit-btn btn button-effect">Edit</button>
+                                </th>
+                                <th><a class="btn button-effect" href="{% url 'remove_from_bag' item.product.slug %}">Remove</a></th>
                             </tr>
                         {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <h2 class="text-center mt-2">Pick and Mix</h2>
         <div class="table-responsive">
-            <table class="table table-striped bag-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Bag Size (in grams)</th>
-                        <th>Price</th>
-                        <th>Products</th>
-                    </tr>
-                </thead>
-                {% for item in bag_items %}
-                    {% if item.type == 'pick_and_mix' %}
-                        <tbody>
-                            <tr>
-                                <td>{{ item.bag_name }}</td>
-                                <td>{{ item.max_weight }}g</td>
-                                <td>£{{ item.price|floatformat:2 }}</td>
-                                <td>
-                                    <ul>
-                                        {% for sweet in item.items %}
-                                            <li>
-                                                {{ sweet.name }} x {{ sweet.total_weight}}g
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    {% endif %}
-                {% endfor %}
-            </table>
+            {% if pick_and_mix_items %}
+                <h2 class="text-center mt-2">Pick and Mix</h2>
+                <table class="table table-striped bag-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Bag Size (in grams)</th>
+                            <th>Price</th>
+                            <th>Products</th>
+                        </tr>
+                    </thead>
+                    {% for item in bag_items %}
+                        {% if item.type == 'pick_and_mix' %}
+                            <tbody>
+                                <tr>
+                                    <td>{{ item.bag_name }}</td>
+                                    <td>{{ item.max_weight }}g</td>
+                                    <td>£{{ item.price|floatformat:2 }}</td>
+                                    <td>
+                                        <ul>
+                                            {% for sweet in item.items %}
+                                                <li>
+                                                    {{ sweet.name }} x {{ sweet.total_weight}}g
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            {% endif %}
         </div>
     {% else %}
         <strong>You currently have no items in your bag</strong>
@@ -85,15 +98,24 @@
 {% block extra_js %}
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.minus-qty').click(function() {
-            var input = $(this).siblings('.qty-input')
-            input.val(parseInt(input.val()) - 1)
-            $(this).closest('form').submit()
+        $('.edit-btn').click(function(e) {
+            e.preventDefault()
+            var row = $(this).closest('tr')
+            row.find('.qty-form-container').toggleClass('d-none')
+            $('.qty-display').toggleClass('d-none')
         })
-        $('.plus-qty').click(function() {
+
+        $('.cancel-btn').click(function() {
+            $(this).closest('.qty-form-container').addClass('d-none')
+        })
+
+        $('.minus-qty, .plus-qty').click(function() {
             var input = $(this).siblings('.qty-input')
-            input.val(parseInt(input.val()) + 1)
-            $(this).closest('form').submit()
+            if ($(this).hasClass('minus-qty')) {
+                input.val(Math.max(1, parseInt(input.val()) - 1))
+            } else {
+                input.val(parseInt(input.val()) + 1)
+            }
         })
     })
 </script>

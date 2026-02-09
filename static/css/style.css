@@ -188,6 +188,12 @@ h1 {
     width: 400px;
 }
 
+/* BAG */
+
+.qty-form input[type="number"] {
+    width: 75px;
+}
+
 /* BAG / CHECKOUT TABLE */
 
 .bag-table {
@@ -199,8 +205,9 @@ h1 {
 }
 
 .bag-image {
-    width: 10%;
-    min-width: 50px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
 }
 
 /* CHECKOUT */
