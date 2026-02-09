@@ -264,6 +264,11 @@ h1 {
     width: 100px;
 }
 
+/* ALLAUTH TEMPLATES */
+
+.form-check .form-check-input {
+    float: none;
+}
 
 /* REMOVE ARROWS FROM INPUT BOX TAKEN FROM https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
 /* Chrome, Safari, Edge, Opera */
@@ -281,7 +286,8 @@ input[type=number] {
 /* REMOVE FOCUS ON SEARCH BAR TAKEN FROM https://stackoverflow.com/questions/3397113/how-to-remove-focus-border-outline-around-text-input-boxes-chrome */
 
 .form-control:focus,
-#id_country:focus {
+#id_country:focus,
+input[type="checkbox"]:focus {
     border-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
