@@ -19,6 +19,21 @@ def pick_and_mix(request):
 def pick_and_mix_products(request, slug):
     pnmbag = get_object_or_404(PickAndMixBag, slug=slug)
 
+    session_bag = request.session.get('pick_and_mix')
+
+    if session_bag and session_bag.get('bag_id') != pnmbag.id:
+        del request.session['pick_and_mix']
+        session_bag = None
+
+    if not session_bag:
+        request.session['pick_and_mix'] = {
+            'bag_id': pnmbag.id,
+            'bag_slug': pnmbag.slug,
+            'max_weight': pnmbag.max_weight_in_grams,
+            'total_weight': 0,
+            'items': {},
+        }
+
     products = Product.objects.all()
     categories = SweetCategory.objects.all()
     dietary_tags = DietaryTag.objects.all()
