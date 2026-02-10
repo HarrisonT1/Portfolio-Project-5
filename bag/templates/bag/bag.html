@@ -93,9 +93,11 @@
             <a class="btn button-effect" href="{% url 'checkout' %}">Head To Secure Checkout</a>
         </div>
     {% else %}
-        <strong>You currently have no items in your bag</strong>
-        <p>Look for products here</p>
-        <a href="">Products</a>
+        <div class="text-center my-5">
+            <strong>You currently have no items in your bag</strong>
+            <p>Look for products here</p>
+            <a class="btn button-effect" href="{% url 'products' %}">Products</a>
+        </div>
     {% endif%}
 {% endblock %}
 
