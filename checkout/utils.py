@@ -5,6 +5,7 @@ import stripe
 from .models import OrderLineItem
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
+from accounts.models import UserAccount
 
 
 def calc_delivery_cost(order_total, delivery_method='standard'):
@@ -94,8 +95,13 @@ def create_line_items(bag, order=None):
     return bag_items, order_total
 
 
-def create_order(form):
+def create_order(form, user=None):
     order = form.save(commit=False)
+
+    if user and user.is_authenticated:
+        account, _ = UserAccount.objects.get_or_create(user=user)
+        order.user_account = account
+
     order.save()
     return order
 

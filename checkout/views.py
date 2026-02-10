@@ -26,14 +26,14 @@ def checkout(request):
 
         form = OrderForm(request.POST)
         if form.is_valid():
-            order = create_order(form)
+            order = create_order(form, request.user)
 
             if request.user.is_authenticated:
                 account, _ = UserAccount.objects.get_or_create(user=request.user)
                 order.user = account
 
             order.delivery_method = delivery_method
-            order.save(update_fields=['delivery_method'])
+            order.save()
 
             create_line_items(bag, order=order)
 
