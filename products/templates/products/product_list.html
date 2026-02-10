@@ -60,7 +60,7 @@
                                     {% else %}
                                     <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                                         {% csrf_token %}
-                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                        <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
                                         <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
                                     </form>
                                     {% endif %}
