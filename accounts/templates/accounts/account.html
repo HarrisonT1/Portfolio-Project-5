@@ -16,8 +16,10 @@
             <div>
                 {% if orders %}
                     {% for order in orders%}
-                        {{order}}
+                        <p>{{ order.date_time }} <a href="{% url 'order_detail' order.order_number %}">{{ order|truncatechars:15 }}</a></p>
                     {% endfor %}
+                {% else %}
+                    <p>You have no previous orders linked to this account</p>
                 {% endif %}
             </div>
         </div>

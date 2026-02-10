@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import UserAccountForm
 from .models import UserAccount
@@ -26,3 +26,23 @@ def view_account(request):
     }
 
     return render(request, 'accounts/account.html', context)
+
+
+@login_required
+def order_detail(request, order_number):
+    order = get_object_or_404(
+        Order,
+        order_number=order_number,
+        user=request.user.useraccount
+    )
+
+    regular_items = order.lineitems.filter(product__isnull=False).exists
+    pick_and_mix_items = order.lineitems.filter(pick_and_mix_bag__isnull=False).exists
+
+    context = {
+        'regular_items': regular_items,
+        'pick_and_mix_items': pick_and_mix_items,
+        'order': order,
+    }
+
+    return render(request, 'accounts/order_detail.html', context)

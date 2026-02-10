@@ -100,7 +100,7 @@ def create_order(form, user=None):
 
     if user and user.is_authenticated:
         account, _ = UserAccount.objects.get_or_create(user=user)
-        order.user_account = account
+        order.user = account
 
     order.save()
     return order
