@@ -87,7 +87,7 @@ def pick_and_mix_add(request, bag_slug, product_slug):
         pick_and_mix['items'][product.slug] = {
             'quantity': quantity,
             'weight': sweet_category_weight,
-            'total_weight': total_sweet_category_weight
+            'total_weight': total_sweet_category_weight,
         }
 
     pick_and_mix['total_weight'] = new_bag_weight

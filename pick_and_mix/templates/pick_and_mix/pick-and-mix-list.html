@@ -3,14 +3,18 @@
 {% block content %}
     <div class="side-bar-filters ms-3 container">
         <div class="row">
-            <div class="col-12">
-                Your pick and mix bag currently has {{ remaining_weight }} grams left
+            <div class="col-12 text-center mt-5">
+                {% if not pick_and_mix %}
+                    Your pick and mix bag currently has {{ max_weight }} grams left
+                {% else %}
+                    Your pick and mix bag currently has {{ remaining_weight }} grams left
+                {% endif %}
                 <form method="POST" action="{% url 'pick_and_mix_add_basket' pnmbag.slug %}">
                     {% csrf_token %}
-                    <button type="submit">Add to bag</button>
+                    <button type="submit" class="btn button-effect">Add pick and mix to bag</button>
                 </form>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mt-5">
                 <form method="GET">
                     <h3>Filters</h3>
                     {% for category in categories %}
@@ -26,7 +30,7 @@
                             <label for="tag-{{ tag.id }}">{{ tag.name }}</label>
                         </div>
                     {% endfor %}
-                    <button type="submit">Filter Results</button>
+                    <button type="submit" class="btn button-effect">Filter Results</button>
                 </form>
             </div>
             <div class="col-md-9 row justify-content-center mt-5">
@@ -42,7 +46,7 @@
                             <form method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                 {% csrf_token %}
                                 <input type="number", name="quantity", value="1" min="1">
-                                <button type="submit">Add</button>
+                                <button type="submit" class="btn button-effect">Add</button>
                             </form>
                         </div>
                     </div>    
