@@ -11,7 +11,7 @@
                 {% endif %}
                 <form method="POST" action="{% url 'pick_and_mix_add_basket' pnmbag.slug %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn button-effect">Add pick and mix to bag</button>
+                    <button type="submit" class="btn button-effect">Send pick and mix bag to checkout</button>
                 </form>
             </div>
             <div class="col-md-3 mt-5">
@@ -42,11 +42,12 @@
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.description }}</p>
                             </div>
-                            <strong>{{ product.sweet_category.weight_in_grams }}g per item</strong>
-                            <form method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
+                            <strong class="text-center">{{ product.sweet_category.weight_in_grams }}g per item</strong>
+                            <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                 {% csrf_token %}
-                                <input type="number", name="quantity", value="1" min="1">
+                                <input class="quantity-input" class="text-center d-block mx-auto w-25" type="number" name="quantity" value="1" min="1" max="400">
                                 <button type="submit" class="btn button-effect">Add</button>
+                                <p>Total product weight: <span class="total-weight"></span>g</p>
                             </form>
                         </div>
                     </div>    
@@ -54,4 +55,30 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+
+{% block extra_js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(function () {
+            $(".add-grams-form").each(function() {
+                var $form = $(this)
+                var $input = $form.find('.quantity-input')
+                var $totalDisplay = $form.find('.total-weight')
+                var weightPerItem = parseFloat($form.attr("data-weight"))
+        
+                function updateWeight() {
+                    var quantity = parseInt($input.val()) || 0;
+                    var totalWeight = quantity * weightPerItem
+                    $totalDisplay.text(totalWeight)
+                }
+                updateWeight();
+        
+                $input.on("input", function() {
+                    updateWeight()
+                })
+            })
+        })
+    </script>
 {% endblock %}

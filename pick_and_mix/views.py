@@ -7,7 +7,7 @@ from products.models import Product, SweetCategory, DietaryTag
 
 
 def pick_and_mix(request):
-    pnmbag = PickAndMixBag.objects.all()
+    pnmbag = PickAndMixBag.objects.all().order_by('price')
 
     context = {
         'pnmbag': pnmbag,
