@@ -33,7 +33,7 @@ def add_to_bag(request, slug):
 
     print(bag)
 
-    messages.success(request, "Item successfully added to bag")
+    messages.success(request, "Item successfully added to bag", extra_tags='bag')
     redirect_url = request.POST.get('redirect_url', '/')
     return redirect(redirect_url)
 
@@ -58,7 +58,7 @@ def pick_and_mix_add_basket(request, bag_slug):
     request.session['bag'] = bag
     request.session.pop('pick_and_mix', None)
     print(dict(request.session))
-    messages.success(request, "Item successfully added to bag")
+    messages.success(request, "Item successfully added to bag", extra_tags='bag')
 
     return redirect('view_bag')
 

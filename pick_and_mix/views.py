@@ -34,6 +34,14 @@ def pick_and_mix_products(request, slug):
             'total_weight': 0,
             'items': {},
         }
+        session_bag = request.session['pick_and_mix']
+
+    for slug_key, item in session_bag.get('items', {}).items():
+        try:
+            product = Product.objects.get(slug=slug_key)
+            item['name'] = product.name
+        except Product.DoesNotExist:
+            item['name'] = slug_key
 
     products = Product.objects.all()
     categories = SweetCategory.objects.all()
@@ -69,6 +77,7 @@ def pick_and_mix_products(request, slug):
         'categories': categories,
         'selected_dietary_tags': selected_dietary_tags,
         'selected_category': selected_category,
+        'pick_and_mix': session_bag,
     }
 
     return render(request, 'pick_and_mix/pick-and-mix-list.html', context)
@@ -108,7 +117,7 @@ def pick_and_mix_add(request, bag_slug, product_slug):
 
     pick_and_mix['total_weight'] = new_bag_weight
     request.session['pick_and_mix'] = pick_and_mix
-
+    messages.success(request, "Item successfully added to pick and mix bag", extra_tags='pick_and_mix_bag')
     print(pick_and_mix)
 
     return redirect('pick_and_mix_products', slug=bag_slug)

@@ -81,6 +81,13 @@ h1 {
     top: 100px;
     right: 20px;
     z-index: 2000;
+}
+
+.bag-toast-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 2000;
     width: 300px;
 }
 

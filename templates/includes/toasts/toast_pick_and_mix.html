@@ -2,8 +2,16 @@
     <div class="toast border-0" aria-live="assertive" aria-atomic="true" data-bs-dismiss="3 000">
         <div class="d-flex">
             <div class="toast-body">
-                <p>test</p>
                 {{ message }}
+                {% if pick_and_mix %}
+                    <div>
+                        {% for _, item in pick_and_mix.items.items %}
+                            <hr>
+                            <p>{{ item.name }}</p> 
+                            <p>Quantity: {{ item.quantity }} - Weight: {{ item.total_weight }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
             <button type="button" class="btn button-effect" aria-label="close" data-bs-dismiss="toast"><i class="fa-solid fa-x"></i></button>
         </div>
