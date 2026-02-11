@@ -11,6 +11,9 @@
                             <p>Quantity: {{ item.quantity }} - Weight: {{ item.total_weight }}</p>
                         {% endfor %}
                     </div>
+                    <div>
+                        <a class="btn button-effect" href="{% url 'pick_and_mix_add_basket' pnmbag.slug %}">Add pick and mix to bag</a>
+                    </div>
                 {% endif %}
             </div>
             <button type="button" class="btn button-effect" aria-label="close" data-bs-dismiss="toast"><i class="fa-solid fa-x"></i></button>

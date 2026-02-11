@@ -25,6 +25,7 @@ def pick_and_mix_products(request, slug):
     if session_bag and session_bag.get('bag_id') != pnmbag.id:
         del request.session['pick_and_mix']
         session_bag = None
+        messages.warning(request, "Your previous pick and mix bag was cleared because you selected a different size")
 
     if not session_bag:
         request.session['pick_and_mix'] = {
@@ -34,6 +35,7 @@ def pick_and_mix_products(request, slug):
             'total_weight': 0,
             'items': {},
         }
+        messages.info(request, f"You've Started a new {pnmbag.name} pick and mix bag")
         session_bag = request.session['pick_and_mix']
 
     for slug_key, item in session_bag.get('items', {}).items():
@@ -101,6 +103,7 @@ def pick_and_mix_add(request, bag_slug, product_slug):
     new_bag_weight = pick_and_mix['total_weight'] + total_sweet_category_weight
 
     if new_bag_weight > pick_and_mix['max_weight']:
+        messages.warning(request, "That would exceed your bag's weight limit.")
         return redirect('pick_and_mix_products', slug=bag_slug)
 
     item = pick_and_mix['items'].get(product.slug)

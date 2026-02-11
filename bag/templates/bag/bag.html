@@ -29,7 +29,7 @@
                                         <div class="qty-form-container d-none">
                                             <form method="POST" class="qty-form" action="{% url 'adjust_bag' item.product.slug %}">
                                                 {% csrf_token %}
-                                                <div class="d-flex align-items-center gap-2">
+                                                <div class="d-flex justify-content-center gap-2 text-center">
                                                     <button class="minus-qty btn button-effect" type="button">-</button>
                                                     <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
                                                     <button class="plus-qty btn button-effect" type="button">+</button>

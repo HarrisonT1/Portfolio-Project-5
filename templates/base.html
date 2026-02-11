@@ -39,25 +39,27 @@
     {% include 'includes/category-navbar.html' %}
     {% include 'includes/detail_banner.html' %}
 
-    {% for message in messages %}
-        {% if 'pick_and_mix_bag' in message.tags %}
-            {% include 'includes/toasts/toast_pick_and_mix.html' %}
-        {% elif 'bag' in message.tags %}
-            {% include 'includes/toasts/toast_bag.html' %}
-        {% else %}
-            {% with message.level as level %}
-                {% if level == 40 %}
-                    {% include 'includes/toasts/toast_error.html' %}
-                {% elif level == 30 %}
-                    {% include 'includes/toasts/toast_warning.html' %}
-                {% elif level == 25 %}
-                    {% include 'includes/toasts/toast_success.html' %}
-                {% else %}
-                    {% include 'includes/toasts/toast_info.html' %}
-                {% endif %}
-            {% endwith %}
-        {% endif %}
-    {% endfor %}
+    <div class="toast-container">
+        {% for message in messages %}
+            {% if 'pick_and_mix_bag' in message.tags %}
+                {% include 'includes/toasts/toast_pick_and_mix.html' %}
+            {% elif 'bag' in message.tags %}
+                {% include 'includes/toasts/toast_bag.html' %}
+            {% else %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include 'includes/toasts/toast_error.html' %}
+                    {% elif level == 30 %}
+                        {% include 'includes/toasts/toast_warning.html' %}
+                    {% elif level == 25 %}
+                        {% include 'includes/toasts/toast_success.html' %}
+                    {% else %}
+                        {% include 'includes/toasts/toast_info.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        {% endfor %}
+    </div>
 
     <main>
         {% block content %}

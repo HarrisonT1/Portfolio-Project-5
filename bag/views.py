@@ -68,6 +68,7 @@ def remove_from_bag(request, slug):
     bag.pop(slug, None)
     request.session['bag'] = bag
 
+    messages.success(request, "Item successfully removed from bag")
     return redirect('view_bag')
 
 
@@ -80,5 +81,6 @@ def adjust_bag(request, slug):
     else:
         bag.pop(slug, None)
 
+    messages.success(request, "Item successfully adjusted")
     request.session['bag'] = bag
     return redirect('view_bag')
