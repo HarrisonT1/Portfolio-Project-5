@@ -52,7 +52,7 @@
             {% endif %}
         {% endwith %}
     {% endfor %}
-                
+
     <main>
         {% block content %}
 
@@ -61,6 +61,11 @@
     {% include 'includes/footer.html' %}
 
     {% block postloadjs %}
+        <script type="text/javascript">
+            $(function() {
+                $('.toast').toast('show');
+            });
+        </script>
     {% endblock %}
 </body>
 </html>

@@ -74,6 +74,26 @@ h1 {
     font-size: 2rem;
 }
 
+/* Toasts */
+
+.toast-container {
+    position: fixed;
+    top: 100px;
+    right: 0;
+    z-index: 2000;
+    width: 500px;
+}
+
+.toast {
+    max-height: 200px;
+}
+
+.toast-body {
+    max-height: 180px;
+    overflow-y: auto;
+    flex: 1;
+}
+
 /* HERO IMAGE */
 
 .hero {

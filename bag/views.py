@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 import uuid
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -13,7 +14,13 @@ def view_bag(request):
 def add_to_bag(request, slug):
     product = get_object_or_404(Product, slug=slug)
     product_slug = product.slug
-    quantity = int(request.POST.get('quantity', 1))
+
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
+    except (ValueError, TypeError):
+        quantity = 1
 
     bag = request.session.get('bag', {})
 
@@ -26,6 +33,7 @@ def add_to_bag(request, slug):
 
     print(bag)
 
+    messages.success(request, "Item successfully added to bag")
     redirect_url = request.POST.get('redirect_url', '/')
     return redirect(redirect_url)
 
