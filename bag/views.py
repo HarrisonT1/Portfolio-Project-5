@@ -58,6 +58,7 @@ def pick_and_mix_add_basket(request, bag_slug):
     request.session['bag'] = bag
     request.session.pop('pick_and_mix', None)
     print(dict(request.session))
+    messages.success(request, "Item successfully added to bag")
 
     return redirect('view_bag')
 

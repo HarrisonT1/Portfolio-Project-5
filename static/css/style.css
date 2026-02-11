@@ -79,17 +79,17 @@ h1 {
 .toast-container {
     position: fixed;
     top: 100px;
-    right: 0;
+    right: 20px;
     z-index: 2000;
-    width: 500px;
+    width: 300px;
 }
 
 .toast {
-    max-height: 200px;
+    max-height: 250px;
 }
 
 .toast-body {
-    max-height: 180px;
+    max-height: 230px;
     overflow-y: auto;
     flex: 1;
 }
