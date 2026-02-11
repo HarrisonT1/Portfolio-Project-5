@@ -89,7 +89,12 @@ def pick_and_mix_add(request, bag_slug, product_slug):
     pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
     product = get_object_or_404(Product, slug=product_slug)
 
-    quantity = int(request.POST.get('quantity', 1))
+    try:
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity < 1:
+            quantity = 1
+    except (ValueError, TypeError):
+        quantity = 1
 
     pick_and_mix = request.session.get('pick_and_mix', {
         'bag_id': pnmbag.id,
