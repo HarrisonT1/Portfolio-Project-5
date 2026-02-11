@@ -119,10 +119,8 @@
     {% endif%}
 {% endblock %}
 
-{% block extra_js %}
+{% block postloadjs %}
     {{ block.super }}
-    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-    {{ client_secret|json_script:"id_client_secret" }}
     <script type="text/javascript">
         $(function () {
             $('[data-bs-toggle="info"]').each(function () {
@@ -131,32 +129,35 @@
                 })
             })
         })
-        $(document).ready(function() {
-            var orderTotal = parseFloat($('#order-total').data('total'));
-            var FREE_DELIVERY_THRESHOLD = parseFloat('{{ FREE_DELIVERY_THRESHOLD|floatformat:"2" }}');
-            var STANDARD_DELIVERY_COST = parseFloat('{{ STANDARD_DELIVERY_COST|floatformat:"2" }}');
-            var PREMIUM_DELIVERY_COST = parseFloat('{{ PREMIUM_DELIVERY_COST|floatformat:"2" }}');
-            console.log(orderTotal)
-    
-            function updateTotals(delivery_method){
-                var deliveryCost = 0
-                if (orderTotal < FREE_DELIVERY_THRESHOLD) {
-                    deliveryCost = (delivery_method === 'premium') ? PREMIUM_DELIVERY_COST : STANDARD_DELIVERY_COST;
-                } else {
-                    deliveryCost = 0
-                }
-                var grandTotal = orderTotal + deliveryCost;
-                console.log(deliveryCost)
-                console.log(delivery_method)
-                console.log(grandTotal)
-                $('#delivery-cost').text('Delivery Cost: £' + deliveryCost.toFixed(2))
-                $('#grand-total').text('Grand Total: £' + grandTotal.toFixed(2))
+        var orderTotal = parseFloat($('#order-total').data('total'));
+        var FREE_DELIVERY_THRESHOLD = parseFloat('{{ FREE_DELIVERY_THRESHOLD|floatformat:"2" }}');
+        var STANDARD_DELIVERY_COST = parseFloat('{{ STANDARD_DELIVERY_COST|floatformat:"2" }}');
+        var PREMIUM_DELIVERY_COST = parseFloat('{{ PREMIUM_DELIVERY_COST|floatformat:"2" }}');
+        console.log(orderTotal)
+        
+        function updateTotals(delivery_method){
+            var deliveryCost = 0
+            if (orderTotal < FREE_DELIVERY_THRESHOLD) {
+                deliveryCost = (delivery_method === 'premium') ? PREMIUM_DELIVERY_COST : STANDARD_DELIVERY_COST;
+            } else {
+                deliveryCost = 0
             }
-            updateTotals('standard')
-            $('input[name="delivery_method"]').on('change', function() {
-                updateTotals($(this).val())
-            })
-        });
+            var grandTotal = orderTotal + deliveryCost;
+            console.log(deliveryCost)
+            console.log(delivery_method)
+            console.log(grandTotal)
+            $('#delivery-cost').text('Delivery Cost: £' + deliveryCost.toFixed(2))
+            $('#grand-total').text('Grand Total: £' + grandTotal.toFixed(2))
+        }
+        updateTotals('standard')
+        $('input[name="delivery_method"]').on('change', function() {
+            updateTotals($(this).val())
+        })
     </script>
-    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+{% endblock %}
+
+{% block extra_js %}
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+<script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
