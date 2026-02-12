@@ -75,7 +75,7 @@ class StripeWH_Handler:
 
                 if event['type'] == 'payment_intent.succeeded':
                     payment_intent = event['data']['object']
-                    bag_str = payment_intent.metadata.get('bag', '{}')
+                    bag_str = payment_intent['metadata'].get('bag', '{}')
                     bag = json.loads(bag_str)
 
                 for item_id, item_data in bag.items():
