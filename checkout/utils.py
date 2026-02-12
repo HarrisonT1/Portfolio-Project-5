@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 from decimal import Decimal
 import stripe
+import json
 from .models import OrderLineItem
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -106,12 +107,16 @@ def create_order(form, user=None):
     return order
 
 
-def stripe_payment_intent(grand_total, stripe_secret_key):
+def stripe_payment_intent(grand_total, stripe_secret_key, bag=None, username='Anonymous'):
     stripe_total = round(grand_total * 100)
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
+        metadata={
+            'bag': json.dumps(bag or {}),
+            'username': username,
+        }
     )
     print(intent)
     return intent

@@ -142,8 +142,8 @@ def cache_checkout_data(request):
         pid = client_secret.split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
             'username': request.user.username if request.user.is_authenticated else 'Anonymous',
-            'bag_summary': f"{len(request.session.get('bag', {}))} items"
         })
         return HttpResponse(status=200)
     except Exception as e:
