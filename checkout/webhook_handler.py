@@ -24,8 +24,14 @@ class StripeWH_Handler:
         bag = intent.metadata.bag
         billing_details = intent.charges.data[0].billing_details
         shipping_details = intent.shipping
-        amount = intent.charges.data[0]
+        amount = intent.charges.data[0].amount
         grand_total = round(amount / 100, 2)
+
+        bag_str = intent.metadata.get('bag', '{}')
+        try:
+            bag = json.loads(bag_str)
+        except json.JSONDecodeError:
+            bag = {}
 
         for field, value in shipping_details.address.items():
             if value == "":
@@ -72,12 +78,6 @@ class StripeWH_Handler:
                     street_address2=shipping_details.line2,
                     grand_total=grand_total,
                 )
-
-                if event['type'] == 'payment_intent.succeeded':
-                    payment_intent = event['data']['object']
-                    bag_str = payment_intent['metadata'].get('bag', '{}')
-                    bag = json.loads(bag_str)
-
                 for item_id, item_data in bag.items():
                     # regular items
                     if isinstance(item_data, int):
