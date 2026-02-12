@@ -5,7 +5,8 @@ import stripe
 import json
 from .forms import OrderForm
 from .models import Order
-from .utils import calc_delivery_cost, create_line_items, create_order, stripe_payment_intent
+from .utils import calc_delivery_cost, create_line_items, create_order
+from bag.contexts import bag_content
 from accounts.models import UserAccount
 
 # Create your views here.
@@ -81,8 +82,13 @@ def checkout(request):
 
         delivery_cost = calc_delivery_cost(order_total, delivery_method)
         grand_total = order_total + delivery_cost
-        username = request.user.username if request.user.is_authenticated else 'Anonymous'
-        intent = stripe_payment_intent(grand_total, stripe_secret_key, bag, username=username)
+
+        stripe_total = round(grand_total * 100)
+        stripe.api_key = stripe_secret_key
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
 
         free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
 
