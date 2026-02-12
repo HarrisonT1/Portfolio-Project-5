@@ -1,0 +1,1 @@
+web: gunicorn sugar_rush.wsgi:application

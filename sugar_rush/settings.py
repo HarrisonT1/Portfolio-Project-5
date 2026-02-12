@@ -32,7 +32,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'project-portfolio-5-fcf4c8af6c5f.herokuapp.com'
 ]
 
 
