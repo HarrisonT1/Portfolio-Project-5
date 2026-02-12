@@ -51,7 +51,7 @@ $(document).ready(function() {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
         }
-        var url = '/checkout/cache_checkout_data'
+        var url = '/checkout/cache_checkout_data/'
         $.post(url, postData).done(function() {
             stripe.confirmCardPayment(clientSecret, {
                 payment_method: {

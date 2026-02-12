@@ -22,8 +22,13 @@ class StripeWH_Handler:
         pid = intent.id
         bag = intent.metadata.bag
         shipping_details = intent.shipping
-        billing_details = intent.charges.data[0].billing_details
-        grand_total = round(intent.charges.data[0].amount / 100, 2)
+        billing_details = {}
+        amount = intent.amount_received
+        if hasattr(intent, "charges") and intent.charges.data:
+            charge = intent.charges.data[0]
+            billing_details = charge.billing_details
+            amount = charge.amount
+        grand_total = round(amount / 100, 2)
 
         for field, value in shipping_details.address.items():
             if value == "":
