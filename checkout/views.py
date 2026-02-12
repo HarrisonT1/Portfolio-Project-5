@@ -81,7 +81,8 @@ def checkout(request):
 
         delivery_cost = calc_delivery_cost(order_total, delivery_method)
         grand_total = order_total + delivery_cost
-        intent = stripe_payment_intent(grand_total, stripe_secret_key)
+        username = request.user.username if request.user.is_authenticated else 'Anonymous'
+        intent = stripe_payment_intent(grand_total, stripe_secret_key, bag, username=username)
 
         free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
 
