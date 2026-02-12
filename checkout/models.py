@@ -37,6 +37,7 @@ class Order(models.Model):
     order_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     grand_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
 
     order_fulfilled = models.BooleanField(default=False)
 
