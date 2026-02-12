@@ -22,19 +22,9 @@ class StripeWH_Handler:
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
-        shipping_details = intent.shipping or {}
-        billing_details = {}
-        amount = intent.amount_received
-        if hasattr(intent, "charges") and intent.charges.data:
-            charge = intent.charges.data[0]
-            billing_details = charge.billing_details
-            amount = charge.amount
-        else:
-            if getattr(intent, "charges", None):
-                charge = stripe.Change.retrieve(intent.last_charges)
-                billing_details = charge.billing_details
-                amount = charge.amount
-
+        billing_details = intent.charges.data[0].billing_details
+        shipping_details = intent.shipping
+        amount = intent.charges.data[0]
         grand_total = round(amount / 100, 2)
 
         for field, value in shipping_details.address.items():
@@ -51,12 +41,11 @@ class StripeWH_Handler:
                     email__iexact=billing_details.email,
                     phone__iexact=shipping_details.phone,
                     country__iexact=shipping_details.country,
-                    postal_code__iexact=shipping_details.postal_code,
+                    postcode__iexact=shipping_details.postal_code,
                     city__iexact=shipping_details.city,
-                    line1__iexact=shipping_details.line1,
-                    line2__iexact=shipping_details.line2,
+                    street_address1__iexact=shipping_details.line1,
+                    street_address2__iexact=shipping_details.line2,
                     grand_total=grand_total,
-                    original_bag=bag,
                 )
                 order_exists = True
                 break
@@ -77,12 +66,11 @@ class StripeWH_Handler:
                     email=billing_details.email,
                     phone=shipping_details.phone,
                     country=shipping_details.country,
-                    postal_code=shipping_details.postal_code,
+                    postcode=shipping_details.postal_code,
                     city=shipping_details.city,
-                    line1=shipping_details.line1,
-                    line2=shipping_details.line2,
+                    street_address1=shipping_details.line1,
+                    street_address2=shipping_details.line2,
                     grand_total=grand_total,
-                    original_bag=bag,
                 )
                 for item_id, item_data in json.loads(bag).items():
                     # regular items

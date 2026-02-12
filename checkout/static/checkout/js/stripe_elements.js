@@ -63,7 +63,7 @@ $(document).ready(function() {
                         address:{
                             line1: $.trim(form.street_address1.value),
                             line2: $.trim(form.street_address2.value),
-                            city: $.trim(form.town_or_city.value),
+                            city: $.trim(form.city.value),
                             country: $.trim(form.country.value),
                         }
                     }
@@ -79,6 +79,9 @@ $(document).ready(function() {
                         postal_code: $.trim(form.postcode.value),
                     }
                 },
+                metadata: {
+                    bag: JSON.stringify(bag)
+                }
             }).then(function(result) {
                 if (result.error) {
                     var errorDiv = document.getElementById('card-errors');

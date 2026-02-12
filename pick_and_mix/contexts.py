@@ -36,10 +36,6 @@ def pick_and_mix_content(request):
 
     remaining_weight = max_weight - total_weight
 
-    print('total weight', total_weight)
-    print('max weight', max_weight)
-    print('remaining weight', remaining_weight)
-
     return {
         'total_weight': total_weight,
         'max_weight': max_weight,
