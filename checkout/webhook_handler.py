@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 import json
 import time
+import stripe
 from .models import Order, OrderLineItem
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -21,13 +22,19 @@ class StripeWH_Handler:
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
-        shipping_details = intent.shipping
+        shipping_details = intent.shipping or {}
         billing_details = {}
         amount = intent.amount_received
         if hasattr(intent, "charges") and intent.charges.data:
             charge = intent.charges.data[0]
             billing_details = charge.billing_details
             amount = charge.amount
+        else:
+            if getattr(intent, "charges", None):
+                charge = stripe.Change.retrieve(intent.last_charges)
+                billing_details = charge.billing_details
+                amount = charge.amount
+
         grand_total = round(amount / 100, 2)
 
         for field, value in shipping_details.address.items():
