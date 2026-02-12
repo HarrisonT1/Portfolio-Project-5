@@ -72,7 +72,13 @@ class StripeWH_Handler:
                     street_address2=shipping_details.line2,
                     grand_total=grand_total,
                 )
-                for item_id, item_data in json.loads(bag).items():
+
+                if event['type'] == 'payment_intent.succeeded':
+                    payment_intent = event['data']['object']
+                    bag_str = payment_intent.metadata.get('bag', '{}')
+                    bag = json.loads(bag_str)
+
+                for item_id, item_data in bag.items():
                     # regular items
                     if isinstance(item_data, int):
                         product = get_object_or_404(Product, id=item_id)
