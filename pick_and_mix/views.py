@@ -45,8 +45,8 @@ def pick_and_mix_products(request, slug):
         except Product.DoesNotExist:
             item['name'] = slug_key
 
-    products = Product.objects.all()
-    categories = SweetCategory.objects.all()
+    products = Product.objects.exclude(sweet_category__slug='boxes-gifts')
+    categories = SweetCategory.objects.exclude(slug="boxes-gifts")
     dietary_tags = DietaryTag.objects.all()
 
     selected_dietary_tags = []

@@ -38,24 +38,28 @@
                 </form>
             </div>
             <div class="col-md-9 row justify-content-center mt-5 mx-auto">
-                {% for product in products %}
-                    <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
-                        <div class="card mb-5">
-                            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.description }}</p>
+                {% if products %}
+                    {% for product in products %}
+                        <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
+                            <div class="card mb-5">
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                </div>
+                                <strong class="text-center">{{ product.sweet_category.weight_in_grams }}g per item</strong>
+                                <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
+                                    {% csrf_token %}
+                                    <input class="quantity-input" class="text-center d-block mx-auto w-25" type="number" name="quantity" value="1" min="1" max="400">
+                                    <button type="submit" class="btn button-effect">Add</button>
+                                    <p>Total product weight: <span class="total-weight"></span>g</p>
+                                </form>
                             </div>
-                            <strong class="text-center">{{ product.sweet_category.weight_in_grams }}g per item</strong>
-                            <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
-                                {% csrf_token %}
-                                <input class="quantity-input" class="text-center d-block mx-auto w-25" type="number" name="quantity" value="1" min="1" max="400">
-                                <button type="submit" class="btn button-effect">Add</button>
-                                <p>Total product weight: <span class="total-weight"></span>g</p>
-                            </form>
-                        </div>
-                    </div>    
-                {% endfor %}
+                        </div>    
+                    {% endfor %}
+                {% else %}
+                <p class="text-center fw-bold">No results found from your search, please try again.</p>
+                {% endif %}
             </div>
         </div>
     </div>
