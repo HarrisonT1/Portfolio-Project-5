@@ -15,26 +15,59 @@
             <h2 class="mb-3 mt-5 mt-lg-0">Order History</h2>
             <div>
                 {% if orders %}
-                    {% for order in orders%}
+                    {% for order in orders %}
                         <p>{{ order.date_time }} <a href="{% url 'order_detail' order.order_number %}">{{ order|truncatechars:15 }}</a></p>
+                        <hr class="col-6 mx-auto">
                     {% endfor %}
 
                     <div class="pagination justify-content-center">
                         {% if orders.number == 1 %}
-                        <span href="" class="disabled btn button-effect me-3">Pevious</span>
+                        <span class="disabled btn button-effect me-3">Previous</span>
                         {% else %}
-                            <a href="?page={{ orders.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
+                            <a href="?orders_page={{ orders.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
                         {% endif %}
                         <span class="pt-2">Page {{ orders.number }} of {{ orders.paginator.num_pages }}</span>
                         {% if orders.number == orders.paginator.num_pages %}
-                            <span href="" class="disabled btn button-effect ms-3">Next</span>
+                            <span class="disabled btn button-effect ms-3">Next</span>
                         {% else %}
-                            <a class="btn button-effect ms-3" href="?page={{ orders.next_page_number }}">Next</a>
+                            <a class="btn button-effect ms-3" href="?orders_page={{ orders.next_page_number }}">Next</a>
                         {% endif %}
                     </div>
                 {% else %}
                     <p>You have no previous orders linked to this account</p>
                 {% endif %}
+            </div>
+            <div class="mt-5">
+                <h2>Review history</h2>
+                <div>
+                    {% if reviews %}
+                        {% for review in reviews %}
+                            <p><a href="">{{ review.review_message }}</a></p>
+                            <p>{{ review.created_at }}</p>
+                            {% if review.approved %}
+                                <p>Approved: <i class="fa-solid fa-check"></i></p>
+                            {% else %}
+                                <p>Approved: <i class="fa-solid fa-x"></i></p>
+                            {% endif %}
+                            <hr class="col-6 mx-auto">
+                        {% endfor %}
+                        <div class="pagination justify-content-center">
+                            {% if reviews.number == 1 %}
+                            <span class="disabled btn button-effect me-3">Previous</span>
+                            {% else %}
+                                <a href="?reviews_page={{ reviews.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
+                            {% endif %}
+                            <span class="pt-2">Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}</span>
+                            {% if reviews.number == reviews.paginator.num_pages %}
+                                <span class="disabled btn button-effect ms-3">Next</span>
+                            {% else %}
+                                <a class="btn button-effect ms-3" href="?reviews_page={{ reviews.next_page_number }}">Next</a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p>You have no previous reviews linked to this account</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

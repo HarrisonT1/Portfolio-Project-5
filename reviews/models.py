@@ -8,9 +8,7 @@ class Review(models.Model):
     # remove null and blank in future
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.CASCADE,
         related_name='reviews'
     )
     rating = models.PositiveSmallIntegerField()
@@ -20,3 +18,6 @@ class Review(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.review_message[:20]}'

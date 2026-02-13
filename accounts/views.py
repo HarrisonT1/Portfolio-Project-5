@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserAccountForm
 from .models import UserAccount
 from checkout.models import Order
+from reviews.models import Review
 # Create your views here.
 
 
@@ -19,20 +20,33 @@ def view_account(request):
     else:
         form = UserAccountForm(instance=account)
 
+    # ORDERS PAGINATION
     orders = account.orders.all().order_by('-date_time')
 
-    paginator = Paginator(orders, 10)
-    page_number = request.GET.get('page')
+    orders_paginator = Paginator(orders, 4)
+    orders_page_number = request.GET.get('orders_page')
     try:
-        orders = paginator.page(page_number)
+        orders = orders_paginator.page(orders_page_number)
     except PageNotAnInteger:
-        orders = paginator.page(1)
+        orders = orders_paginator.page(1)
     except EmptyPage:
-        orders = paginator.page(paginator.num_pages)
+        orders = orders_paginator.page(orders_paginator.num_pages)
+
+    # REVIEWS PAGINATION
+    reviews_list = account.user.reviews.all().order_by('-created_at')
+    reviews_paginator = Paginator(reviews_list, 3)
+    reviews_page_number = request.GET.get('reviews_page')
+    try:
+        reviews = reviews_paginator.page(reviews_page_number)
+    except PageNotAnInteger:
+        reviews = reviews_paginator.page(1)
+    except EmptyPage:
+        reviews = reviews_paginator.page(reviews_paginator.num_pages)
 
     context = {
         'form': form,
-        'orders': orders
+        'orders': orders,
+        'reviews': reviews,
     }
 
     return render(request, 'accounts/account.html', context)
