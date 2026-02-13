@@ -3,6 +3,19 @@
 {% block content %}
     <div class="container">
         <div class="row">
+            <div class="col-12 text-center mt-5">
+                <form method="POST" action="{% url 'pick_and_mix_add_basket' pnmbag.slug %}">
+                    {% csrf_token %}
+                    {% if not pick_and_mix %}
+                        <p>Your pick and mix bag currently has <strong>{{ max_weight }}</strong> grams left</p>
+                    {% elif remaining_weight != 0 %}
+                        <p>Your pick and mix bag currently has <strong>{{ remaining_weight }}</strong> grams left</p>
+                    {% else %}
+                        <p>Your pick and mixbag is full, add it to checkout</p>
+                    {% endif %}
+                    <button type="submit" class="btn button-effect">Send pick and mix bag to checkout</button>
+                </form>
+            </div>
             <div class="col-12 d-lg-none d-flex my-auto mt-4 mb-4">
                 <form id="product-search" class="d-flex w-100 justify-content-center position-relative" role="search" action="{% url 'products' %}">
                     <input type="search" name="q" class="form-control rounded-pill ps-3 pe-5" placeholder="Search" aria-label="Search"/>
