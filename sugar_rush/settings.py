@@ -195,12 +195,13 @@ LOGIN_URL = '/accounts/login/'
 ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 
 ACCOUNT_SIGNUP_FIELDS = [
+    'username*',
     'email*',
     'password1*',
     'password2*',
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
