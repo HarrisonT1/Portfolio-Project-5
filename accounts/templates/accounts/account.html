@@ -5,6 +5,7 @@
     <div class="row text-center mt-5">
         <div class="col-12 col-lg-6">
             <h2 class="mb-3">Delivery Details</h2>
+            <hr>
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -13,6 +14,7 @@
         </div>
         <div class="col-12 col-lg-6">
             <h2 class="mb-3 mt-5 mt-lg-0">Order History</h2>
+            <hr>
             <div>
                 {% if orders %}
                     {% for order in orders %}
@@ -39,6 +41,7 @@
             </div>
             <div class="mt-5">
                 <h2>Review history</h2>
+                <hr>
                 <div>
                     {% if reviews %}
                         {% for review in reviews %}
