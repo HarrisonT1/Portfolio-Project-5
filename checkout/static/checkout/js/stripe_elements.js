@@ -75,13 +75,13 @@ $(document).ready(function() {
                     address: {
                         line1: $.trim(form.street_address1.value),
                         line2: $.trim(form.street_address2.value),
-                        city: $.trim(form.town_or_city.value),
-                        postcode: $.trim(form.postcode.value),
-                        country: $.trim(form.country.value),
+                        city: $.trim(form.city.value),
                         postal_code: $.trim(form.postcode.value),
+                        country: $.trim(form.country.value),
                     }
                 },
             }).then(function(result) {
+                console.log(result);
                 if (result.error) {
                     var errorDiv = document.getElementById('card-errors');
                     var html = `

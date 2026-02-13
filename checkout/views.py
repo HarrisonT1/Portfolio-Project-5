@@ -21,6 +21,7 @@ def checkout(request):
     delivery_method = request.POST.get('delivery_method', 'standard')
 
     if request.method == 'POST':
+        print("POST HIT")
         bag = request.session.get('bag', {})
 
         if not bag:
