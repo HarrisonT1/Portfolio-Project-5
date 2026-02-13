@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import ReviewForm
 from .models import Review
@@ -27,6 +27,40 @@ def review(request):
     }
 
     return render(request, 'reviews/reviews.html', context)
+
+
+@login_required
+def review_edit(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your review has successfully been changed, if the review was already approved, it will need reapproval')
+            return redirect('profile')
+        else:
+            messages.error(request, 'The form is incorrect, please try again')
+    else:
+        form = ReviewForm(instance=review)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'reviews/reviews.html', context)
+
+
+@login_required
+def review_delete(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, 'Your review was successfully deleted')
+        return redirect('profile')
+
+    return render(request, 'reviews/review_delete.html')
 
 
 @login_required

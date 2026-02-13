@@ -42,13 +42,15 @@
                 <div>
                     {% if reviews %}
                         {% for review in reviews %}
-                            <p><a href="">{{ review.review_message }}</a></p>
-                            <p>{{ review.created_at }}</p>
+                            <p>{{ review.review_message }}</p>
+                            
                             {% if review.approved %}
-                                <p>Approved: <i class="fa-solid fa-check"></i></p>
+                                <p>Approved: <i class="fa-solid fa-check"></i> | {{ review.created_at }}</p>
                             {% else %}
-                                <p>Approved: <i class="fa-solid fa-x"></i></p>
+                                <p>Approved: <i class="fa-solid fa-x"></i> | {{ review.created_at }}</p>
                             {% endif %}
+                            <a class="btn button-effect" href="{% url 'review_edit' review.id %}">Edit review</a>
+                            <a class="btn button-effect" href="{% url 'review_delete' review.id %}">Delete review</a>
                             <hr class="col-6 mx-auto">
                         {% endfor %}
                         <div class="pagination justify-content-center">
