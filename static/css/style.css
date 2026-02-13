@@ -27,6 +27,10 @@ h1 {
     font: bold;
 }
 
+.disabled {
+    border: none;
+}
+
 .btn:disabled {
     border: 0;
     box-shadow: 0;
@@ -34,7 +38,7 @@ h1 {
 
 /* MAILCHIMP CSS */
 
-#mc_embed_signup{background:#fff; false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 600px;}
+#mc_embed_signup{background:var(--main-color); false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 600px;}
 /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
 

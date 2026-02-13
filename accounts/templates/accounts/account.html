@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row text-center mt-5">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <h2 class="mb-3">Delivery Details</h2>
             <form method="POST">
                 {% csrf_token %}
@@ -11,13 +11,27 @@
                 <button class="btn button-effect" type="submit">Update Details</button>
             </form>
         </div>
-        <div class="col-12 col-md-6">
-            <h2 class="mt-5 mb-3">Order History</h2>
+        <div class="col-12 col-lg-6">
+            <h2 class="mb-3 mt-5 mt-lg-0">Order History</h2>
             <div>
                 {% if orders %}
                     {% for order in orders%}
                         <p>{{ order.date_time }} <a href="{% url 'order_detail' order.order_number %}">{{ order|truncatechars:15 }}</a></p>
                     {% endfor %}
+
+                    <div class="pagination justify-content-center">
+                        {% if orders.number == 1 %}
+                        <span href="" class="disabled btn button-effect me-3">Pevious</span>
+                        {% else %}
+                            <a href="?page={{ orders.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
+                        {% endif %}
+                        <span class="pt-2">Page {{ orders.number }} of {{ orders.paginator.num_pages }}</span>
+                        {% if orders.number == orders.paginator.num_pages %}
+                            <span href="" class="disabled btn button-effect ms-3">Next</span>
+                        {% else %}
+                            <a class="btn button-effect ms-3" href="?page={{ orders.next_page_number }}">Next</a>
+                        {% endif %}
+                    </div>
                 {% else %}
                     <p>You have no previous orders linked to this account</p>
                 {% endif %}
