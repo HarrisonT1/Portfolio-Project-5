@@ -20,9 +20,7 @@ class StripeWH_Handler:
 
     def handle_payment_intent_succeeded(self, event):
         intent = event.data.object
-        print("=== PaymentIntent received ===")
         print(intent)
-        print("=============================")
         pid = intent.id
         bag = intent.metadata.bag
         billing_details = intent.charges.data[0].billing_details
