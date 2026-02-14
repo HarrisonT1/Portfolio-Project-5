@@ -24,11 +24,14 @@ def add_to_bag(request, slug):
 
     bag = request.session.get('bag', {})
 
-    if product_slug in bag:
-        bag[product_slug] += quantity
-    else:
-        bag[product_slug] = quantity
+    current_quantity = bag.get(product_slug, 0)
+    new_total = current_quantity + quantity
 
+    if new_total > product.stock_level:
+        messages.error(request, f'There is no remaining stock of {product.name}')
+        return redirect('products')
+
+    bag[product_slug] = new_total
     request.session['bag'] = bag
 
     print(bag)
