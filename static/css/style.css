@@ -38,11 +38,13 @@ h1 {
 
 /* MAILCHIMP CSS */
 
-#mc_embed_signup{
+#mc_embed_signup {
     background:var(--main-color);
     clear:left;
     font:14px Helvetica,Arial,sans-serif;
-    width: 600px;}
+    width: 100%;
+    width: 400px;
+}
 
 #mc_embed_signup h2 {
     font-size: 2rem !important;
@@ -84,6 +86,10 @@ h1 {
     right: 0;
     z-index: 1000;
     float: none;
+}
+
+ul .dropdown-menu {
+    padding: 5px;
 }
 
 .navbar-brand {
@@ -374,5 +380,28 @@ input[type="checkbox"]:focus {
 
     .banner-text {
         font-size: 1.2rem;
+    }
+
+    #mc_embed_signup {
+        width: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        margin-top: 200px;
+    }
+
+    .hero-content p {
+        margin-top: 50px;
+        margin-bottom: 25px;
+    }
+    
+    .hero-content a {
+        font-size: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
     }
 }
