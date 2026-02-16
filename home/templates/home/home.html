@@ -3,7 +3,7 @@
 {% block content %}
     <section class="hero">
         <div class="hero-content">
-            <h1 class="mb-1">Sugar Rush</h1>
+            <h1 class="mb-4">Sugar Rush</h1>
             <div>
                 <p class="w-75 w-md-50">
                     Sweet bags, chocolate treats, and pick-and-mix 
@@ -76,4 +76,19 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+
+{% block extra_css %}
+    <style>
+        .hero {
+            position: relative;
+            height: 80vh;
+            background-image: url("{% static 'images/hero-image.png' %}");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 {% endblock %}

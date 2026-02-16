@@ -125,7 +125,7 @@ ul .dropdown-menu {
 
 /* HERO IMAGE */
 
-.hero {
+/* .hero {
     position: relative;
     height: 80vh;
     background-image: url(/media/hero-image.png);
@@ -133,7 +133,7 @@ ul .dropdown-menu {
     background-position: center;
     display: flex;
     align-items: center;
-}
+} */
 
 .cta-button {
     display: inline-block;
