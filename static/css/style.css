@@ -193,6 +193,13 @@ ul .dropdown-menu {
     justify-content: center;
 }
 
+/* HOME PAGE INFO */
+
+#homepage-info i {
+    font-size: 2rem;
+    display: block;
+}
+
 /* PRODUCT LIST */
 
 .card a {
