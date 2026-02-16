@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/accounts/login/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/accounts/signup/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=bites</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=sharing-treats</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=seasonal</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=boxes-gifts</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=bags</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?category=bars</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=vegan</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=vegetarian</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=gluten-free</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=dairy-free</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=nut-free</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=contains-nuts</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=sugar-free</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/?dietary_tag=halal</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/pick_and_mix/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/pick_and_mix/products/mini-bag</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/pick_and_mix/products/small-bag</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/pick_and_mix/products/medium-bag</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/pick_and_mix/products/large-bag</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/accounts/password/reset/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/mini-pick-mix-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/honeycomb-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/vegan-sweet-gift-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/vegan-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/sour-sweet-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/orange-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/chocolate-lovers-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/halal-sweet-selection-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/family-sharing-sweet-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/chocolate-truffle-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/gluten-free-treat-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/white-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/kids-sweet-gift-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/premium-pick-mix-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/vegan-pick-mix-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/fizzy-sweet-mix-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/peanut-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/birthday-sweet-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/thank-you-sweet-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/salted-caramel-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/halloween-spooky-sweet-mix/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/valentines-chocolate-hearts/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/easter-chocolate-egg-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/festive-chocolate-bar-collection/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/marshmallow-sharing-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/christmas-pick-mix-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/easter-vegan-chocolate-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/milk-chocolate-buttons/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/chocolate-raisins/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/white-chocolate-buttons/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/halloween-vegan-sweet-mix/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/vegan-sharing-sweet-pack/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/giant-gummy-bears-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/chocolate-sharing-buttons/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/fizzy-bottle-sharing-pack/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/chocolate-biscuit-bites-pack/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/retro-sweets-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/dark-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/mint-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/caramel-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/kids-party-sweet-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/luxury-chocolate-gift-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/retro-sweets-gift-box/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/christmas-sweet-selection/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/vegan-chocolate-drops/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/classic-milk-chocolate-bar/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/gluten-free-sweet-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/caramel-chocolate-bites/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/classic-pick-mix-bag/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/products/details/peanut-butter-bites/</loc>
+  <lastmod>2026-02-16T13:35:51+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
