@@ -154,7 +154,6 @@ ul .dropdown-menu {
 
 .hero-content {
     margin-left: 100px;
-    transform: translateY(-50%);
 }
 
 .hero-content p {
@@ -377,7 +376,6 @@ input[type="checkbox"]:focus {
     .hero-content {
         text-align: center;
         margin: auto;
-        margin-top: 350px;
     }
 
     .hero-content p {
@@ -395,12 +393,9 @@ input[type="checkbox"]:focus {
 }
 
 @media (max-width: 576px) {
-    .hero-content {
-        margin-top: 200px;
-    }
 
     .hero-content p {
-        margin-top: 50px;
+        margin-top: 20px;
         margin-bottom: 25px;
     }
     
