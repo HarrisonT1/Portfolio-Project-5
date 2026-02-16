@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% load static %}
 
 {% block content %}
+<div class="conatiner mx-1">
     {% if bag_items %}
-        <div class="table-responsive mt-5">
+        <div class="table-responsive">
             {% if product_items %}
             <h2 class="text-center">Products</h2>
                 <table class="table table-striped bag-table">
@@ -99,6 +100,7 @@
             <a class="btn button-effect" href="{% url 'products' %}">Products</a>
         </div>
     {% endif%}
+</div>
 {% endblock %}
 
 

@@ -404,4 +404,12 @@ input[type="checkbox"]:focus {
     .hero-content h1 {
         font-size: 3rem;
     }
+
+    .bag-table {
+        padding-left: 10px;
+    }
+
+    #order-ref-text {
+        font-size: 0.9rem;
+    }
 }
