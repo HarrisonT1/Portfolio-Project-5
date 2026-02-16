@@ -52,9 +52,9 @@
     <hr>
     <section>
         <div class="container">
-            <div class="d-flex flex-wrap justify-content-center">
+            <div class="row justify-content-center text-center">
                 {% for review in reviews %}
-                    <div class="reviews text-center mt-5">
+                    <div class="col-12 col-lg-6 mt-5">
                         <h3>{{ review.name }}</h3>
                         <span>
                             {% if review.rating == 4 %}
@@ -71,7 +71,7 @@
                             {% endif %}
                         </span>
                         <p>{{ review.review_message }}</p>
-                    </div>
+                    </div>    
                 {% endfor %}
             </div>
         </div>
