@@ -15,18 +15,17 @@ from accounts.models import UserAccount
 
 def checkout(request):
 
+    bag = request.session.get('bag', {})
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    if not bag:
+        messages.error(request, 'You need to add products to your bag to proceed to checkout')
+        return redirect('products')
 
     delivery_method = request.POST.get('delivery_method', 'standard')
 
     if request.method == 'POST':
-        print("POST HIT")
-        bag = request.session.get('bag', {})
-
-        if not bag:
-            return redirect('products')
-
         form = OrderForm(request.POST)
         if form.is_valid():
             order = create_order(form, request.user)
@@ -56,6 +55,8 @@ def checkout(request):
                 account.save()
 
             request.session['bag'] = {}
+
+            messages.success(request, f'Your order {order.order_number} was a success')
 
             return redirect('checkout_success', order_number=order.order_number)
     else:
@@ -87,10 +88,14 @@ def checkout(request):
 
         stripe_total = round(grand_total * 100)
         stripe.api_key = stripe_secret_key
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+            )
+        except Exception as e:
+            messages.error(request, 'There was a problem connecting to our payment provider, please try again')
+            return redirect('bag')
 
         free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
 

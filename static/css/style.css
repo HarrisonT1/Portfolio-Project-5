@@ -402,6 +402,11 @@ input[type="checkbox"]:focus {
     #mc_embed_signup {
         width: 200px;
     }
+
+    .toast-container,
+    .bag-toast-container {
+        right: 10px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -425,5 +430,15 @@ input[type="checkbox"]:focus {
 
     #order-ref-text {
         font-size: 0.9rem;
+    }
+
+    .toast-container,
+    .bag-toast-container {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        top: 20px;
     }
 }
