@@ -300,6 +300,10 @@ ul .dropdown-menu {
 
 /* FOOTER */
 
+#footer a:hover {
+    color: var(--secondary-color);
+}
+
 #footer {
     width: 100%;
     background-color: #FFB347;
@@ -323,6 +327,11 @@ ul .dropdown-menu {
 
 #hygiene-rating img {
     width: 100px;
+}
+
+.socials a {
+    text-decoration: none;
+    color: black;
 }
 
 /* ALLAUTH TEMPLATES */
