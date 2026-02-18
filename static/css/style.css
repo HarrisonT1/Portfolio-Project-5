@@ -36,6 +36,11 @@ h1 {
     box-shadow: 0;
 }
 
+#user-dropdown::after,
+#bag-dropdown::after {
+    display: none;
+}
+
 /* MAILCHIMP CSS */
 
 #mc_embed_signup {

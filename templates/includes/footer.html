@@ -6,8 +6,8 @@
             <div class="col-12 col-lg-6">
                 <nav>
                     <h2>Sugar Rush</h2>
+                    <h3>Helpful Links</h3>
                     <ul>
-                        <h3>Helpful Links</h3>
                         <li><a href="{% url 'products' %}">Shop Here</a></li>
                         <li><a href="{% url 'view_bag' %}">Bag</a></li>
                         {% if user.is_authenticated %}
@@ -20,12 +20,14 @@
                     </ul>
                     <ul>
                         <h3>Social links</h3>
-                        <div class="socials">
-                            <p><a href="https://www.facebook.com/" aria-label="Opens Facebook (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></p>
-                            <p><a href="https://www.instagram.com/" aria-label="Opens Instagram (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-square-instagram"></i> Instagram</a></p>
-                            <p><a href="https://www.youtube.com/" aria-label="Opens Youtube (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a></p>
-                            <p><a href="https://x.com/?lang=en" aria-label="Opens Twitter (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i>Twitter</a></p>
-                        </div>
+                        <li>
+                            <div class="socials">
+                                <p><a href="https://www.facebook.com/" aria-label="Opens Facebook (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> Facebook</a></p>
+                                <p><a href="https://www.instagram.com/" aria-label="Opens Instagram (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-square-instagram"></i> Instagram</a></p>
+                                <p><a href="https://www.youtube.com/" aria-label="Opens Youtube (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a></p>
+                                <p><a href="https://x.com/?lang=en" aria-label="Opens Twitter (in a new tab)" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i>Twitter</a></p>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
                 <div id="hygiene-rating">

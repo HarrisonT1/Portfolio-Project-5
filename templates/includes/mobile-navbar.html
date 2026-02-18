@@ -2,36 +2,36 @@
     <div class="container-fluid">
         <h2><a class="navbar-brand" href="{% url 'home' %}">Sugar Rush</a></h2>
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
-            <li class="nav-item dropdown posititon-relative">
-                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+            <li class="nav-item dropdown">
+                <a href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
                 {% if user.is_authenticated %}
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <p>Signed in as: {{ user.username }}</p>
-                        <li class="dropdown-item">
-                            <a class="btn button-effect" href="{% url 'profile' %}">Edit Profile</a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
+                        <li class="dropdown-item-text small">Signed in as: {{ user.username }}</li>
+                        <li class="w-100">
+                            <a class="btn button-effect w-100" href="{% url 'profile' %}">Edit Profile</a>
                         </li>
-                        <li class="dropdown-item">
-                            <a class="btn button-effect" href="{% url 'account_logout' %}">Sign Out</a>
+                        <li class="w-100">
+                            <a class="btn button-effect w-100" href="{% url 'account_logout' %}">Sign Out</a>
                         </li>
                     </ul>
                 {% else %}
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <p>You are currently not logged in</p>
-                        <li class="dropdown-item">
+                    <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
+                        <li class="dropdown-item-text">You are currently not logged in</li>
+                        <li>
                             <a class="btn button-effect" href="{% url 'account_login' %}">Login</a>
                         </li>
-                        <li class="dropdown-item">
+                        <li>
                             <a class="btn button-effect" href="{% url 'account_signup' %}">Create Account</a>
                         </li>
                     </ul>
                 {% endif %} 
             </li>
-            <li class="nav-item dropdown posititon-relative">
-                <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <p class="small">Total price: £{{ total_price|default:"0.00" }}</p>
-                    <p class="small">Total items: {{ total_bag_items }}</p>
-                    <a class="btn button-effect" href="{% url 'view_bag' %}">View Bag</a>
+            <li class="nav-item dropdown">
+                <a href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
+                    <li class="dropdown-item-text small">Total price: £{{ total_price|default:"0.00" }}</li>
+                    <li class="dropdown-item-text small">Total items: {{ total_bag_items }}</li>
+                    <li><a class="dropdown-item btn button-effect" href="{% url 'view_bag' %}">View Bag</a></li>
                 </ul>    
             </li>
         </ul>
