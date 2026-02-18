@@ -37,7 +37,11 @@
     {% block extra_js %}
     {% endblock %}
 
-    <title>Sugar Rush</title>
+    <title>Sugar Rush{% block extra_title %}{% endblock %}</title>
+
+    <meta name="author" content="Sugar Rush">
+    <meta name="description" content="Sugar Rush is a UK sweet shop offering handcrafted sweet bags, pick and mix favourites, and chocolate treats. Perfect for gifting, parties, or treating yourself with fast UK delivery.">
+    <meta name="keywords" content="UK sweet shop, pick and mix sweets, chocolate gifts, sweet bags, candy gifts UK, party sweets, handcrafted sweets, sweet delivery UK, Sugar Rush">
 </head>
 <body>
     {% include 'includes/navbar.html' %}
