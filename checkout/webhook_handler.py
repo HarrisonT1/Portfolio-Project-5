@@ -22,10 +22,17 @@ class StripeWH_Handler:
         intent = event.data.object
         print(intent)
         pid = intent.id
-        bag = intent.metadata.bag
+
         billing_details = intent.charges.data[0].billing_details
         shipping_details = intent.shipping
-        amount = intent.charges.data[0].amount
+        charges = intent.get('charges', {}).get('data', [])
+
+        if not charges:
+            return HttpResponse('No charge found', status=400)
+
+        charge = charges[0]
+        billing_details = charge.billing_details
+        amount = charge.amount
         grand_total = round(amount / 100, 2)
 
         bag_str = intent.metadata.get('bag', '{}')
@@ -34,9 +41,10 @@ class StripeWH_Handler:
         except json.JSONDecodeError:
             bag = {}
 
-        for field, value in shipping_details.address.items():
-            if value == "":
-                shipping_details.address[field] = None
+        shipping_details = intent.shipping
+
+        if not shipping_details or not shipping_details.address:
+            return HttpResponse('Missing shipping details', status=400)
 
         order_exists = False
         attempt = 0
@@ -47,11 +55,11 @@ class StripeWH_Handler:
                     full_name__iexact=shipping_details.name,
                     email__iexact=billing_details.email,
                     phone__iexact=shipping_details.phone,
-                    country__iexact=shipping_details.country,
-                    postcode__iexact=shipping_details.postal_code,
-                    city__iexact=shipping_details.city,
-                    street_address1__iexact=shipping_details.line1,
-                    street_address2__iexact=shipping_details.line2,
+                    country__iexact=shipping_details.address.country,
+                    postcode__iexact=shipping_details.address.postal_code,
+                    city__iexact=shipping_details.address.city,
+                    street_address1__iexact=shipping_details.address.line1,
+                    street_address2__iexact=shipping_details.address.line2,
                     grand_total=grand_total,
                 )
                 order_exists = True
@@ -67,16 +75,17 @@ class StripeWH_Handler:
         else:
             order = None
             try:
+                address = shipping_details.address
                 order = Order.objects.create(
                     stripe_pid=pid,
                     full_name=shipping_details.name,
                     email=billing_details.email,
                     phone=shipping_details.phone,
-                    country=shipping_details.country,
-                    postcode=shipping_details.postal_code,
-                    city=shipping_details.city,
-                    street_address1=shipping_details.line1,
-                    street_address2=shipping_details.line2,
+                    country=address.country,
+                    postcode=address.postal_code,
+                    city=address.city,
+                    street_address1=address.line1,
+                    street_address2=address.line2,
                     grand_total=grand_total,
                 )
                 for item_id, item_data in bag.items():
