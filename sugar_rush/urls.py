@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
+from .views import handler404
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -30,3 +31,5 @@ urlpatterns = [
     path('pick_and_mix/', include('pick_and_mix.urls')),
     path('profile/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'sugar_rush.views.handler404'

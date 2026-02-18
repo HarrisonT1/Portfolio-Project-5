@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="mb-4">An error has occured</h2>
+        <div>
+            <img src="{% static 'images/chocolate-egg-cracked-404' %}" alt="chocolate egg cracked and leaking chocolate liquid">
+            <a class="cta-button" href="{% url 'home' %}">Homepage</a>
+        </div>
+    </div>
+
+{% endblock %}
