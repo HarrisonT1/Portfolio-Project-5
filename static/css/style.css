@@ -175,6 +175,10 @@ ul .dropdown-menu {
     color: black;
 }
 
+#all-products-nav {
+    border-radius: 5px;
+}
+
 /* DETAIL BANNER */
 
 .detail-banner-container {
