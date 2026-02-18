@@ -73,6 +73,9 @@
                         <p>{{ review.review_message }}</p>
                     </div>    
                 {% endfor %}
+                <div>
+                    <a class="btn button-effect text-center" href="{% url 'review_list' %}">All Reviews</a>
+                </div>
             </div>
         </div>
     </section>
