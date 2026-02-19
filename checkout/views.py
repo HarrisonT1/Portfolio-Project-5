@@ -153,6 +153,7 @@ def cache_checkout_data(request):
         if not client_secret:
             return HttpResponse('Missing client secret', status=400)
 
+        username = request.user.username if request.user.is_authenticated else 'AnonymousUser'
         delivery_method = request.POST.get('delivery_method')
         email = request.POST.get('email', '')
         save_info = request.POST.get('save_info', '')
@@ -162,7 +163,7 @@ def cache_checkout_data(request):
         stripe.PaymentIntent.modify(pid, metadata={
             'delivery_method': delivery_method,
             'bag': json.dumps(request.session.get('bag', {})),
-            'username': request.user.username,
+            'username': username,
             'save_info': save_info,
             'email': email,
         })
