@@ -6,6 +6,7 @@ import stripe
 from .models import Order, OrderLineItem
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
+from accounts.models import UserAccount
 
 
 class StripeWH_Handler:
@@ -18,50 +19,68 @@ class StripeWH_Handler:
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
 
+    # Template for boutique ado walkthrough
     def handle_payment_intent_succeeded(self, event):
+        """
+        Handle the payment_intent.succeeded webhook from Stripe
+        """
         intent = event.data.object
-        print(intent)
         pid = intent.id
 
-        billing_details = intent.charges.data[0].billing_details
+        metadata = intent.metadata or {}
+        bag = metadata.get('bag', '{}')
+        save_info = metadata.get('save_info', False)  # default False if missing
+        delivery_method = metadata.get('delivery_method', 'standard')
+        username = metadata.get('username', 'AnonymousUser')
+
+        stripe_charge = stripe.Charge.retrieve(
+            intent.latest_charge
+        )
+        email = metadata.get('email', '')
+        delivery_method = intent.metadata.get('delivery_method')
+
+        billing_details = stripe_charge.billing_details
         shipping_details = intent.shipping
-        charges = intent.get('charges', {}).get('data', [])
+        grand_total = round(stripe_charge.amount / 100, 2)
 
-        if not charges:
-            return HttpResponse('No charge found', status=400)
+        # Clean data in the shipping details
+        for field, value in shipping_details.address.items():
+            if value == "":
+                shipping_details.address[field] = None
 
-        charge = charges[0]
-        billing_details = charge.billing_details
-        amount = charge.amount
-        grand_total = round(amount / 100, 2)
-
-        bag_str = intent.metadata.get('bag', '{}')
-        try:
-            bag = json.loads(bag_str)
-        except json.JSONDecodeError:
-            bag = {}
-
-        shipping_details = intent.shipping
-
-        if not shipping_details or not shipping_details.address:
-            return HttpResponse('Missing shipping details', status=400)
+        # Update profile information if save_info was checked
+        profile = None
+        if username != 'AnonymousUser':
+            profile = UserAccount.objects.get(user__username=username)
+            if save_info:
+                profile.default_phone_number = shipping_details.phone
+                profile.default_country = shipping_details.address.country
+                profile.default_postcode = shipping_details.address.postal_code
+                profile.default_city = shipping_details.address.city
+                profile.default_town = shipping_details.address.city
+                profile.default_street_address1 = shipping_details.address.line1
+                profile.default_street_address2 = shipping_details.address.line2
+                profile.save()
 
         order_exists = False
-        attempt = 0
+        attempt = 1
         while attempt <= 5:
             try:
                 order = Order.objects.get(
-                    stripe_pid=pid,
-                    full_name__iexact=shipping_details.name,
-                    email__iexact=billing_details.email,
-                    phone__iexact=shipping_details.phone,
-                    country__iexact=shipping_details.address.country,
-                    postcode__iexact=shipping_details.address.postal_code,
-                    city__iexact=shipping_details.address.city,
-                    street_address1__iexact=shipping_details.address.line1,
-                    street_address2__iexact=shipping_details.address.line2,
-                    grand_total=grand_total,
-                )
+                        full_name__iexact=shipping_details.name,
+                        user=profile,
+                        email=email,
+                        phone_number__iexact=shipping_details.phone,
+                        country__iexact=shipping_details.address.country,
+                        postcode__iexact=shipping_details.address.postal_code,
+                        city__iexact=shipping_details.address.city,
+                        town__iexact=shipping_details.address.city,
+                        street_address1__iexact=shipping_details.address.line1,
+                        street_address2__iexact=shipping_details.address.line2,
+                        delivery_method=delivery_method,
+                        grand_total=grand_total,
+                        stripe_pid=pid
+                    )
                 order_exists = True
                 break
             except Order.DoesNotExist:
@@ -69,56 +88,57 @@ class StripeWH_Handler:
                 time.sleep(1)
         if order_exists:
             return HttpResponse(
-                content='Webhook received: Verified order already in database',
-                status=200
-            )
+                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                status=200)
         else:
             order = None
             try:
-                address = shipping_details.address
-                order = Order.objects.create(
-                    stripe_pid=pid,
-                    full_name=shipping_details.name,
-                    email=billing_details.email,
-                    phone=shipping_details.phone,
-                    country=address.country,
-                    postcode=address.postal_code,
-                    city=address.city,
-                    street_address1=address.line1,
-                    street_address2=address.line2,
-                    grand_total=grand_total,
-                )
-                for item_id, item_data in bag.items():
-                    # regular items
+                try:
+                    order = Order.objects.create(
+                        full_name=shipping_details.name,
+                        email=email,
+                        phone_number=shipping_details.phone,
+                        country=shipping_details.address.country,
+                        postcode=shipping_details.address.postal_code,
+                        city=shipping_details.address.city,
+                        town=shipping_details.address.city,
+                        street_address1=shipping_details.address.line1,
+                        street_address2=shipping_details.address.line2,
+                        delivery_method=delivery_method,
+                        grand_total=grand_total,
+                        stripe_pid=pid
+                    )
+                except Exception as e:
+                    print("order creation failed", e)
+                for item_id, item_data in json.loads(bag).items():
+                    product = Product.objects.get(slug=item_id)
                     if isinstance(item_data, int):
-                        product = get_object_or_404(Product, id=item_id)
-
-                        OrderLineItem.objects.create(
+                        order_line_item = OrderLineItem(
                             order=order,
                             product=product,
                             quantity=item_data,
                         )
-                    # pick and mix items
-                    elif isinstance(item_data, dict) and 'pick_and_mix' in item_data:
-                        pnm_data = item_data['pick_and_mix']
-                        pnmbag = get_object_or_404(PickAndMixBag, slug=pnm_data['bag_slug'])
-
-                        OrderLineItem.objects.create(
-                            order=order,
-                            pick_and_mix_bag=pnmbag,
-                            quantity=1
-                        )
+                        order_line_item.save()
+                    else:
+                        for size, quantity in item_data['items_by_size'].items():
+                            order_line_item = OrderLineItem(
+                                order=order,
+                                product=product,
+                                quantity=quantity,
+                                product_size=size,
+                            )
+                            order_line_item.save()
             except Exception as e:
                 if order:
                     order.delete()
+                print("Webhook ERROR:", e)
                 return HttpResponse(
-                    content=f'Webhook received: error: {e}',
-                    status=500
-                )
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    status=500)
+        # self._send_confirmation_email(order)
         return HttpResponse(
-            content='Webhook received: created order in webhook',
-            status=200
-        )
+            content=f'Webhook received: {event["type"]}  | SUCCESS: Verified order already in database',
+            status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         return HttpResponse(

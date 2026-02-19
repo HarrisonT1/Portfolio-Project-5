@@ -153,13 +153,20 @@ def cache_checkout_data(request):
         if not client_secret:
             return HttpResponse('Missing client secret', status=400)
 
+        delivery_method = request.POST.get('delivery_method')
+        email = request.POST.get('email', '')
+        save_info = request.POST.get('save_info', '')
+
         pid = client_secret.split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
+            'delivery_method': delivery_method,
             'bag': json.dumps(request.session.get('bag', {})),
-            'username': request.user.username
+            'username': request.user.username,
+            'save_info': save_info,
+            'email': email,
         })
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be proccessed, try again later')
-        return HttpResponse(content=e, status=400)
+        return HttpResponse(content=str(e), status=400)

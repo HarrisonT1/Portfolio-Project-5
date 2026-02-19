@@ -39,17 +39,19 @@ $(document).ready(function() {
     });
 
     // Handle form submit
+    console.log("Stripe JS loaded");
     var form = document.getElementById('payment-form');
 
     form.addEventListener('submit', function(ev) {
         ev.preventDefault();
         card.update({ 'disabled': true});
         $('#submit-button').attr('disabled', true);
-
+        var deliveryMethod = $('input[name="delivery_method"]:checked').val();
         var csrfToken = $('input[name=csrfmiddlewaretoken]').val()
         var postData = {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
+            'delivery_method': deliveryMethod,
         }
         var url = '/checkout/cache_checkout_data/'
 
