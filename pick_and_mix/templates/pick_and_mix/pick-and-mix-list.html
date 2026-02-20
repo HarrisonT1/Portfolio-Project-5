@@ -62,6 +62,7 @@
                                     <h5 class="card-title">{{ product.name }}</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
+                                <strong class="text-center">Amount in stock: {{ product.stock_level }}</strong>
                                 <strong class="text-center">{{ product.sweet_category.weight_in_grams }}g per item</strong>
                                 <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                     {% csrf_token %}

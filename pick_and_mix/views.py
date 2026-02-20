@@ -113,6 +113,13 @@ def pick_and_mix_add(request, bag_slug, product_slug):
 
     item = pick_and_mix['items'].get(product.slug)
 
+    current_quantity = item['quantity'] if item else 0
+    new_total = current_quantity + quantity
+
+    if new_total > product.stock_level:
+        messages.error(request, f'There is no remaining stock of {product.name}')
+        return redirect('pick_and_mix_products', slug=bag_slug)
+
     if item:
         item['quantity'] += quantity
         item['total_weight'] += total_sweet_category_weight
