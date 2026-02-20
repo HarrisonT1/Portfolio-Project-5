@@ -95,6 +95,7 @@ h1 {
 
 ul .dropdown-menu {
     padding: 5px;
+    width: 180px;
 }
 
 .navbar-brand {
