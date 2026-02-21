@@ -43,11 +43,13 @@
                     {% for item in order.lineitems.all %}
                         {% if item.product %}
                             <tbody>
-                                <th>{{ item.product.name }}</th>
-                                <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
-                                <th>£{{ item.product.price }}</th>
-                                <th>{{ item.quantity }}</th>
-                                <th>£{{ item.line_item_total }}</th>
+                                <tr>
+                                    <th>{{ item.product.name }}</th>
+                                    <th><img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"></th>
+                                    <th>£{{ item.product.price }}</th>
+                                    <th>{{ item.quantity }}</th>
+                                    <th>£{{ item.line_item_total }}</th>
+                                </tr>
                             </tbody>
                         {% endif %}
                     {% endfor %}
