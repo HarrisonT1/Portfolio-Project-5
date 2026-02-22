@@ -66,7 +66,10 @@
                                 <strong class="text-center">{{ product.sweet_category.weight_in_grams }}g per item</strong>
                                 <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                     {% csrf_token %}
-                                    <input class="text-center d-block mx-auto w-25 quantity-input" type="number" name="quantity" value="1" min="1" max="400">
+                                    <button class="minus-qty btn button-effect" type="button">-</button>
+                                    <input type="number" id="{{ product.name }}-add-quantity" class="qty-input border-0 text-center quantity-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
+                                    <label for="{{ product.name }}-add-quantity"></label>
+                                    <button class="plus-qty btn button-effect" type="button">+</button>
                                     <button type="submit" class="btn button-effect">Add</button>
                                     <p>Total product weight: <span class="total-weight"></span>g</p>
                                 </form>
@@ -87,22 +90,60 @@
     <script>
         $(function () {
             $(".add-grams-form").each(function() {
-                var $form = $(this)
-                var $input = $form.find('.quantity-input')
-                var $totalDisplay = $form.find('.total-weight')
-                var weightPerItem = parseFloat($form.attr("data-weight"))
+                var $form = $(this);
+                var $input = $form.find('.quantity-input');
+                var $totalDisplay = $form.find('.total-weight');
+                var weightPerItem = parseFloat($form.attr("data-weight"));
         
                 function updateWeight() {
                     var quantity = parseInt($input.val()) || 0;
-                    var totalWeight = quantity * weightPerItem
-                    $totalDisplay.text(totalWeight)
+                    var totalWeight = quantity * weightPerItem;
+                    $totalDisplay.text(totalWeight);
                 }
                 updateWeight();
         
                 $input.on("input", function() {
-                    updateWeight()
-                })
-            })
-        })
+                    updateWeight();
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.qty-input').each(function() {
+                var $input = $(this);
+                var $minusBtn = $input.siblings('.minus-qty');
+                var $plusBtn = $input.siblings('.plus-qty');
+                var max = parseInt($input.attr('max'));
+                
+                function updateButtons() {
+                    var qty = parseInt($input.val());
+                    $minusBtn.prop('disabled', qty <= 1);
+                    $plusBtn.prop('disabled', qty >=max);
+                }
+            
+                updateButtons();
+
+                $minusBtn.click(function() {
+                    var qty = parseInt($input.val());
+                    if (qty > 1) {
+                        $input.val(qty - 1);
+                        updateButtons();
+                        $input.trigger('input');
+                    }
+                });
+                $plusBtn.click(function() {
+                    var qty = parseInt($input.val());
+                    if (qty < max) {
+                        $input.val(qty + 1);
+                        updateButtons();
+                        $input.trigger('input');
+                    }
+                });
+                $input.on('input', function() {
+                    updateButtons();
+                });
+            });
+        });
     </script>
 {% endblock %}

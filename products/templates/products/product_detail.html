@@ -38,10 +38,10 @@
 <script>
     $(document).ready(function() {
         $('.qty-input').each(function() {
-            var $input = $(this)
-            var $minusBtn = $input.siblings('.minus-qty')
-            var $plusBtn = $input.siblings('.plus-qty')
-            var max = parseInt($input.attr('max'))
+            var $input = $(this);
+            var $minusBtn = $input.siblings('.minus-qty');
+            var $plusBtn = $input.siblings('.plus-qty');
+            var max = parseInt($input.attr('max'));
             
             function updateButtons() {
                 var qty = parseInt($input.val());
@@ -50,26 +50,26 @@
                 $plusBtn.prop('disabled', qty >=max);
             }
         
-            updateButtons()
+            updateButtons();
 
             $minusBtn.click(function() {
-                var qty = parseInt($input.val())
+                var qty = parseInt($input.val());
                 if (qty > 1) {
-                    $input.val(qty - 1)
-                    updateButtons()
-                }
-            })
-            $plusBtn.click(function() {
-                var qty = parseInt($input.val())
-                if (qty < max) {
-                    $input.val(qty + 1)
+                    $input.val(qty - 1);
                     updateButtons();
                 }
-            })
+            });
+            $plusBtn.click(function() {
+                var qty = parseInt($input.val());
+                if (qty < max) {
+                    $input.val(qty + 1);
+                    updateButtons();
+                }
+            });
             $input.on('input', function() {
                 updateButtons();
-            })
-        })
-    })
+            });
+        });
+    });
 </script>
 {% endblock %}

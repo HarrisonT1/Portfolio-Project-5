@@ -19,12 +19,12 @@ $(document).ready(function() {
             iconColor: '#dc3545'
         }
     };
-    var card = elements.create('card', {style: style})
+    var card = elements.create('card', {style: style});
     
-    card.mount('#card-element')
+    card.mount('#card-element');
 
     card.addEventListener('change', function (event) {
-        var errorDiv = document.getElementById('card-errors')
+        var errorDiv = document.getElementById('card-errors');
         if (event.error) {
             var html = `
                 <span class="icon" role="alert">
@@ -32,7 +32,7 @@ $(document).ready(function() {
                 </span>
                 <span>${event.error.message}</span>
             `;
-            $(errorDiv).html(html)
+            $(errorDiv).html(html);
         } else {
             errorDiv.textContent = '';
         }
@@ -47,13 +47,13 @@ $(document).ready(function() {
         card.update({ 'disabled': true});
         $('#submit-button').attr('disabled', true);
         var deliveryMethod = $('input[name="delivery_method"]:checked').val();
-        var csrfToken = $('input[name=csrfmiddlewaretoken]').val()
+        var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
         var postData = {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
             'delivery_method': deliveryMethod,
-        }
-        var url = '/checkout/cache_checkout_data/'
+        };
+        var url = '/checkout/cache_checkout_data/';
 
         $.post(url, postData).done(function() {
             stripe.confirmCardPayment(clientSecret, {
@@ -101,8 +101,8 @@ $(document).ready(function() {
                 }
             });
         }).fail(function (){
-            location.reload()
-        })
+            location.reload();
+        });
     });
-})
+});
 
