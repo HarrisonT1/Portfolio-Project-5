@@ -110,24 +110,24 @@
 <script>
     $(document).ready(function() {
         $('.edit-btn').click(function(e) {
-            e.preventDefault()
-            var row = $(this).closest('tr')
-            row.find('.qty-form-container').toggleClass('d-none')
-            $('.qty-display').toggleClass('d-none')
-        })
+            e.preventDefault();
+            var row = $(this).closest('tr');
+            row.find('.qty-form-container').toggleClass('d-none');
+            $('.qty-display').toggleClass('d-none');
+        });
 
         $('.cancel-btn').click(function() {
-            $(this).closest('.qty-form-container').addClass('d-none')
-        })
+            $(this).closest('.qty-form-container').addClass('d-none');
+        });
 
         $('.minus-qty, .plus-qty').click(function() {
-            var input = $(this).siblings('.qty-input')
+            var input = $(this).siblings('.qty-input');
             if ($(this).hasClass('minus-qty')) {
-                input.val(Math.max(1, parseInt(input.val()) - 1))
+                input.val(Math.max(1, parseInt(input.val()) - 1));
             } else {
-                input.val(parseInt(input.val()) + 1)
+                input.val(parseInt(input.val()) + 1);
             }
-        })
-    })
+        });
+    });
 </script>
 {% endblock %}
