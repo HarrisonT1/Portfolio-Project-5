@@ -93,13 +93,13 @@
         </div>
         <div class="text-center mt-5">
             <p>Your total is <strong>£{{ total_price }}</strong></p>
-            <a class="btn button-effect" href="{% url 'checkout' %}">Head To Secure Checkout</a>
+            <a class="btn button-effect button-colour" href="{% url 'checkout' %}">Head To Secure Checkout</a>
         </div>
     {% else %}
         <div class="text-center my-5">
             <strong>You currently have no items in your bag</strong>
             <p>Look for products here</p>
-            <a class="btn button-effect" href="{% url 'products' %}">Products</a>
+            <a class="btn button-effect button-colour" href="{% url 'products' %}">Products</a>
         </div>
     {% endif%}
 </div>

@@ -216,9 +216,22 @@ ul .dropdown-menu {
     color: black;
 }
 
+.button-colour {
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(134, 134, 134);
+}
+
+.button-effect-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(20, 20, 204, 0.15);
+}
+
 .button-effect:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(20, 20, 204, 0.15);
+    background-color: rgb(240, 240, 240);
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: 5px;
 }
 
 #filter-button {

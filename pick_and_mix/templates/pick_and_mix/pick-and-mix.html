@@ -12,7 +12,7 @@
                     <h3>{{ bag.name }}</h3>
                     <p>{{ bag.max_weight_in_grams }} grams</p>
                     <p>£{{ bag.price }}</p>
-                    <a class="btn button-effect" href="{% url 'pick_and_mix_products' bag.slug %}">Select Bag</a>
+                    <a class="btn button-effect button-colour" href="{% url 'pick_and_mix_products' bag.slug %}">Select Bag</a>
                 </div>
             {% endfor %}
         {% endif %}

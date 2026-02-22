@@ -11,7 +11,7 @@
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button class="btn button-effect" type="submit">Update Details</button>
+                <button class="btn button-effect button-colour" type="submit">Update Details</button>
             </form>
         </div>
         <div class="col-12 col-lg-6">
@@ -26,15 +26,15 @@
 
                     <div class="pagination justify-content-center">
                         {% if orders.number == 1 %}
-                        <span class="disabled btn button-effect me-3">Previous</span>
+                        <span class="disabled btn button-effect button-colour me-3">Previous</span>
                         {% else %}
-                            <a href="?orders_page={{ orders.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
+                            <a href="?orders_page={{ orders.previous_page_number }}" class="btn button-effect button-colour me-3">Pevious</a>
                         {% endif %}
                         <span class="pt-2">Page {{ orders.number }} of {{ orders.paginator.num_pages }}</span>
                         {% if orders.number == orders.paginator.num_pages %}
-                            <span class="disabled btn button-effect ms-3">Next</span>
+                            <span class="disabled btn button-effect button-colour ms-3">Next</span>
                         {% else %}
-                            <a class="btn button-effect ms-3" href="?orders_page={{ orders.next_page_number }}">Next</a>
+                            <a class="btn button-effect button-colour ms-3" href="?orders_page={{ orders.next_page_number }}">Next</a>
                         {% endif %}
                     </div>
                 {% else %}
@@ -60,15 +60,15 @@
                         {% endfor %}
                         <div class="pagination justify-content-center">
                             {% if reviews.number == 1 %}
-                            <span class="disabled btn button-effect me-3">Previous</span>
+                            <span class="disabled btn button-effect button-colour me-3">Previous</span>
                             {% else %}
-                                <a href="?reviews_page={{ reviews.previous_page_number }}" class="btn button-effect me-3">Pevious</a>
+                                <a href="?reviews_page={{ reviews.previous_page_number }}" class="btn button-effect button-colour me-3">Pevious</a>
                             {% endif %}
                             <span class="pt-2">Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}</span>
                             {% if reviews.number == reviews.paginator.num_pages %}
-                                <span class="disabled btn button-effect ms-3">Next</span>
+                                <span class="disabled btn button-effect button-colour ms-3">Next</span>
                             {% else %}
-                                <a class="btn button-effect ms-3" href="?reviews_page={{ reviews.next_page_number }}">Next</a>
+                                <a class="btn button-effect button-colour ms-3" href="?reviews_page={{ reviews.next_page_number }}">Next</a>
                             {% endif %}
                         </div>
                     {% else %}

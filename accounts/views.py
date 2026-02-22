@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import UserAccountForm
 from .models import UserAccount
 from checkout.models import Order
@@ -15,6 +16,7 @@ def view_account(request):
         form = UserAccountForm(request.POST, instance=account)
         if form.is_valid():
             form.save()
+            messages.success(request, "Accont successfully updated")
             return redirect('profile')
     else:
         form = UserAccountForm(instance=account)
