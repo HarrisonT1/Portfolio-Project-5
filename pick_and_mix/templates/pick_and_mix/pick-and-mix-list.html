@@ -15,7 +15,7 @@
                     {% else %}
                         <p>Your pick and mixbag is full, add it to checkout</p>
                     {% endif %}
-                    <button type="submit" class="btn button-effect">Send pick and mix bag to checkout</button>
+                    <button type="submit" class="btn button-effect">Confirm pick and mix bag</button>
                 </form>
             </div>
             <div class="col-12 d-lg-none d-flex my-auto mt-4 mb-4">
@@ -70,7 +70,15 @@
                                     <input type="number" id="{{ product.name }}-add-quantity" class="qty-input border-0 text-center quantity-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
                                     <label for="{{ product.name }}-add-quantity"></label>
                                     <button class="plus-qty btn button-effect" type="button">+</button>
-                                    <button type="submit" class="btn button-effect">Add</button>
+                                    {% if product.stock_level == 0 %}
+                                        <div class="w-100">
+                                            <button class="btn text-danger flex-fill" disabled>Out Of Stock</button>
+                                        </div>
+                                    {% else %}
+                                        <div class="w-100">
+                                            <button type="submit" class="btn button-effect">Add</button>
+                                        </div>
+                                    {% endif %}
                                     <p>Total product weight: <span class="total-weight"></span>g</p>
                                 </form>
                             </div>
