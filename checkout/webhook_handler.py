@@ -1,11 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 import json
 import time
 import stripe
 from .models import Order, OrderLineItem
 from products.models import Product
-from pick_and_mix.models import PickAndMixBag
 from accounts.models import UserAccount
 
 
@@ -29,7 +27,8 @@ class StripeWH_Handler:
 
         metadata = intent.metadata or {}
         bag = metadata.get('bag', '{}')
-        save_info = metadata.get('save_info', False)  # default False if missing
+        save_info = metadata.get(
+            'save_info', False)  # default False if missing
         delivery_method = metadata.get('delivery_method', 'standard')
         username = metadata.get('username', 'AnonymousUser')
 
@@ -39,7 +38,6 @@ class StripeWH_Handler:
         email = metadata.get('email', '')
         delivery_method = intent.metadata.get('delivery_method')
 
-        billing_details = stripe_charge.billing_details
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)
 
@@ -58,8 +56,10 @@ class StripeWH_Handler:
                 profile.default_postcode = shipping_details.address.postal_code
                 profile.default_city = shipping_details.address.city
                 profile.default_town = shipping_details.address.city
-                profile.default_street_address1 = shipping_details.address.line1
-                profile.default_street_address2 = shipping_details.address.line2
+                profile.default_street_address1 = (
+                    shipping_details.address.line1)
+                profile.default_street_address2 = (
+                    shipping_details.address.line2)
                 profile.save()
 
         order_exists = False
@@ -88,7 +88,8 @@ class StripeWH_Handler:
                 time.sleep(1)
         if order_exists:
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=(f"Webhook received: {event["type"]} | "
+                         "SUCCESS: Verified order already in database"),
                 status=200)
         else:
             order = None
@@ -120,7 +121,9 @@ class StripeWH_Handler:
                         )
                         order_line_item.save()
                     else:
-                        for size, quantity in item_data['items_by_size'].items():
+                        for size, quantity in (
+                            item_data['items_by_size'].items()
+                        ):
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
@@ -137,7 +140,8 @@ class StripeWH_Handler:
                     status=500)
         # self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]}  | SUCCESS: Verified order already in database',
+            content=(f"Webhook received: {event["type"]}  | "
+                     "SUCCESS: Verified order already in database"),
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):

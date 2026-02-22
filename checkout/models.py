@@ -34,10 +34,14 @@ class Order(models.Model):
     street_address2 = models.CharField(max_length=80, blank=True)
 
     delivery_method = models.CharField(choices=settings.DELIVERY_OPTIONS)
-    order_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    grand_total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
+    order_total = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0)
+    delivery_cost = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0)
+    grand_total = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0)
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default='')
 
     order_fulfilled = models.BooleanField(default=False)
 
@@ -69,11 +73,17 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='lineitems')
-    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.PROTECT)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='lineitems')
+    product = models.ForeignKey(
+        Product,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(default=1)
     line_item_total = models.DecimalField(max_digits=6, decimal_places=2)
-    pick_and_mix_bag = models.ForeignKey(PickAndMixBag, null=True, blank=True, on_delete=models.SET_NULL)
+    pick_and_mix_bag = models.ForeignKey(
+        PickAndMixBag, null=True, blank=True, on_delete=models.SET_NULL)
     pick_and_mix_item = models.TextField(blank=True, null=True)
 
     def __str__(self):

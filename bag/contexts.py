@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from decimal import Decimal
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -45,10 +44,13 @@ def bag_content(request):
                 'price': Decimal(item.get('price', 0)),
                 'bag_id': pnm.get('bag_id'),
                 'bag_name': bag_object.name if bag_object else '',
-                'max_weight': bag_object.max_weight_in_grams if bag_object else 0,
+                'max_weight': (
+                    bag_object.max_weight_in_grams
+                    if bag_object else 0),
                 'items': friendly_display,
             })
-            total_price += Decimal(item.get('price', 0)) * item.get('quantity', 1)
+            total_price += Decimal(
+                item.get('price', 0)) * item.get('quantity', 1)
             total_bag_items += item.get('quantity', 1)
         else:
             try:
@@ -68,7 +70,10 @@ def bag_content(request):
             total_bag_items += item
 
     product_items = [item for item in bag_items if item['type'] == 'product']
-    pick_and_mix_items = [item for item in bag_items if item['type'] == 'pick_and_mix']
+    pick_and_mix_items = [
+        item
+        for item in bag_items
+        if item['type'] == 'pick_and_mix']
 
     context = {
         'total_price': total_price,

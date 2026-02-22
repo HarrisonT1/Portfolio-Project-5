@@ -6,7 +6,8 @@ from reviews.models import Review
 
 
 def home(request):
-    reviews = Review.objects.filter(approved=True, rating__gte=4).order_by(Random())[:3]
+    reviews = Review.objects.filter(
+        approved=True, rating__gte=4).order_by(Random())[:3]
 
     context = {
         'reviews': reviews,

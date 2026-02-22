@@ -7,7 +7,6 @@ import json
 from .forms import OrderForm
 from .models import Order
 from .utils import calc_delivery_cost, create_line_items, create_order
-from bag.contexts import bag_content
 from accounts.models import UserAccount
 
 # Create your views here.
@@ -20,7 +19,9 @@ def checkout(request):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if not bag:
-        messages.error(request, 'You need to add products to your bag to proceed to checkout')
+        messages.error(
+            request,
+            'You need to add products to your bag to proceed to checkout')
         return redirect('products')
 
     delivery_method = request.POST.get('delivery_method', 'standard')
@@ -31,7 +32,8 @@ def checkout(request):
             order = create_order(form, request.user)
 
             if request.user.is_authenticated:
-                account, _ = UserAccount.objects.get_or_create(user=request.user)
+                account, _ = UserAccount.objects.get_or_create(
+                    user=request.user)
                 order.user = account
 
             order.delivery_method = delivery_method
@@ -39,8 +41,12 @@ def checkout(request):
 
             create_line_items(bag, order=order)
 
-            if request.user.is_authenticated and form.cleaned_data.get('save_info'):
-                account, _ = UserAccount.objects.get_or_create(user=request.user)
+            if (
+                request.user.is_authenticated
+                and form.cleaned_data.get('save_info')
+            ):
+                account, _ = UserAccount.objects.get_or_create(
+                    user=request.user)
 
                 account.default_full_name = order.full_name
                 account.default_email = order.email
@@ -56,9 +62,11 @@ def checkout(request):
 
             request.session['bag'] = {}
 
-            messages.success(request, f'Your order {order.order_number} was a success')
+            messages.success(
+                request, f'Your order {order.order_number} was a success')
 
-            return redirect('checkout_success', order_number=order.order_number)
+            return redirect(
+                'checkout_success', order_number=order.order_number)
     else:
         bag = request.session.get('bag', {})
 
@@ -93,14 +101,18 @@ def checkout(request):
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY,
             )
-        except Exception as e:
-            messages.error(request, 'There was a problem connecting to our payment provider, please try again')
+        except Exception:
+            messages.error(
+                request,
+                ('There was a problem connecting to our payment provider,'
+                 'please try again'))
             return redirect('bag')
 
         free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
 
         if order_total < free_delivery_threshold:
-            amount_needed_for_free_delivery = free_delivery_threshold - order_total
+            amount_needed_for_free_delivery = (
+                free_delivery_threshold - order_total)
         else:
             amount_needed_for_free_delivery = 0
 
@@ -134,7 +146,8 @@ def checkout_success(request, order_number):
             item.line_total = 0
 
     product_items = bag_items.filter(product__isnull=False).exists()
-    pick_and_mix_items = bag_items.filter(pick_and_mix_bag__isnull=False).exists()
+    pick_and_mix_items = bag_items.filter(
+        pick_and_mix_bag__isnull=False).exists()
 
     context = {
         'order': order,
@@ -153,7 +166,10 @@ def cache_checkout_data(request):
         if not client_secret:
             return HttpResponse('Missing client secret', status=400)
 
-        username = request.user.username if request.user.is_authenticated else 'AnonymousUser'
+        username = (
+            request.user.username
+            if request.user.is_authenticated
+            else 'AnonymousUser')
         delivery_method = request.POST.get('delivery_method')
         email = request.POST.get('email', '')
         save_info = request.POST.get('save_info', '')
@@ -169,5 +185,7 @@ def cache_checkout_data(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, 'Sorry, your payment cannot be proccessed, try again later')
+        messages.error(
+            request,
+            'Sorry, your payment cannot be proccessed, try again later')
         return HttpResponse(content=str(e), status=400)

@@ -1,8 +1,6 @@
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.conf import settings
 from decimal import Decimal
-import stripe
-import json
 from .models import OrderLineItem
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
@@ -67,7 +65,8 @@ def create_line_items(bag, order=None):
 
                 if order:
                     if product.stock_level < quantity:
-                        raise ValueError(f"Not enough stock for {product.name}")
+                        raise ValueError(
+                            f"Not enough stock for {product.name}")
                     product.stock_level -= quantity
                     product.save()
 

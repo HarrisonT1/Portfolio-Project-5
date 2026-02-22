@@ -17,7 +17,11 @@ def review(request):
             review.user = request.user
             review.name = request.user.username
             review.save()
-            messages.success(request, f'Thank you {request.user.username}. Your reviews was submitted, it will be reviewed by staff before being approved, you can edit this review through your account')
+            messages.success(
+                request,
+                (f"Thank you {request.user.username}. Your review was"
+                 "submitted, it will be reviewed by staff before being "
+                 "approved, you can edit this review through your account"))
             return redirect('home')
     else:
         form = ReviewForm()
@@ -37,7 +41,10 @@ def review_edit(request, review_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your review has successfully been changed, if the review was already approved, it will need reapproval')
+            messages.success(
+                request,
+                ('Your review has successfully been changed, if the review '
+                 'was already approved, it will need reapproval'))
             return redirect('profile')
         else:
             messages.error(request, 'The form is incorrect, please try again')

@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserAccountForm
 from .models import UserAccount
 from checkout.models import Order
-from reviews.models import Review
 # Create your views here.
 
 
@@ -61,7 +60,8 @@ def order_detail(request, order_number):
     )
 
     regular_items = order.lineitems.filter(product__isnull=False).exists
-    pick_and_mix_items = order.lineitems.filter(pick_and_mix_bag__isnull=False).exists
+    pick_and_mix_items = order.lineitems.filter(
+        pick_and_mix_bag__isnull=False).exists
 
     context = {
         'regular_items': regular_items,

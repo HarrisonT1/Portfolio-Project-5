@@ -11,7 +11,8 @@ class PickAndMixBag(models.Model):
     slug = models.SlugField(unique=True)
     max_weight_in_grams = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    sweets = models.ManyToManyField(Product, blank=True, related_name='pick_and_mix_bag')
+    sweets = models.ManyToManyField(
+        Product, blank=True, related_name='pick_and_mix_bag')
 
     def save(self, *args, **kwargs):
         """
