@@ -12,7 +12,13 @@ class UserAccountModelTests(TestCase):
             email="test@test.com",
             password="123",
         )
+        self.profile = UserAccount.objects.create(user=self.user)
 
     def test_user_account_create(self):
-        profile = UserAccount.objects.create(user=self.user)
-        self.assertEqual(profile.user.username, self.user.username)
+        self.assertEqual(self.profile.user.username, self.user.username)
+
+    def test_user_edit_account(self):
+        self.profile.default_email = 'testchange@test.com'
+        self.profile.save()
+        self.profile.refresh_from_db()
+        self.assertEqual(self.profile.default_email, "testchange@test.com")
