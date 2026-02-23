@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.conf import settings
 from decimal import Decimal
 from checkout.models import Order
 from checkout.utils import create_line_items
@@ -87,3 +88,46 @@ class CreateLineItemsTest(TestCase):
         create_line_items(bag, order=self.order)
 
         self.assertEqual(self.order.lineitems.count(), 1)
+
+    def test_free_delivery_cost_threshold(self):
+        quantity = 75
+        bag = {
+            "test-product": quantity
+        }
+
+        create_line_items(bag, order=self.order)
+
+        self.order.refresh_from_db()
+        self.assertGreaterEqual(
+            self.order.order_total,
+            settings.FREE_DELIVERY_THRESHOLD
+        )
+
+        self.assertEqual(self.order.delivery_cost, Decimal("0.00"))
+
+    def test_premium_delivery_cost_applied(self):
+        self.order.delivery_method = "premium"
+        bag = {
+            "test-product": 3
+        }
+
+        create_line_items(bag, order=self.order)
+
+        self.order.refresh_from_db()
+        self.assertLess(
+            self.order.order_total,
+            settings.FREE_DELIVERY_THRESHOLD
+        )
+        self.assertEqual(self.order.delivery_cost, Decimal("10.00"))
+
+    def test_standard_delivery_cost_applied(self):
+        bag = {
+            "test-product": 3
+        }
+        create_line_items(bag, order=self.order)
+        self.order.refresh_from_db()
+        self.assertLess(
+            self.order.order_total,
+            settings.FREE_DELIVERY_THRESHOLD
+        )
+        self.assertEqual(self.order.delivery_cost, Decimal("5.00"))
