@@ -46,7 +46,7 @@ class CreateLineItemsTest(TestCase):
             stripe_pid="test",
         )
 
-    def test_calculate_order_total(self):
+    def test_calculate_stock_total(self):
         bag = {
             "test-product": 3
         }
@@ -60,3 +60,12 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(
             self.product.stock_level, initial_stock - 3
         )
+
+    def test_calculate_order_grand_total(self):
+        bag = {
+            "test-product": 3
+        }
+
+        _, order_total = create_line_items(bag)
+
+        self.assertEqual(order_total, Decimal("9.00"))
