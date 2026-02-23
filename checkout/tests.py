@@ -46,7 +46,7 @@ class CreateLineItemsTest(TestCase):
             self.product.stock_level, initial_stock - 3
         )
 
-    def test_calculate_order_grand_total(self):
+    def test_calculate_order_item_total(self):
         bag = {
             "test-product": 3
         }
@@ -55,6 +55,22 @@ class CreateLineItemsTest(TestCase):
 
         self.assertEqual(order_total, Decimal("9.00"))
 
+    def test_order_totals_are_updated(self):
+        quantity = 3
+        bag = {
+            "test-product": quantity
+        }
+
+        create_line_items(bag, order=self.order)
+
+        self.order.refresh_from_db()
+
+        expected_order_total = self.product.price * quantity
+        expected_grand_total = expected_order_total + self.order.delivery_cost
+
+        self.assertEqual(self.order.order_total, expected_order_total)
+        self.assertEqual(self.order.grand_total, expected_grand_total)
+
     def test_raise_error_when_stock_unavailable(self):
         bag = {
             "test-product": 80
@@ -62,3 +78,12 @@ class CreateLineItemsTest(TestCase):
 
         with self.assertRaises(ValueError):
             create_line_items(bag, order=self.order)
+
+    def test_line_item_is_created(self):
+        bag = {
+            "test-product": 3
+        }
+
+        create_line_items(bag, order=self.order)
+
+        self.assertEqual(self.order.lineitems.count(), 1)
