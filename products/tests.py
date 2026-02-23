@@ -16,3 +16,19 @@ class ProductModelTest(TestCase):
         )
 
         self.assertEqual(product.slug, "test-product")
+
+    def test_product_str(self):
+        product = Product.objects.create(
+            name="Test Product 2",
+            price=Decimal('3.50'),
+            description="Add Test Product 2",
+        )
+        self.assertEqual(str(product), "Test Product 2")
+
+    def test_default_stock_level(self):
+        product = Product.objects.create(
+            name="Test Product 3",
+            price=Decimal('2.50'),
+            description="Add Test Product 3",
+        )
+        self.assertEqual(product.stock_level, 75)
