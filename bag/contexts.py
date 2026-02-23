@@ -10,7 +10,7 @@ def bag_content(request):
 
     total_price = Decimal('0.00')
 
-    for item_id, item in bag.items():
+    for item_id, item in bag.copy().items():
         if isinstance(item, dict) and 'pick_and_mix' in item:
             pnm = item.get('pick_and_mix', {})
             friendly_display = []

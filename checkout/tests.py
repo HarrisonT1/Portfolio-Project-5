@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.conf import settings
+from django.urls import reverse, resolve
 from decimal import Decimal
 from checkout.models import Order
 from checkout.utils import create_line_items
 from products.models import Product
+from .views import checkout
 
 # Create your tests here.
 
@@ -131,3 +133,24 @@ class CreateLineItemsTest(TestCase):
             settings.FREE_DELIVERY_THRESHOLD
         )
         self.assertEqual(self.order.delivery_cost, Decimal("5.00"))
+
+
+class CheckoutUrls(TestCase):
+    def test_checkout_url(self):
+        url = reverse('checkout')
+        self.assertEqual(resolve(url).func, checkout)
+
+    def test_checkout_redirects_if_bag_empty(self):
+        response = self.client.get(reverse('checkout'))
+        self.assertRedirects(response, reverse('products'))
+
+    def test_checkout_renders_template(self):
+        session = self.client.session
+        session['bag'] = {'test-product': {'quantity': 1}}
+        session.save()
+
+        response = self.client.get(reverse('checkout'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'checkout/checkout.html')
+        self.assertIn('form', response.context)
+        self.assertIn('bag_items', response.context)
