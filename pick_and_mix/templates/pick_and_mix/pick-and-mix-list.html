@@ -67,8 +67,8 @@
                                 <form data-weight="{{ product.sweet_category.weight_in_grams }}" class="add-grams-form text-center" method="POST" action="{% url 'pick_and_mix_add' pnmbag.slug product.slug %}">
                                     {% csrf_token %}
                                     <button class="minus-qty btn button-effect" type="button">-</button>
-                                    <input type="number" id="{{ product.name }}-add-quantity" class="qty-input border-0 text-center quantity-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
-                                    <label for="{{ product.name }}-add-quantity"></label>
+                                    <input type="number" id="{{ product.slug }}-add-quantity" class="qty-input border-0 text-center quantity-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
+                                    <label for="{{ product.slug }}-add-quantity"></label>
                                     <button class="plus-qty btn button-effect" type="button">+</button>
                                     {% if product.stock_level == 0 %}
                                         <div class="w-100">
