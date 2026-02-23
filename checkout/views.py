@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 import stripe
 import json
 from .forms import OrderForm
@@ -135,7 +136,18 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
-    order = get_object_or_404(Order, order_number=order_number)
+    order = None
+    if request.user.is_authenticated:
+        user_profile, _ = UserAccount.objects.get(user=request.user)
+        order = get_object_or_404(
+            Order,
+            order_number=order_number,
+            user_profile=user_profile
+            )
+    else:
+        order_number_session = request.session.get('order_number')
+        if not order_number_session or order_number_session != order_number:
+            raise PermissionDenied
 
     bag_items = order.lineitems.all()
 
