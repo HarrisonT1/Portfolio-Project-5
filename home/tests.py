@@ -1,16 +1,20 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from .views import home
+from .views import home, privacy_policy
 # Create your tests here.
 
 
-class CheckoutUrls(TestCase):
-    def test_checkout_url(self):
+class HomeUrls(TestCase):
+    def test_home_url(self):
         url = reverse('home')
         self.assertEqual(resolve(url).func, home)
 
+    # taken from CI student - link in readme
     def test_wrong_uri_returns_404(self):
-        # taken from CI student - link in readme
         response = self.client.get('/something/different/')
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, 'errors/404.html')
+
+    def test_privacy_policy(self):
+        url = reverse('privacy_policy')
+        self.assertEqual(resolve(url).func, privacy_policy)
