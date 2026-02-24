@@ -93,7 +93,10 @@
         .hero {
             position: relative;
             height: 80vh;
-            background-image: url("{% static 'images/hero-image.png' %}");
+            /* https://dev.to/nazanin_ashrafi/how-to-darken-an-image-with-css-4f5h for darkening image / linear-gradient */
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url("{% static 'images/hero-image.png' %}");
             background-size: cover;
             background-position: center;
             display: flex;
