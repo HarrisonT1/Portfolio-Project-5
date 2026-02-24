@@ -20,6 +20,7 @@
                 Filters <i class="fa-solid fa-caret-right"></i>
             </button>
             <div class="col-12 col-md-3 text-center text-md-start collapse d-md-block mt-5" id="mobile-filter">
+                <h2>Filters</h2>
                 <form method="GET">
                     <fieldset>
                         <legend>Category</legend>
@@ -74,7 +75,7 @@
                                         <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
                                     </form>
                                     {% endif %}
-                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}">Read More</a>
+                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}" aria-label="Read more about {{ product.name }}">Read More</a>
                                 </div>
                             </div>
                         </div>    
