@@ -12,7 +12,7 @@
                     {% csrf_token %}
                     <button class="minus-qty btn button-effect" type="button">-</button>
                     <input type="number" id="add-quantity" class="qty-input border-0 text-center" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
-                    <label for="add-quantity" class="visually-hidden"></label>
+                    <label for="add-quantity" class="visually-hidden">quantity</label>
                     <button class="plus-qty btn button-effect" type="button">+</button>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     <button class="btn button-effect button-colour" {% if product.stock_level == 0 %}disabled{% endif %} type="submit">Add To Basket</button>

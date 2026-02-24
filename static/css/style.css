@@ -30,6 +30,10 @@ h1, h2, h3, h4 {
     box-shadow: none;
 }
 
+.text-warning {
+    color: #995C00 !important;
+}
+
 #user-dropdown::after,
 #bag-dropdown::after {
     display: none;
