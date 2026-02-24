@@ -19,8 +19,8 @@
                             <th>Price</th>
                             <th>Qty</th>
                             <th>Total</th>
-                            <th></th>
-                            <th></th>
+                            <th><span class="visually-hidden">Edit button</span></th>
+                            <th><span class="visually-hidden">Remove button</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +43,7 @@
                                                 {% csrf_token %}
                                                 <div class="d-flex justify-content-center gap-2 text-center">
                                                     <button class="minus-qty btn button-effect" type="button">-</button>
-                                                    <input type="number" value="{{ item.quantity }}" name="quantity" class="qty-input">
+                                                    <input type="number" value="{{ item.quantity }}" id="{{ item.name }}" name="quantity" class="qty-input" aria-label="Quantity">
                                                     <button class="plus-qty btn button-effect" type="button">+</button>
                                                 </div>
                                                 <div>
