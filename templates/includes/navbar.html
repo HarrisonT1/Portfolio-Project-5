@@ -13,7 +13,10 @@
             </form>
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex flex-row align-items-center">
                 <li class="nav-item dropdown">
-                    <a href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></a>
+                    <a aria-label="User Account Menu" href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="visually-hidden">User Account Menu</span>
+                    </a>
                     {% if user.is_authenticated %}
                         <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
                             <li class="dropdown-item-text small">Signed in as: {{ user.username }}</li>
@@ -37,7 +40,10 @@
                     {% endif %} 
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-basket-shopping"></i></a>
+                    <a aria-label="Basket icon" href="#" role="button" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span class="visually-hidden">Basket icon</span>
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 p-2">
                         <li class="dropdown-item-text small">Total price: £{{ total_price|default:"0.00" }}</li>
                         <li class="dropdown-item-text small">Total items: {{ total_bag_items }}</li>
