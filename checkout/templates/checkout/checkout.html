@@ -130,6 +130,7 @@
 {% block postloadjs %}
     {{ block.super }}
     <script>
+        /* global $ */
         $(function () {
             $('[data-bs-toggle="info"]').each(function () {
                 new bootstrap.Tooltip(this, {
