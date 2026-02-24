@@ -21,24 +21,24 @@
             </button>
             <div class="col-12 col-md-3 text-center text-md-start collapse d-md-block mt-5" id="mobile-filter">
                 <form method="GET">
-                    <div>
-                        <h3>Category</h3>
+                    <fieldset>
+                        <legend>Category</legend>
                         {% for category in categories %}
                             <div class="form-check ps-0">
                                 <input type="checkbox" id="category-{{ category.id }}" value="{{ category.slug }}" name="category" {% if category.slug in selected_category %}checked{% endif %}>
                                 <label for="category-{{ category.id }}">{{ category.name }}</label>
                             </div>
                         {% endfor %}
-                    </div>
-                    <div>
-                        <h3>Dietary Needs</h3>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dietary Needs</legend>
                         {% for tag in dietary_tags %}
                             <div class="form-check ps-0">
                                 <input type="checkbox" id="tag-{{ tag.id }}" value="{{ tag.slug }}" name="dietary_tag" {% if tag.slug in selected_dietary_tags %}checked{% endif %}>
                                 <label for="tag-{{ tag.id }}">{{ tag.name }}</label>
                             </div>
                         {% endfor %}
-                    </div>
+                    </fieldset>
                     <button type="submit" class="btn button-effect button-colour">Filter Results</button>
                 </form>
             </div>
