@@ -55,6 +55,11 @@ h1 {
     font-size: 2rem !important;
 }
 
+.asterisk {
+    color: blue !important;
+    font-size: 1.5rem !important;
+}
+
 /* NAVBAR */
 
 .navbar {
