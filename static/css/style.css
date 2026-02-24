@@ -22,7 +22,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    color: var(--main-color);
+    color: var(--secondary-color);
     font-size: 6rem;
     font: bold;
 }
@@ -168,7 +168,7 @@ ul .dropdown-menu {
 }
 
 .hero-content p {
-    color: var(--main-color);
+    color: var(--secondary-color);
 }
 
 /* CATEGORY NAVBAR */
