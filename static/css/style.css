@@ -33,7 +33,7 @@ h1 {
 
 .btn:disabled {
     border: 0;
-    box-shadow: 0;
+    box-shadow: none;
 }
 
 #user-dropdown::after,
@@ -386,7 +386,8 @@ margin: 0;
 
 /* Firefox */
 input[type=number] {
--moz-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* REMOVE FOCUS ON SEARCH BAR TAKEN FROM https://stackoverflow.com/questions/3397113/how-to-remove-focus-border-outline-around-text-input-boxes-chrome */
