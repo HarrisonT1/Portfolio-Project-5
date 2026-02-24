@@ -46,7 +46,7 @@
                                 <tr>
                                     <th>{{ item.product.name }}</th>
                                     <th>
-                                        {% if product.image %}
+                                        {% if item.product.image %}
                                             <img class="bag-image" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                         {% else %}
                                             <img class="bag-image" src="{% static 'images/no-image-found.png' %}" alt="No image found">
