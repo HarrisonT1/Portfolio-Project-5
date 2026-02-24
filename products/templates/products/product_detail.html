@@ -28,7 +28,11 @@
                 </div>
             </div>
             <div class="row col-12 col-md-4">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-100 w-sm-50">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-100 w-sm-50">
+                {% else %}
+                    <img src="{% static 'images/no-image-found.png' %}" alt="No image found">
+                {% endif %}
             </div>
         </div>
     </div>
