@@ -56,11 +56,11 @@
                                     {% endif %}
                                 </a>
                                 <div class="card-body">
-                                    <h4 class="card-title">
+                                    <h3 class="card-title">
                                         <a href="{% url 'product_detail' product.slug %}">
                                             {{ product.name }}
                                         </a>
-                                    </h4>
+                                    </h3>
                                     <p class="card-text">{{ product.description|truncatechars:100 }}</p>
                                 </div>
                                 <strong class="text-center">£{{ product.price }}</strong>
@@ -75,7 +75,10 @@
                                         <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
                                     </form>
                                     {% endif %}
-                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}" aria-label="Read more about {{ product.name }}">Read More</a>
+                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}" aria-label="Read more about {{ product.name }}">
+                                        Read More
+                                        <span class="visually-hidden">about {{ product.name }}</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>    
