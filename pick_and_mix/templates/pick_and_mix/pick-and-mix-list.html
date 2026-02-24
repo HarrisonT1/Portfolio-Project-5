@@ -58,7 +58,7 @@
                         <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
                             <div class="card mb-5">
                                 {% if product.image %}
-                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{% product.name %}">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                                 {% else %}
                                     <img src="{% static 'images/no-image-found.png' %}" class="card-img-top" alt="No image found">
                                 {% endif %}
