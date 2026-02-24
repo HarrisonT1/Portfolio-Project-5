@@ -72,7 +72,7 @@
                                     {% csrf_token %}
                                     <button class="minus-qty btn button-effect" type="button">-</button>
                                     <input type="number" id="{{ product.slug }}-add-quantity" class="qty-input border-0 text-center quantity-input" name="quantity" value="1" min="1" max="{{ product.stock_level }}">
-                                    <label for="{{ product.slug }}-add-quantity"></label>
+                                    <label for="{{ product.slug }}-add-quantity" class="visually-hidden">Quantity</label>
                                     <button class="plus-qty btn button-effect" type="button">+</button>
                                     {% if product.stock_level == 0 %}
                                         <div class="w-100">

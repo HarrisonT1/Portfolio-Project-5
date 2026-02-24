@@ -114,6 +114,7 @@ ul .dropdown-menu {
     top: 100px;
     right: 20px;
     z-index: 2000;
+    color: black;
 }
 
 .bag-toast-container {
