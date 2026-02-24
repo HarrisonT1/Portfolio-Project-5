@@ -30,29 +30,31 @@
                         {% else %}
                             <p>To save information for next time you can <a href="{% url 'account_signup' %}">Create an account</a> or <a href="{% url 'account_login' %}">Log in</a></p>
                         {% endif %}
-                        <div>
-                            <label>
-                                <input type="radio" value="standard" name="delivery_method" checked {% if order_total >= 30 %} disabled {% endif %}>
-                                Standard delivery (£5)
-                            </label>
-                            <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="3-5 Working Days">
-                                <i class="fa-regular fa-circle-question"></i>
-                            </span>
-                        </div>
-                        <div>
-                            <label class="mb-3">
-                                <input type="radio" value="premium" name="delivery_method" {% if order_total >= 30 %} disabled {% endif %}>
-                                Premium delivery (£10)
-                            </label>
-                            <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="Next Day Delivery">
-                                <i class="fa-regular fa-circle-question"></i>
-                            </span>
-                        </div>
+                        <fieldset>
+                            <legend>Deliery Method</legend>
+                            <div>
+                                <label>
+                                    <input type="radio" value="standard" name="delivery_method" checked {% if order_total >= 30 %} disabled {% endif %}>
+                                    Standard delivery (£5)
+                                </label>
+                                <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="3-5 Working Days">
+                                    <i class="fa-regular fa-circle-question"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <label class="mb-3">
+                                    <input type="radio" value="premium" name="delivery_method" {% if order_total >= 30 %} disabled {% endif %}>
+                                    Premium delivery (£10)
+                                </label>
+                                <span class="ms-1" data-bs-toggle="info" data-bs-placement="right" title="Next Day Delivery">
+                                    <i class="fa-regular fa-circle-question"></i>
+                                </span>
+                            </div>
+                        </fieldset>
                         <div>
                             {% if order_total >= 30 %}
                                 <p class="fw-bold">You have hit the free delivery threshold</p>
                             {% else %}
-                                <p id="delivery-cost">Delivery cost: £{{ delivery_cost }}</p>
                                 <p>Spend £{{ amount_needed_for_free_delivery }} more for free delivery (Excluding delivery costs)</p>
                             {% endif %}
                         </div>
@@ -158,7 +160,6 @@
             console.log(deliveryCost);
             console.log(delivery_method);
             console.log(grandTotal);
-            $('#delivery-cost').text('Delivery Cost: £' + deliveryCost.toFixed(2));
             $('#grand-total').text('Grand Total: £' + grandTotal.toFixed(2));
         }
         updateTotals('standard');
