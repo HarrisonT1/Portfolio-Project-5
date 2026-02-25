@@ -6,6 +6,10 @@
 {% if reviews %}
 <div class="container">
     <h1 class="text-center mt-5">All Reviews</h1>
+    <div class="text-center">
+        <h2>Create Your own review here</h2>
+        <a class="btn button-effect button-colour" href="{% url 'review' %}">Make review</a>
+    </div>
     <div class="d-flex flex-wrap justify-content-center">
         {% for review in reviews %}
             <div class="reviews text-center mx-5 my-5">
