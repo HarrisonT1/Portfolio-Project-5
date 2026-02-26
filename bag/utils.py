@@ -1,7 +1,7 @@
 def get_bag_quantity(request, product_slug):
     total = 0
 
-    bag = request.sesion.get('bag', {})
+    bag = request.session.get('bag', {})
     if product_slug in bag and isinstance(bag[product_slug], int):
         total += bag[product_slug]
 

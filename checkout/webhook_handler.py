@@ -15,6 +15,7 @@ class StripeWH_Handler:
     def __init__(self, request):
         self.request = request
 
+    # FROM CI BOUTIQUE ADO WALKTHROUGH
     def _send_confirmation_email(self, order):
         """ sends an email to the user """
         cust_email = order.email
@@ -23,7 +24,7 @@ class StripeWH_Handler:
             {'order': order}
         )
         body = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_body.txt',
+            'checkout/email_templates/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
         send_mail(
             subject,
@@ -49,7 +50,6 @@ class StripeWH_Handler:
         bag = metadata.get('bag', '{}')
         save_info = metadata.get(
             'save_info', False)  # default False if missing
-        delivery_method = metadata.get('delivery_method', 'standard')
         username = metadata.get('username', 'AnonymousUser')
 
         stripe_charge = stripe.Charge.retrieve(
