@@ -9,6 +9,6 @@ def get_bag_quantity(request, product_slug):
     pnm_items = pick_and_mix.get('items', {})
 
     if product_slug in pnm_items:
-        total += pnm_items[product_slug.get('quantity', 0)]
+        total += pnm_items[product_slug].get('quantity', 0)
 
     return total
