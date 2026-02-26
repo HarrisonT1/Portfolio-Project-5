@@ -61,7 +61,7 @@
                         <div class="mb-3" id="card-element"></div>
                         <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                        <p id="grand-total">{{ grand_total }}</p>
+                        <p class="text-danger" id="grand-total">Your card will be charged {{ grand_total }}</p>
                         <button id="submit-button" class="btn button-effect button-colour" type="submit">Checkout</button>
                     </form>
                     <div class="d-none">
