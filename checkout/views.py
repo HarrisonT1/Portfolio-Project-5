@@ -185,7 +185,6 @@ def cache_checkout_data(request):
             if request.user.is_authenticated
             else 'AnonymousUser')
         delivery_method = request.POST.get('delivery_method')
-        email = request.POST.get('email', '')
         save_info = request.POST.get('save_info', '')
 
         pid = client_secret.split('_secret')[0]
@@ -195,7 +194,6 @@ def cache_checkout_data(request):
             'bag': json.dumps(request.session.get('bag', {})),
             'username': username,
             'save_info': save_info,
-            'email': email,
         })
         return HttpResponse(status=200)
     except Exception as e:
