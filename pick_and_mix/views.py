@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.contrib import messages
 from .models import PickAndMixBag
 from products.models import Product, SweetCategory, DietaryTag
+from bag.utils import get_bag_quantity
 
 # Create your views here.
 
@@ -100,6 +101,15 @@ def pick_and_mix_add(request, bag_slug, product_slug):
             quantity = 1
     except (ValueError, TypeError):
         quantity = 1
+
+    reserved = get_bag_quantity(request, product_slug)
+
+    if reserved + quantity > product.stock_level:
+        messages.error(
+            request, "Sorry, there is only"
+            f"{product.stock_level} of {product.name}"
+            "available. You already have them in your bag")
+        return redirect('pick_and_mix')
 
     pick_and_mix = request.session.get('pick_and_mix', {
         'bag_id': pnmbag.id,

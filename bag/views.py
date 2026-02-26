@@ -3,6 +3,7 @@ from django.contrib import messages
 import uuid
 from products.models import Product
 from pick_and_mix.models import PickAndMixBag
+from .utils import get_bag_quantity
 
 # Create your views here.
 
@@ -23,16 +24,17 @@ def add_to_bag(request, slug):
         quantity = 1
 
     bag = request.session.get('bag', {})
-
     current_quantity = bag.get(product_slug, 0)
-    new_total = current_quantity + quantity
+    reserved = get_bag_quantity(request, product_slug)
 
-    if new_total > product.stock_level:
+    if reserved + quantity > product.stock_level:
         messages.error(
-            request, f'There is no remaining stock of {product.name}')
-        return redirect('products')
+            request, "Sorry, there is only"
+            f"{product.stock_level} of {product.name}"
+            "available. You already have them in your bag")
+        return redirect('pick_and_mix')
 
-    bag[product_slug] = new_total
+    bag[product_slug] = current_quantity + quantity
     request.session['bag'] = bag
 
     print(bag)
