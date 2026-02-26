@@ -18,20 +18,24 @@ class StripeWH_Handler:
     # FROM CI BOUTIQUE ADO WALKTHROUGH
     def _send_confirmation_email(self, order):
         """ sends an email to the user """
-        cust_email = order.email
-        subject = render_to_string(
-            'checkout/email_templates/confirmation_email_subject.txt',
-            {'order': order}
-        )
-        body = render_to_string(
-            'checkout/email_templates/confirmation_email_body.txt',
-            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        send_mail(
-            subject,
-            body,
-            settings.DEFAULT_FROM_EMAIL,
-            [cust_email]
-        )
+        try:
+            cust_email = order.email
+            subject = render_to_string(
+                'checkout/email_templates/confirmation_email_subject.txt',
+                {'order': order}
+            )
+            body = render_to_string(
+                'checkout/email_templates/confirmation_email_body.txt',
+                {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+            send_mail(
+                subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                [cust_email]
+            )
+            print("Email send to", cust_email)
+        except Exception as e:
+            print("Email failed: ", e)
 
     def handle_event(self, event):
         return HttpResponse(
