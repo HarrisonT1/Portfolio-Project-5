@@ -6,7 +6,6 @@ from django.conf import settings
 from decimal import Decimal
 # Local imports
 from .models import OrderLineItem
-from accounts.models import UserAccount
 from pick_and_mix.models import PickAndMixBag
 from products.models import Product
 
@@ -104,19 +103,3 @@ def create_line_items(bag, order=None):
                 )
 
     return bag_items, order_total
-
-
-def create_order(form, user=None):
-    """
-    create and save an order instance
-
-    Joins order to a user if it exists
-    """
-    order = form.save(commit=False)
-
-    if user and user.is_authenticated:
-        account, _ = UserAccount.objects.get_or_create(user=user)
-        order.user = account
-
-    order.save()
-    return order

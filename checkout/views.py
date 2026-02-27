@@ -10,7 +10,7 @@ from django.views.decorators.http import require_POST
 # Local imports
 from .forms import OrderForm
 from .models import Order
-from .utils import calc_delivery_cost, create_line_items, create_order
+from .utils import calc_delivery_cost, create_line_items
 from accounts.models import UserAccount
 
 # Create your views here.
@@ -41,16 +41,18 @@ def checkout(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            order = create_order(form, request.user)
-            pid = request.POST.get('client_secret').split('_secret')[0]
-            order.stripe_pid = pid
+            order = form.save(commit=False)
+            order.email = form.cleaned_data['email']
 
             if request.user.is_authenticated:
                 account, _ = UserAccount.objects.get_or_create(
                     user=request.user)
                 order.user = account
 
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
             order.delivery_method = delivery_method
+
             order.save()
 
             create_line_items(bag, order=order)
