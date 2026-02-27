@@ -15,6 +15,7 @@ def view_bag(request):
 def add_to_bag(request, slug):
     product = get_object_or_404(Product, slug=slug)
     product_slug = product.slug
+    redirect_url = request.POST.get('redirect_url')
 
     try:
         quantity = int(request.POST.get('quantity', 1))
@@ -30,9 +31,9 @@ def add_to_bag(request, slug):
     if reserved + quantity > product.stock_level:
         messages.error(
             request, "Sorry, there is only"
-            f"{product.stock_level} of {product.name}"
+            f" {product.stock_level} of {product.name} "
             "available. You already have them in your bag")
-        return redirect('pick_and_mix')
+        return redirect(redirect_url)
 
     bag[product_slug] = current_quantity + quantity
     request.session['bag'] = bag
@@ -41,7 +42,6 @@ def add_to_bag(request, slug):
 
     messages.success(
         request, "Item successfully added to bag", extra_tags='bag')
-    redirect_url = request.POST.get('redirect_url', '/')
     return redirect(redirect_url)
 
 
@@ -83,6 +83,15 @@ def remove_from_bag(request, slug):
 def adjust_bag(request, slug):
     bag = request.session.get('bag', {})
     quantity = int(request.POST.get('quantity'))
+    product = get_object_or_404(Product, slug=slug)
+    redirect_url = request.POST.get('redirect_url')
+
+    if quantity > product.stock_level:
+        messages.error(
+            request, "Sorry, there is only"
+            f" {product.stock_level} of {product.name} "
+            "available. You already have them in your bag")
+        return redirect(redirect_url)
 
     if quantity > 0:
         bag[slug] = quantity
