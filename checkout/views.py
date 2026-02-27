@@ -182,7 +182,6 @@ def cache_checkout_data(request):
         delivery_method = request.POST.get('delivery_method')
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'bag': json.dumps(request.session.get('bag', {})),
             'save_info': request.POST.get('save_info'),
             'username': request.user.username,
             'delivery_method': delivery_method,
