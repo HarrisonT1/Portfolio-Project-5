@@ -37,7 +37,11 @@ class Order(models.Model):
     city = models.CharField(max_length=80)
     town = models.CharField(max_length=80)
     street_address1 = models.CharField(max_length=80)
-    street_address2 = models.CharField(max_length=80, blank=True)
+    street_address2 = models.CharField(
+        max_length=80,
+        blank=True,
+        null=True,
+        )
 
     delivery_method = models.CharField(choices=settings.DELIVERY_OPTIONS)
     order_total = models.DecimalField(
