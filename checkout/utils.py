@@ -12,6 +12,9 @@ from products.models import Product
 
 
 def calc_delivery_cost(order_total, delivery_method='standard'):
+    """
+    Calculates then returns delivery cost depending on user choice
+    """
     if order_total >= settings.FREE_DELIVERY_THRESHOLD:
         delivery_cost = 0
     else:
@@ -23,6 +26,10 @@ def calc_delivery_cost(order_total, delivery_method='standard'):
 
 
 def create_line_items(bag, order=None):
+    """
+    Create a line items for both regular
+    products and pick and mix items
+    """
     bag_items = []
     order_total = Decimal('0.00')
 
@@ -100,6 +107,11 @@ def create_line_items(bag, order=None):
 
 
 def create_order(form, user=None):
+    """
+    create and save an order instance
+
+    Joins order to a user if it exists
+    """
     order = form.save(commit=False)
 
     if user and user.is_authenticated:

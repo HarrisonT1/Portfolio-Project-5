@@ -8,6 +8,15 @@ from products.models import Product
 
 
 def bag_content(request):
+    """
+    Bag context processor
+    Process the user's bad from the session and return its context
+
+    Calculates total items and price, seperating the products from
+    the pick and mix items
+
+    Prepares data to be rendered in templates
+    """
     bag = request.session.get('bag', {})
     bag_items = []
     total_bag_items = 0

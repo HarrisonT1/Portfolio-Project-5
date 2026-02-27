@@ -6,6 +6,9 @@ from pick_and_mix.models import PickAndMixBag
 
 
 def pick_and_mix_content(request):
+    """
+    A context processor to provide pick and mix data
+    """
     current_pick_and_mix = request.session.get('pick_and_mix', {})
     pick_and_mix_bag = None
     total_weight = 0
@@ -14,11 +17,6 @@ def pick_and_mix_content(request):
 
     if request.resolver_match:
         bag_slug = request.resolver_match.kwargs.get('slug')
-
-    # if current_pick_and_mix and bag_slug:
-    #     if current_pick_and_mix.get('bag_slug')!= bag_slug:
-    #         del request.session['pick_and_mix']
-    #         current_pick_and_mix = None
 
     if current_pick_and_mix:
         pick_and_mix_bag = current_pick_and_mix

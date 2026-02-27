@@ -21,7 +21,7 @@ class StripeWH_Handler:
 
     # FROM CI BOUTIQUE ADO WALKTHROUGH
     def _send_confirmation_email(self, order):
-        """ sends an email to the user """
+        """ sends an email to the user on checkout """
         try:
             cust_email = order.email
             print(cust_email)
@@ -43,6 +43,9 @@ class StripeWH_Handler:
             print("Email failed: ", e)
 
     def handle_event(self, event):
+        """
+        Handle stripe webhook events
+        """
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)

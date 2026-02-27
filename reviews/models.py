@@ -9,7 +9,9 @@ from django.db import models
 
 
 class Review(models.Model):
-    # remove null and blank in future
+    """
+    Stores review details
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

@@ -16,6 +16,9 @@ from products.models import Product
 
 class CreateLineItemsTest(TestCase):
     def setUp(self):
+        """
+        Creates a fake product and order for testing
+        """
         self.product = Product.objects.create(
             name="Test Product",
             slug="test-product",
@@ -39,6 +42,9 @@ class CreateLineItemsTest(TestCase):
         )
 
     def test_calculate_stock_total(self):
+        """
+        Ensure a product stock is reduces when a line item is created
+        """
         bag = {
             "test-product": 3
         }
@@ -54,6 +60,9 @@ class CreateLineItemsTest(TestCase):
         )
 
     def test_calculate_order_item_total(self):
+        """
+        Ensure order total is calculated correctly
+        """
         bag = {
             "test-product": 3
         }
@@ -63,6 +72,10 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(order_total, Decimal("9.00"))
 
     def test_order_totals_are_updated(self):
+        """
+        Ensure order and grand totals are updated corerctly after a
+        line item is created
+        """
         quantity = 3
         bag = {
             "test-product": quantity
@@ -79,6 +92,9 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(self.order.grand_total, expected_grand_total)
 
     def test_raise_error_when_stock_unavailable(self):
+        """
+        Raises a value error when stock is unavailable
+        """
         bag = {
             "test-product": 80
         }
@@ -87,6 +103,9 @@ class CreateLineItemsTest(TestCase):
             create_line_items(bag, order=self.order)
 
     def test_line_item_is_created(self):
+        """
+        Ensures line item is created
+        """
         bag = {
             "test-product": 3
         }
@@ -96,6 +115,9 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(self.order.lineitems.count(), 1)
 
     def test_free_delivery_cost_threshold(self):
+        """
+        Ensures the free delivery cost is taken deducted when threshold is met
+        """
         quantity = 75
         bag = {
             "test-product": quantity
@@ -112,6 +134,9 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(self.order.delivery_cost, Decimal("0.00"))
 
     def test_premium_delivery_cost_applied(self):
+        """
+        Ensure the premium delivery cost is applied when selected
+        """
         self.order.delivery_method = "premium"
         bag = {
             "test-product": 3
@@ -127,6 +152,9 @@ class CreateLineItemsTest(TestCase):
         self.assertEqual(self.order.delivery_cost, Decimal("10.00"))
 
     def test_standard_delivery_cost_applied(self):
+        """
+        Ensure the standard delivery cost is applied when selected
+        """
         bag = {
             "test-product": 3
         }
@@ -141,14 +169,24 @@ class CreateLineItemsTest(TestCase):
 
 class CheckoutUrls(TestCase):
     def test_checkout_url(self):
+        """
+        Ensure the checkout URL returns the correct view
+        """
         url = reverse('checkout')
         self.assertEqual(resolve(url).func, checkout)
 
     def test_checkout_redirects_if_bag_empty(self):
+        """
+        Ensure the checkout view redirects to products if the bag is empty
+        """
         response = self.client.get(reverse('checkout'))
         self.assertRedirects(response, reverse('products'))
 
     def test_checkout_renders_template(self):
+        """
+        Ensure the checkout view renders correctly when
+        the bag contains items
+        """
         session = self.client.session
         session['bag'] = {'test-product': {'quantity': 1}}
         session.save()

@@ -10,6 +10,9 @@ from products.models import Product
 
 
 class PickAndMixBag(models.Model):
+    """
+    Represents a pick and mix bag
+    """
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     max_weight_in_grams = models.PositiveIntegerField()

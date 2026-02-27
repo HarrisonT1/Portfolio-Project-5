@@ -1,4 +1,8 @@
 def get_bag_quantity(request, product_slug):
+    """
+    Returns the total quantity of the products in the users bag
+    Counts both products and pick and mix items in the session
+    """
     total = 0
 
     bag = request.session.get('bag', {})

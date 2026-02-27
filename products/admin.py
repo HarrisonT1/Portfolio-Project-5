@@ -10,18 +10,27 @@ from .models import SweetCategory, DietaryTag, Product
 
 @admin.register(SweetCategory)
 class SweetCategoryAdmin(admin.ModelAdmin):
+    """
+    Registers sweetcategory tab in the admin
+    """
     list_display = ('name', 'id')
     search_fields = ('name',)
 
 
 @admin.register(DietaryTag)
 class DietaryTagAdmin(admin.ModelAdmin):
+    """
+    Registers dietarytag tab in the admin
+    """
     list_display = ('name', 'id')
     search_fields = ('name',)
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    """
+    Registers product tab in the admin
+    """
     list_display = (
         'name',
         'id',

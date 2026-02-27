@@ -10,6 +10,11 @@ from reviews.models import Review
 
 
 def home(request):
+    """
+    Renders reviews on the home page
+
+    renders the home template
+    """
     reviews = Review.objects.filter(
         approved=True, rating__gte=4).order_by(Random())[:3]
 
@@ -21,4 +26,7 @@ def home(request):
 
 
 def privacy_policy(request):
+    """
+    Renders privacy policy
+    """
     return render(request, 'privacy_policy.html')

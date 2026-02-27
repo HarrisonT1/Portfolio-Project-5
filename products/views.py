@@ -10,6 +10,9 @@ from .models import SweetCategory, DietaryTag, Product
 
 
 def all_products(request):
+    """
+    Renders all products with search and filter functionality
+    """
     products = Product.objects.all()
     categories = SweetCategory.objects.all()
     dietary_tags = DietaryTag.objects.all()
@@ -45,6 +48,9 @@ def all_products(request):
 
 
 def product_detail(request, slug):
+    """
+    Render a template for a specific product details
+    """
     product = get_object_or_404(Product, slug=slug)
 
     context = {

@@ -13,6 +13,11 @@ from .models import Review
 
 @login_required
 def review(request):
+    """
+    Allow authenticated users to submit a review
+
+    Show success message
+    """
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -39,6 +44,11 @@ def review(request):
 
 @login_required
 def review_edit(request, review_id):
+    """
+    Allows a user to edit a review
+
+    Editing resets approval status
+    """
     review = get_object_or_404(Review, id=review_id, user=request.user)
 
     if request.method == 'POST':
@@ -65,6 +75,9 @@ def review_edit(request, review_id):
 
 @login_required
 def review_delete(request, review_id):
+    """
+    Allows a user to delete their review
+    """
     review = get_object_or_404(Review, id=review_id, user=request.user)
 
     if request.method == 'POST':
@@ -76,6 +89,9 @@ def review_delete(request, review_id):
 
 
 def review_list(request):
+    """
+    Renders a template showing all approved reviews
+    """
     reviews = Review.objects.filter(approved=True)
 
     context = {

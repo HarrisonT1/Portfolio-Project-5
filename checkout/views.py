@@ -17,6 +17,14 @@ from accounts.models import UserAccount
 
 
 def checkout(request):
+    """
+    Handle checkout process for orders
+
+    On post, validate form and create order and order line items
+
+    on get, prepares checkout form and calculates totals and creates
+    stripe payment intent
+    """
 
     bag = request.session.get('bag', {})
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -141,6 +149,11 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
+    """
+    Ensure the user has access to the page
+
+    Display the checkout success page after a checkout
+    """
     order = get_object_or_404(Order, order_number=order_number)
     if request.user.is_authenticated:
         if not order.user:
@@ -175,6 +188,11 @@ def checkout_success(request, order_number):
 
 @require_POST
 def cache_checkout_data(request):
+    """
+    Stores metadata in the stripe payment intent
+
+    Saves delivery method name and save-info
+    """
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         delivery_method = request.POST.get('delivery_method')

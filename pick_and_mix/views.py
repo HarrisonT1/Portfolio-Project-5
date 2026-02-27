@@ -13,6 +13,9 @@ from products.models import Product, SweetCategory, DietaryTag
 
 
 def pick_and_mix(request):
+    """
+    Renders pick and mix bag for a user to select
+    """
     pnmbag = PickAndMixBag.objects.all().order_by('price')
 
     context = {
@@ -23,6 +26,11 @@ def pick_and_mix(request):
 
 
 def pick_and_mix_products(request, slug):
+    """
+    Displays products for a pick and mix bag
+
+    Allows for searching and filtering of products
+    """
     pnmbag = get_object_or_404(PickAndMixBag, slug=slug)
 
     session_bag = request.session.get('pick_and_mix')
@@ -96,6 +104,13 @@ def pick_and_mix_products(request, slug):
 
 
 def pick_and_mix_add(request, bag_slug, product_slug):
+    """
+    Add a product selected by the user
+
+    Items based off of category weight
+
+    Validates stock checks and bag weight limits
+    """
     pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
     product = get_object_or_404(Product, slug=product_slug)
 

@@ -12,6 +12,9 @@ from accounts.models import UserAccount
 
 class ReviewModelTests(TestCase):
     def setUp(self):
+        """
+        Creates a test review
+        """
         self.user = User.objects.create_user(
             username="test",
             email="test@test.com",
@@ -20,6 +23,9 @@ class ReviewModelTests(TestCase):
         self.profile = UserAccount.objects.create(user=self.user)
 
     def test_review_creation(self):
+        """
+        Tests a review being created
+        """
         review = Review.objects.create(
             user=self.user,
             rating=5,

@@ -10,5 +10,8 @@ from .models import PickAndMixBag
 
 @admin.register(PickAndMixBag)
 class PickAndMixBagAdmin(admin.ModelAdmin):
+    """
+    Registers pick and mix bags in the admin
+    """
     list_display = ('name', 'price', 'max_weight_in_grams')
     filter_horizontal = ('sweets',)

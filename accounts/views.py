@@ -15,6 +15,11 @@ from checkout.models import Order
 
 @login_required
 def view_account(request):
+    """
+    Display the users account details within a form
+    Handles form submission when the user requests to update their profile
+    Shows the user previous orders and reviews with pagination
+    """
     account, _ = UserAccount.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -60,6 +65,9 @@ def view_account(request):
 
 @login_required
 def order_detail(request, order_number):
+    """
+    Gets a specific order and displays the details on order_detail.html
+    """
     order = get_object_or_404(
         Order,
         order_number=order_number,

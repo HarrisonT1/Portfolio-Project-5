@@ -9,6 +9,9 @@ from .models import Order, OrderLineItem
 
 
 class OrderLineItemInline(admin.TabularInline):
+    """
+    Inline admin display for an orders line item
+    """
     model = OrderLineItem
     extra = 0
     fields = (
@@ -22,6 +25,11 @@ class OrderLineItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    """
+    Display admin interface for managing orders
+
+    displays all listed fields
+    """
 
     inlines = [OrderLineItemInline]
 

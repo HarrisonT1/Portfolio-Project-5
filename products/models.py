@@ -9,7 +9,9 @@ from django.utils.text import slugify
 
 
 class SweetCategory(models.Model):
-
+    """
+    A model that stores sweet categories
+    """
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, blank=True)
     weight_in_grams = models.PositiveIntegerField()
@@ -28,7 +30,9 @@ class SweetCategory(models.Model):
 
 
 class DietaryTag(models.Model):
-
+    """
+    A model that stores dietary tags
+    """
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, blank=True)
 
@@ -46,7 +50,9 @@ class DietaryTag(models.Model):
 
 
 class Product(models.Model):
-
+    """
+    A product available for purchase
+    """
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)

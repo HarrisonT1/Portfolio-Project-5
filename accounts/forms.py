@@ -7,6 +7,9 @@ from .models import UserAccount
 
 
 class UserAccountForm(forms.ModelForm):
+    """
+    Form for updating a user's contact and default address information
+    """
     class Meta:
         model = UserAccount
         fields = (

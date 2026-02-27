@@ -13,10 +13,20 @@ from products.models import Product
 
 
 def view_bag(request):
+    """
+    Render bag template
+    """
     return render(request, 'bag/bag.html')
 
 
 def add_to_bag(request, slug):
+    """
+    Adds a product to the session bag
+
+    Validates if stock is less than the user adds
+
+    Displays a message
+    """
     product = get_object_or_404(Product, slug=slug)
     product_slug = product.slug
     redirect_url = request.POST.get('redirect_url')
@@ -50,7 +60,13 @@ def add_to_bag(request, slug):
 
 
 def pick_and_mix_add_basket(request, bag_slug):
+    """
+    Adds a pick and mix bag to the session bag
 
+    stores the bag price and selected items
+
+    Displays a message
+    """
     pick_and_mix = request.session.get('pick_and_mix')
     bag = request.session.get('bag', {})
     pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
@@ -76,6 +92,11 @@ def pick_and_mix_add_basket(request, bag_slug):
 
 
 def remove_from_bag(request, slug):
+    """
+    Removes an item from the bag
+
+    Displays a message
+    """
     bag = request.session.get('bag', {})
     bag.pop(slug, None)
     request.session['bag'] = bag
@@ -85,6 +106,13 @@ def remove_from_bag(request, slug):
 
 
 def adjust_bag(request, slug):
+    """
+    Allows the user to update the quantity of a product within the bag
+
+    Validates if stock is less than the user adjusts to
+
+    Displays a message
+    """
     bag = request.session.get('bag', {})
     quantity = int(request.POST.get('quantity'))
     product = get_object_or_404(Product, slug=slug)

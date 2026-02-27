@@ -10,6 +10,9 @@ from .models import Review
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    """
+    displays reviews tab in the admin panel
+    """
 
     list_display = (
         'name',

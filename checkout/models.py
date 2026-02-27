@@ -15,6 +15,9 @@ from products.models import Product
 
 
 class Order(models.Model):
+    """
+    Stores a user's order with shipping and payment details
+    """
     user = models.ForeignKey(
         UserAccount,
         on_delete=models.SET_NULL,
@@ -49,9 +52,15 @@ class Order(models.Model):
     order_fulfilled = models.BooleanField(default=False)
 
     def _generate_order_number(self):
+        """
+        Generates a random 32 char string
+        """
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
+        """
+        Recalculate the order totals and delivery cost
+        """
         self.order_total = self.lineitems.aggregate(
             models.Sum('line_item_total')
             )['line_item_total__sum'] or Decimal('0.00')
@@ -67,6 +76,9 @@ class Order(models.Model):
         self.save()
 
     def save(self, *args, **kwargs):
+        """
+        Ensures an order has a unqiue order number
+        """
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
@@ -76,6 +88,9 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
+    """
+    Represents a single item in an order
+    """
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name='lineitems')
     product = models.ForeignKey(
@@ -97,6 +112,9 @@ class OrderLineItem(models.Model):
         return f'Product x {self.quantity}'
 
     def save(self, *args, **kwargs):
+        """
+        Calculates the line item total and update order total
+        """
         if self.product:
             self.line_item_total = self.product.price * self.quantity
         elif self.pick_and_mix_bag:

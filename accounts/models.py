@@ -10,6 +10,9 @@ from django.db import models
 
 
 class UserAccount(models.Model):
+    """
+    Stores a user's default delivery and contact information
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     default_full_name = models.CharField(max_length=60, blank=True)
