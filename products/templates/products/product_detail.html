@@ -8,6 +8,7 @@
             <div class="col-12 col-md-8 mx-auto">
                 <h1>{{ product.name }}</h1>
                 <p>{{ product.description }}</p>
+                <p>£{{ product.price }}</p>
                 <form method="POST" action="{% url 'add_to_bag' product.slug %}">
                     {% csrf_token %}
                     <button class="minus-qty btn button-effect" type="button">-</button>
