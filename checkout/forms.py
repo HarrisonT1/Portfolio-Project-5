@@ -28,3 +28,8 @@ class OrderForm(forms.ModelForm):
             'street_address1',
             'street_address2',
         ]
+        widgets = {
+            'phone_number': forms.NumberInput(attrs={
+                'min': 0
+            })
+        }
