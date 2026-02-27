@@ -1,11 +1,15 @@
+# Standard libary imports
+from decimal import Decimal
+# Third-party imports
+# Django imports
 from django.test import TestCase
 from django.conf import settings
 from django.urls import reverse, resolve
-from decimal import Decimal
+# Local imports
+from .views import checkout
 from checkout.models import Order
 from checkout.utils import create_line_items
 from products.models import Product
-from .views import checkout
 
 # Create your tests here.
 

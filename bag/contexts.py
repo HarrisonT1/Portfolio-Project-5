@@ -1,6 +1,10 @@
+# Standard libary imports
 from decimal import Decimal
-from products.models import Product
+# Third-party imports
+# Django imports
+# Local imports
 from pick_and_mix.models import PickAndMixBag
+from products.models import Product
 
 
 def bag_content(request):

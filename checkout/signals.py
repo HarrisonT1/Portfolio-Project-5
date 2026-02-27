@@ -1,5 +1,9 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+# Local imports
 from .models import OrderLineItem
 
 

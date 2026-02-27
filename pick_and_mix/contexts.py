@@ -1,3 +1,7 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
+# Local imports
 from pick_and_mix.models import PickAndMixBag
 
 

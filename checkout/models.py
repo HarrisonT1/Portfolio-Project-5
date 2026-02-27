@@ -1,12 +1,15 @@
+# Standard libary imports
 import uuid
+from decimal import Decimal
+# Third-party imports
+from django_countries.fields import CountryField
+# Django imports
 from django.db import models
 from django.conf import settings
-from django_countries.fields import CountryField
-from decimal import Decimal
-
-from products.models import Product
-from pick_and_mix.models import PickAndMixBag
+# Local imports
 from accounts.models import UserAccount
+from pick_and_mix.models import PickAndMixBag
+from products.models import Product
 
 # Create your models here.
 

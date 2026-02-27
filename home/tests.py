@@ -1,5 +1,9 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.test import TestCase
 from django.urls import reverse, resolve
+# Local imports
 from .views import home, privacy_policy
 # Create your tests here.
 

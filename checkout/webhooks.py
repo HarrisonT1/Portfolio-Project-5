@@ -1,11 +1,13 @@
-from django.http import HttpResponse
-from django.conf import settings
-from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
-
-from checkout.webhook_handler import StripeWH_Handler
-
+# Standard libary imports
+# Third-party imports
 import stripe
+# Django imports
+from django.conf import settings
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+# Local imports
+from checkout.webhook_handler import StripeWH_Handler
 
 # Copied from boutique ado walkthrough project
 

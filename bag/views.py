@@ -1,9 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
+# Standard libary imports
 import uuid
-from products.models import Product
-from pick_and_mix.models import PickAndMixBag
+# Third-party imports
+# Django imports
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+# Local imports
 from .utils import get_bag_quantity
+from pick_and_mix.models import PickAndMixBag
+from products.models import Product
 
 # Create your views here.
 

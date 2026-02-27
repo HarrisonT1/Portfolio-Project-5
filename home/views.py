@@ -1,5 +1,9 @@
-from django.shortcuts import render
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.db.models.functions import Random
+from django.shortcuts import render
+# Local imports
 from reviews.models import Review
 
 # Create your views here.

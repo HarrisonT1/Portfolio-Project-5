@@ -1,10 +1,15 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect, get_object_or_404
+# Local imports
 from .forms import UserAccountForm
 from .models import UserAccount
 from checkout.models import Order
+
 # Create your views here.
 
 

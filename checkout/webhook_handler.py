@@ -1,13 +1,17 @@
-from django.http import HttpResponse
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.conf import settings
+# Standard libary imports
 import json
 import time
+# Third-party imports
 import stripe
+# Django imports
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+# Local imports
 from .models import Order, OrderLineItem
-from products.models import Product
 from accounts.models import UserAccount
+from products.models import Product
 
 
 class StripeWH_Handler:

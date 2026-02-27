@@ -1,4 +1,8 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.shortcuts import render
+# Local imports
 
 
 def handler404(request, exception):

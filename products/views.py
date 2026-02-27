@@ -1,5 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.db.models import Q
+from django.shortcuts import render, get_object_or_404
+# Local imports
 from .models import SweetCategory, DietaryTag, Product
 
 # Create your views here.

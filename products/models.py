@@ -1,5 +1,9 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.db import models
 from django.utils.text import slugify
+# Local imports
 
 # Create your models here.
 

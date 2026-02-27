@@ -1,4 +1,8 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django import forms
+# Local imports
 from .models import Review
 
 

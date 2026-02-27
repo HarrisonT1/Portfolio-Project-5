@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+# Standard libary imports
+# Third-party imports
+import stripe
+# Django imports
 from django.conf import settings
-from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.http import Http404
-import stripe
-import json
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.views.decorators.http import require_POST
+# Local imports
 from .forms import OrderForm
 from .models import Order
 from .utils import calc_delivery_cost, create_line_items, create_order

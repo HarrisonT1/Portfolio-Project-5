@@ -1,5 +1,9 @@
-from django.test import TestCase
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.contrib.auth.models import User
+from django.test import TestCase
+# Local imports
 from .models import Review
 from accounts.models import UserAccount
 

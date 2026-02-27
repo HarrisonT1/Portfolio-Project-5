@@ -1,10 +1,14 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from decimal import Decimal
+# Local imports
 from .models import OrderLineItem
-from products.models import Product
-from pick_and_mix.models import PickAndMixBag
 from accounts.models import UserAccount
+from pick_and_mix.models import PickAndMixBag
+from products.models import Product
 
 
 def calc_delivery_cost(order_total, delivery_method='standard'):

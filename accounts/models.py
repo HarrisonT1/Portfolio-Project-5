@@ -1,6 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User
+# Standard libary imports
+# Third-party imports
 from django_countries.fields import CountryField
+# Django imports
+from django.contrib.auth.models import User
+from django.db import models
+# Local imports
 
 # Create your models here.
 

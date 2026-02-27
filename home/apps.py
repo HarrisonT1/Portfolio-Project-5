@@ -1,3 +1,7 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
+# Local imports
 from django.apps import AppConfig
 
 

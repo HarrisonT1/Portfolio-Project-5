@@ -1,9 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Q
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.contrib import messages
+from django.db.models import Q
+from django.shortcuts import render, get_object_or_404, redirect
+# Local imports
 from .models import PickAndMixBag
-from products.models import Product, SweetCategory, DietaryTag
 from bag.utils import get_bag_quantity
+from products.models import Product, SweetCategory, DietaryTag
 
 # Create your views here.
 

@@ -1,6 +1,10 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+# Local imports
 from .forms import ReviewForm
 from .models import Review
 
@@ -40,6 +44,7 @@ def review_edit(request, review_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
+            form.approved = False
             form.save()
             messages.success(
                 request,
@@ -70,7 +75,6 @@ def review_delete(request, review_id):
     return render(request, 'reviews/review_delete.html')
 
 
-@login_required
 def review_list(request):
     reviews = Review.objects.filter(approved=True)
 

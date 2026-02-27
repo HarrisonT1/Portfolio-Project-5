@@ -1,4 +1,8 @@
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.apps import AppConfig
+# Local imports
 
 
 class ReviewsConfig(AppConfig):

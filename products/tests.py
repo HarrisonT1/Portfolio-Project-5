@@ -1,5 +1,9 @@
-from django.test import TestCase
+# Standard libary imports
 from decimal import Decimal
+# Third-party imports
+# Django imports
+from django.test import TestCase
+# Local imports
 from .models import Product
 
 

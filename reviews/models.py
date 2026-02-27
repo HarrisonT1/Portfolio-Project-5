@@ -1,5 +1,9 @@
-from django.db import models
+# Standard libary imports
+# Third-party imports
+# Django imports
 from django.contrib.auth.models import User
+from django.db import models
+# Local imports
 
 # Create your models here.
 
