@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.contrib import messages
@@ -139,18 +139,14 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
-    order = None
+    order = get_object_or_404(Order, order_number=order_number)
     if request.user.is_authenticated:
-        user_profile = UserAccount.objects.get(user=request.user)
-        try:
-            order = Order.objects.get(order_number=order_number)
-        except Order.DoesNotExist:
-            raise Http404
-        if order.user != user_profile:
+        if not order.user:
+            raise PermissionDenied
+        if order.user.user != request.user:
             raise PermissionDenied
     else:
-        order_number_session = request.session.get('order_number')
-        if not order_number_session or order_number_session != order_number:
+        if order.user:
             raise PermissionDenied
 
     bag_items = order.lineitems.all()
