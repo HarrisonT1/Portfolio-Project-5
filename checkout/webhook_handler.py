@@ -74,7 +74,7 @@ class StripeWH_Handler:
         # Clean data in the shipping details
         for field, value in shipping_details.address.items():
             if value == "":
-                shipping_details.address[field] = None
+                shipping_details.address[field] = None or ''
 
         # Update profile information if save_info was checked
         profile = None
@@ -124,42 +124,27 @@ class StripeWH_Handler:
         else:
             order = None
             try:
-                try:
-                    order = Order.objects.create(
-                        full_name=shipping_details.name,
-                        phone_number=shipping_details.phone,
-                        country=shipping_details.address.country,
-                        postcode=shipping_details.address.postal_code,
-                        city=shipping_details.address.city,
-                        town=shipping_details.address.city,
-                        street_address1=shipping_details.address.line1,
-                        street_address2=shipping_details.address.line2,
-                        delivery_method=delivery_method,
-                        grand_total=grand_total,
-                        stripe_pid=pid
-                    )
-                except Exception as e:
-                    print("order creation failed", e)
-                for item_id, item_data in json.loads(bag).items():
+                order = Order.objects.create(
+                    full_name=shipping_details.name,
+                    phone_number=shipping_details.phone,
+                    country=shipping_details.address.country,
+                    postcode=shipping_details.address.postal_code,
+                    city=shipping_details.address.city,
+                    town=shipping_details.address.city,
+                    street_address1=shipping_details.address.line1,
+                    street_address2=shipping_details.address.line2,
+                    delivery_method=delivery_method,
+                    grand_total=grand_total,
+                    stripe_pid=pid
+                )
+                for item_id, quantity in json.loads(bag).items():
                     product = Product.objects.get(slug=item_id)
-                    if isinstance(item_data, int):
-                        order_line_item = OrderLineItem(
-                            order=order,
-                            product=product,
-                            quantity=item_data,
-                        )
-                        order_line_item.save()
-                    else:
-                        for size, quantity in (
-                            item_data['items_by_size'].items()
-                        ):
-                            order_line_item = OrderLineItem(
-                                order=order,
-                                product=product,
-                                quantity=quantity,
-                                product_size=size,
-                            )
-                            order_line_item.save()
+                    order_line_item = OrderLineItem(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                    )
+                    order_line_item.save()
             except Exception as e:
                 if order:
                     order.delete()
