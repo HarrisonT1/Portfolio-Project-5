@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 # Local imports
 from .models import Order, OrderLineItem
+from .utils import create_line_items
 from accounts.models import UserAccount
 from products.models import Product
 
@@ -118,12 +119,13 @@ class StripeWH_Handler:
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=(f"Webhook received: {event["type"]} | "
+                content=(f"Webhook received: {event['type']} | "
                          "SUCCESS: Verified order already in database"),
                 status=200)
         else:
             order = None
             try:
+                bag_data = json.loads(bag)
                 order = Order.objects.create(
                     full_name=shipping_details.name,
                     phone_number=shipping_details.phone,
@@ -137,14 +139,7 @@ class StripeWH_Handler:
                     grand_total=grand_total,
                     stripe_pid=pid
                 )
-                for item_id, quantity in json.loads(bag).items():
-                    product = Product.objects.get(slug=item_id)
-                    order_line_item = OrderLineItem(
-                        order=order,
-                        product=product,
-                        quantity=quantity,
-                    )
-                    order_line_item.save()
+                create_line_items(bag_data, order=order)
             except Exception as e:
                 if order:
                     order.delete()
