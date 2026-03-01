@@ -172,6 +172,5 @@ def pick_and_mix_add(request, bag_slug, product_slug):
         request,
         "Item successfully added to pick and mix bag",
         extra_tags='pick_and_mix_bag')
-    print(pick_and_mix)
 
     return redirect('pick_and_mix_products', slug=bag_slug)

@@ -52,8 +52,6 @@ def add_to_bag(request, slug):
     bag[product_slug] = current_quantity + quantity
     request.session['bag'] = bag
 
-    print(bag)
-
     messages.success(
         request, "Item successfully added to bag", extra_tags='bag')
     return redirect(redirect_url)
@@ -71,7 +69,6 @@ def pick_and_mix_add_basket(request, bag_slug):
     bag = request.session.get('bag', {})
     pnmbag = get_object_or_404(PickAndMixBag, slug=bag_slug)
     unique_bag_id = f"pick_and_mix_{pnmbag.slug}_{uuid.uuid4().hex}"
-    print(unique_bag_id)
 
     bag[unique_bag_id] = {
         'quantity': 1,
@@ -84,7 +81,6 @@ def pick_and_mix_add_basket(request, bag_slug):
 
     request.session['bag'] = bag
     request.session.pop('pick_and_mix', None)
-    print(dict(request.session))
     messages.success(
         request, "Item successfully added to bag", extra_tags='bag')
 
