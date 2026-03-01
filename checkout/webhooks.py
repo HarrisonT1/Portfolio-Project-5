@@ -17,7 +17,6 @@ from checkout.webhook_handler import StripeWH_Handler
 def webhook(request):
     """Listen for webhooks from Stripe"""
     # Setup
-    wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     # get the webhook data and verify its signature
