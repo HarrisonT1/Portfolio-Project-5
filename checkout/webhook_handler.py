@@ -9,10 +9,9 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 # Local imports
-from .models import Order, OrderLineItem
+from .models import Order
 from .utils import create_line_items
 from accounts.models import UserAccount
-from products.models import Product
 
 
 class StripeWH_Handler:
@@ -75,7 +74,7 @@ class StripeWH_Handler:
         # Clean data in the shipping details
         for field, value in shipping_details.address.items():
             if value == "":
-                shipping_details.address[field] = None or ''
+                shipping_details.address[field] = None
 
         # Update profile information if save_info was checked
         profile = None
