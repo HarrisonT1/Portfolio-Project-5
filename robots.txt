@@ -1,3 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /checkout/
+Disallow: /bag/
+Disallow: /profile/
 Sitemap: https://project-portfolio-5-fcf4c8af6c5f.herokuapp.com/sitemap.xml
