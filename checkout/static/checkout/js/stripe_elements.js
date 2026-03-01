@@ -41,7 +41,6 @@ $(document).ready(function() {
     });
 
     // Handle form submit
-    console.log("Stripe JS loaded");
     var form = document.getElementById('payment-form');
 
     form.addEventListener('submit', function(ev) {
@@ -85,7 +84,6 @@ $(document).ready(function() {
                     }
                 },
             }).then(function(result) {
-                console.log(result);
                 if (result.error) {
                     var errorDiv = document.getElementById('card-errors');
                     var html = `

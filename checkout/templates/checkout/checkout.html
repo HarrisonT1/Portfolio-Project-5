@@ -148,7 +148,6 @@
         var FREE_DELIVERY_THRESHOLD = parseFloat('{{ FREE_DELIVERY_THRESHOLD|floatformat:"2" }}');
         var STANDARD_DELIVERY_COST = parseFloat('{{ STANDARD_DELIVERY_COST|floatformat:"2" }}');
         var PREMIUM_DELIVERY_COST = parseFloat('{{ PREMIUM_DELIVERY_COST|floatformat:"2" }}');
-        console.log(orderTotal);
         
         function updateTotals(delivery_method){
             var deliveryCost = 0;
@@ -158,9 +157,6 @@
                 deliveryCost = 0;
             }
             var grandTotal = orderTotal + deliveryCost;
-            console.log(deliveryCost);
-            console.log(delivery_method);
-            console.log(grandTotal);
             $('#grand-total').text('Grand Total: £' + grandTotal.toFixed(2));
         }
         updateTotals('standard');
