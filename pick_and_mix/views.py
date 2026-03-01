@@ -22,7 +22,7 @@ def pick_and_mix(request):
         'pnmbag': pnmbag,
     }
 
-    return render(request, 'pick_and_mix/pick-and-mix.html', context)
+    return render(request, 'pick_and_mix/pick_and_mix.html', context)
 
 
 def pick_and_mix_products(request, slug):
@@ -100,7 +100,7 @@ def pick_and_mix_products(request, slug):
         'pick_and_mix': session_bag,
     }
 
-    return render(request, 'pick_and_mix/pick-and-mix-list.html', context)
+    return render(request, 'pick_and_mix/pick_and_mix_list.html', context)
 
 
 def pick_and_mix_add(request, bag_slug, product_slug):
