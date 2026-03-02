@@ -204,7 +204,7 @@ def cache_checkout_data(request):
             'save_info': request.POST.get('save_info'),
             'username': (
                 request.user.username
-                if request.user.is_authenicated
+                if request.user.is_authenticated
                 else 'Guest'),
             'email': email,
         })
