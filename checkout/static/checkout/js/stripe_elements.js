@@ -53,6 +53,7 @@ $(document).ready(function() {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
             'delivery_method': deliveryMethod,
+            'email': $.trim(form.email.value),
         };
         var url = '/checkout/cache_checkout_data/';
 
