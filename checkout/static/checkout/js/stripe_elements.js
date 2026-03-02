@@ -49,7 +49,7 @@ $(document).ready(function() {
         $('#submit-button').attr('disabled', true);
         var deliveryMethod = $('input[name="delivery_method"]:checked').val();
         var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
-        var email = $.trim(document.querySelector('#id_email').value)
+        var email = $.trim(form.email.value)
         var postData = {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
@@ -61,7 +61,7 @@ $(document).ready(function() {
         $.post(url, postData).done(function() {
             stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
-                    card: card,         
+                    card: card,
                     billing_details: {
                         name: $.trim(form.full_name.value),
                         phone: $.trim(form.phone_number.value),
