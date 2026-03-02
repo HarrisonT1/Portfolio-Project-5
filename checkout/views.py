@@ -116,14 +116,13 @@ def checkout(request):
             intent = stripe.PaymentIntent.create(
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY,
-                receipt_email=order.email
             )
         except Exception:
             messages.error(
                 request,
                 ('There was a problem connecting to our payment provider,'
-                 'please try again'))
-            return redirect('bag')
+                 ' please try again'))
+            return redirect('view_bag')
 
         free_delivery_threshold = settings.FREE_DELIVERY_THRESHOLD
 
@@ -197,7 +196,6 @@ def cache_checkout_data(request):
     Saves delivery method name and save-info
     """
     try:
-    
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
