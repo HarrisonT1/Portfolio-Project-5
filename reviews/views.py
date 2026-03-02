@@ -11,13 +11,16 @@ from .models import Review
 # Create your views here.
 
 
-@login_required
 def review(request):
     """
     Allow authenticated users to submit a review
 
     Show success message
     """
+
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to make a review")
+        return redirect('account_login')
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
