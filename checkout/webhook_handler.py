@@ -55,7 +55,6 @@ class StripeWH_Handler:
         metadata = intent.metadata or {}
         save_info = metadata.get(
             'save_info', False)  # default False if missing
-        username = metadata.get('username', 'AnonymousUser')
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
@@ -68,17 +67,15 @@ class StripeWH_Handler:
         grand_total = round(stripe_charge.amount / 100, 2)
 
         # Clean data in the shipping details
-        address = dict(shipping_details.address)
-        for field, value in address.address.items():
+        for field, value in shipping_details.address.items():
             if value == "":
                 shipping_details.address[field] = None
 
         # Update profile information if save_info was checked
         profile = None
-        if username and username != 'AnonymousUser':
-            profile = UserAccount.objects.filter(
-                user__username=username
-            ).first()
+        username = intent.metadata.username
+        if username != 'AnonymousUser':
+            profile = UserAccount.objects.get(user__username=username)
             if profile and save_info:
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
