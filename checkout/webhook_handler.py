@@ -59,7 +59,7 @@ class StripeWH_Handler:
         save_info = metadata.get(
             'save_info', False)  # default False if missing
         username = metadata.get('username', 'AnonymousUser')
-
+        email = metadata.get('meta', '')
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
@@ -73,9 +73,13 @@ class StripeWH_Handler:
 
         # Update profile information if save_info was checked
         profile = None
-        if username != 'AnonymousUser':
-            profile = UserAccount.objects.get(user__username=username)
-            if save_info:
+        if username != 'Guest':
+            try:
+                profile = UserAccount.objects.get(user__username=username)
+            except UserAccount.DoesNotExist:
+                profile = None
+
+            if profile and save_info:
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
@@ -120,6 +124,7 @@ class StripeWH_Handler:
                 bag_data = json.loads(bag)
                 order = Order.objects.create(
                     full_name=shipping_details.name,
+                    email=email,
                     phone_number=shipping_details.phone,
                     country=shipping_details.address.country,
                     postcode=shipping_details.address.postal_code,
