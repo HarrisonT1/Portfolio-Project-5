@@ -197,6 +197,7 @@ def cache_checkout_data(request):
     """
     try:
         email = request.POST.get('id_email')
+        print(email)
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
