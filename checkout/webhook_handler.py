@@ -59,10 +59,12 @@ class StripeWH_Handler:
         save_info = metadata.get(
             'save_info', False)  # default False if missing
         username = metadata.get('username', 'AnonymousUser')
-        email = metadata.get('meta', '')
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
+        email = metadata.get('meta', '')
+        if not email:
+            email = stripe_charge.billing_details.email
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)
 
