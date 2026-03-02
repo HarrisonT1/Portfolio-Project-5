@@ -32,7 +32,7 @@ def review(request):
             messages.success(
                 request,
                 (f"Thank you {request.user.username}. Your review was"
-                 "submitted, it will be reviewed by staff before being "
+                 " submitted, it will be reviewed by staff before being "
                  "approved, you can edit this review through your account"))
             return redirect('home')
     else:
@@ -57,8 +57,9 @@ def review_edit(request, review_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
-            form.approved = False
-            form.save()
+            review = form.save(commit=False)
+            review.approved = False
+            review.save()
             messages.success(
                 request,
                 ('Your review has successfully been changed, if the review '

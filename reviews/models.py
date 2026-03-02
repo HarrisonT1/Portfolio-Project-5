@@ -2,6 +2,7 @@
 # Third-party imports
 # Django imports
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 # Local imports
 
@@ -17,7 +18,17 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
-    rating = models.PositiveSmallIntegerField()
+    RATING_CHOICES = [
+        (1, "1 Star"),
+        (2, "2 Stars"),
+        (3, "3 Stars"),
+        (4, "4 Stars"),
+        (5, "5 Stars"),
+    ]
+    rating = models.PositiveSmallIntegerField(
+        choices=RATING_CHOICES,
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
 
     name = models.TextField(max_length=100)
     review_message = models.TextField()

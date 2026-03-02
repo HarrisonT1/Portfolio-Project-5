@@ -17,3 +17,9 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.Select(),
             'review_message': forms.Textarea()
         }
+
+    def clean_rating(self):
+        rating = self.cleaned_data.get('rating')
+        if not rating:
+            raise forms.ValidationError("Please select a star rating")
+        return rating

@@ -47,6 +47,11 @@
                                     <span class="visually-hidden">Star rating</span>
                                 </label>
                             </div>
+                            {% if form.rating.errors %}
+                                <div class="text-danger mt-2">
+                                    {{ form.rating.errors.0 }}
+                                </div>
+                            {% endif %}
                         </fieldset>
                     {% else %}
                         <div>
