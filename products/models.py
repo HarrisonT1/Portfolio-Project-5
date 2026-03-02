@@ -16,6 +16,10 @@ class SweetCategory(models.Model):
     slug = models.SlugField(max_length=255, blank=True)
     weight_in_grams = models.PositiveIntegerField()
 
+    class Meta:
+        verbose_name = "Sweet Category"
+        verbose_name_plural = "Sweet Categories"
+
     def __str__(self):
         return self.name
 
