@@ -21,14 +21,14 @@
             {% if order.street_address2 %}
                 <p>Street Address 2: {{ order.street_address2 }}</p>
             {% endif %}
-            <p>Order Total: {{ order.order_total }}</p>
-            <p>Delivery Cost: {{ order.delivery_cost }}</p>
-            <p>Grand Total: {{ order.grand_total }}</p>
+            <p>Order Total: £{{ order.order_total }}</p>
+            <p>Delivery Cost: £{{ order.delivery_cost }}</p>
+            <p>Grand Total: £{{ order.grand_total }}</p>
         </div>
     </div>
     <hr>
     <div class="row"> 
-        <div class="responsive-table">
+        <div class="table-responsive">
             {% if regular_items %}
                 <h2>Products</h2>
                 <table class="table table-striped bag-table">
@@ -62,6 +62,8 @@
                     {% endfor %}
                 </table>
             {% endif %}
+        </div>
+        <div class="table-responsive">
             {% if pick_and_mix_items %}
                 <h2 class="mt-4">Pick And Mix Items</h2>
                 <table class="table table-striped bag-table">

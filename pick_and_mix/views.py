@@ -127,7 +127,7 @@ def pick_and_mix_add(request, bag_slug, product_slug):
         messages.error(
             request, "Sorry, there is only"
             f"{product.stock_level} of {product.name}"
-            "available. You already have them in your bag")
+            "available. You already have some in your bag")
         return redirect('pick_and_mix')
 
     pick_and_mix = request.session.get('pick_and_mix', {

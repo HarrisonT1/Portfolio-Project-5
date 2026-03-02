@@ -118,7 +118,7 @@ def adjust_bag(request, slug):
         messages.error(
             request, "Sorry, there is only"
             f" {product.stock_level} of {product.name} "
-            "available. You already have them in your bag")
+            "available. You already have some in your bag")
         return redirect(redirect_url)
 
     if quantity > 0:
