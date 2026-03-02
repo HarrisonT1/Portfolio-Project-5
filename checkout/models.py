@@ -71,6 +71,7 @@ class Order(models.Model):
 
         if self.order_total >= settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = Decimal('0.00')
+            self.delivery_method = 'free'
         else:
             if self.delivery_method == 'premium':
                 self.delivery_cost = settings.PREMIUM_DELIVERY_COST

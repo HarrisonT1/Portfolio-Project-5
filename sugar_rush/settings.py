@@ -180,6 +180,7 @@ PREMIUM_DELIVERY_COST = 10
 DELIVERY_OPTIONS = (
     ('standard', 'Standard Delivery'),
     ('premium', 'Premium Delivery'),
+    ('free', 'Free Delivery'),
 )
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'

@@ -22,6 +22,7 @@ class StripeWH_Handler:
     # FROM CI BOUTIQUE ADO WALKTHROUGH
     def _send_confirmation_email(self, order):
         """ sends an email to the user on checkout """
+        order.update_total()
         cust_email = order.email
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
@@ -62,7 +63,6 @@ class StripeWH_Handler:
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
-        delivery_method = intent.metadata.get('delivery_method')
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2)
 
@@ -101,7 +101,6 @@ class StripeWH_Handler:
                         town__iexact=shipping_details.address.city,
                         street_address1__iexact=shipping_details.address.line1,
                         street_address2__iexact=shipping_details.address.line2,
-                        delivery_method=delivery_method,
                         grand_total=grand_total,
                         stripe_pid=pid
                     )
@@ -129,11 +128,11 @@ class StripeWH_Handler:
                     town=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
                     street_address2=shipping_details.address.line2,
-                    delivery_method=delivery_method,
                     grand_total=grand_total,
                     stripe_pid=pid
                 )
                 create_line_items(bag_data, order=order)
+                order.update_total()
             except Exception as e:
                 if order:
                     order.delete()
