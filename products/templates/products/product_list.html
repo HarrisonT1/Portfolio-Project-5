@@ -43,49 +43,51 @@
                     <button type="submit" class="btn button-effect button-colour">Filter Results</button>
                 </form>
             </div>
-            <div class="col-12 col-md-9 row justify-content-center mt-5">
-                {% if products %}
-                    {% for product in products %}
-                        <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
-                            <div class="card mb-5">
-                                <a href="{% url 'product_detail' product.slug %}">
-                                    {% if product.image %}
-                                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                                    {% else %}
-                                        <img src="{% static 'images/no-image-found.png' %}" class="card-img-top" alt="No image found">
-                                    {% endif %}
-                                </a>
-                                <div class="card-body">
-                                    <h3 class="card-title">
-                                        <a href="{% url 'product_detail' product.slug %}">
-                                            {{ product.name }}
-                                        </a>
-                                    </h3>
-                                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                                </div>
-                                <strong class="text-center">£{{ product.price }}</strong>
-                                <strong class="text-center">Amount in stock: {{ product.stock_level }}</strong>
-                                <div class="d-flex flex-column card-buttons text-center">
-                                    {% if product.stock_level == 0 %}
-                                        <button class="btn text-danger flex-fill" disabled>Out Of Stock</button>
-                                    {% else %}
-                                    <form method="POST" action="{% url 'add_to_bag' product.slug %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
-                                        <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
-                                    </form>
-                                    {% endif %}
-                                    <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}" aria-label="Read more about {{ product.name }}">
-                                        Read More
-                                        <span class="visually-hidden">about {{ product.name }}</span>
+            <div class="col-12 col-md-9 mt-5">
+                <div class="row justify-content-center">
+                    {% if products %}
+                        {% for product in products %}
+                            <div class="col-9 col-md-6 col-lg-4 d-flex justify-content-center">
+                                <div class="card mb-5">
+                                    <a href="{% url 'product_detail' product.slug %}">
+                                        {% if product.image %}
+                                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                        {% else %}
+                                            <img src="{% static 'images/no-image-found.png' %}" class="card-img-top" alt="No image found">
+                                        {% endif %}
                                     </a>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="{% url 'product_detail' product.slug %}">
+                                                {{ product.name }}
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                    </div>
+                                    <strong class="text-center">£{{ product.price }}</strong>
+                                    <strong class="text-center">Amount in stock: {{ product.stock_level }}</strong>
+                                    <div class="d-flex flex-column card-buttons text-center">
+                                        {% if product.stock_level == 0 %}
+                                            <button class="btn text-danger flex-fill" disabled>Out Of Stock</button>
+                                        {% else %}
+                                        <form method="POST" action="{% url 'add_to_bag' product.slug %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
+                                            <button class="btn button-effect flex-fill" type="submit">Add To Basket</button>
+                                        </form>
+                                        {% endif %}
+                                        <a class="btn button-effect flex-fill" href="{% url 'product_detail' product.slug %}" aria-label="Read more about {{ product.name }}">
+                                            Read More
+                                            <span class="visually-hidden">about {{ product.name }}</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>    
-                    {% endfor %}
-                {% else %}
-                    <p class="text-center fw-bold">No results found from your search, please try again.</p>
-                {% endif %}
+                            </div>    
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center fw-bold">No results found from your search, please try again.</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
