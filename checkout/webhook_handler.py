@@ -64,6 +64,7 @@ class StripeWH_Handler:
         )
         billing_details = stripe_charge.billing_details
         email = metadata.get('email', '') or billing_details.email
+        delivery_method = intent.metadata.get('delivery_method')
         if not email:
             email = stripe_charge.billing_details.email
         shipping_details = intent.shipping
@@ -107,8 +108,9 @@ class StripeWH_Handler:
                         city__iexact=shipping_details.address.city,
                         street_address1__iexact=shipping_details.address.line1,
                         street_address2__iexact=shipping_details.address.line2,
+                        delivery_method=delivery_method,
                         grand_total=grand_total,
-                        stripe_pid=pid
+                        stripe_pid=pid,
                     )
                 order_exists = True
                 break
@@ -134,6 +136,7 @@ class StripeWH_Handler:
                     city=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
                     street_address2=shipping_details.address.line2,
+                    delivery_method=delivery_method,
                     grand_total=grand_total,
                     stripe_pid=pid
                 )
