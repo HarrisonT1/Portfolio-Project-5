@@ -49,11 +49,12 @@ $(document).ready(function() {
         $('#submit-button').attr('disabled', true);
         var deliveryMethod = $('input[name="delivery_method"]:checked').val();
         var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
+        var email = $.trim(document.querySelector('#id_email').value)
         var postData = {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
             'delivery_method': deliveryMethod,
-            'email': $.trim(form.email.value),
+            'email': email,
         };
         var url = '/checkout/cache_checkout_data/';
 
@@ -97,6 +98,9 @@ $(document).ready(function() {
                     $('#submit-button').attr('disabled', false);
                 } else {
                     if (result.paymentIntent.status === 'succeeded') {
+                        console.log(form.email);
+                        console.log(form.email.value);
+                        console.log(postData);
                         form.submit();
                     }
                 }
