@@ -47,14 +47,16 @@ $(document).ready(function() {
         ev.preventDefault();
         card.update({ 'disabled': true});
         $('#submit-button').attr('disabled', true);
+        var saveInfo = Boolean($('#id-save-info').attr('checked'));
         var deliveryMethod = $('input[name="delivery_method"]:checked').val();
         var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
-        var email = $.trim(form.email.value)
+        var email = $.trim(form.email.value);
         var postData = {
             'csrfmiddlewaretoken': csrfToken,
             'client_secret': clientSecret,
             'delivery_method': deliveryMethod,
             'email': email,
+            'save_info': saveInfo,
         };
         var url = '/checkout/cache_checkout_data/';
 
