@@ -62,7 +62,8 @@ class StripeWH_Handler:
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
-        email = metadata.get('meta', '')
+        billing_details = stripe_charge.billing_details
+        email = metadata.get('email', '') or billing_details.email
         if not email:
             email = stripe_charge.billing_details.email
         shipping_details = intent.shipping

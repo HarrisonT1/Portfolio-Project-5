@@ -196,6 +196,7 @@ def cache_checkout_data(request):
     Saves delivery method name and save-info
     """
     try:
+        print(request.POST)
         email = request.POST.get('email')
         print(email)
         pid = request.POST.get('client_secret').split('_secret')[0]

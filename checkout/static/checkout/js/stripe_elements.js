@@ -98,9 +98,6 @@ $(document).ready(function() {
                     $('#submit-button').attr('disabled', false);
                 } else {
                     if (result.paymentIntent.status === 'succeeded') {
-                        console.log(form.email);
-                        console.log(form.email.value);
-                        console.log(postData);
                         form.submit();
                     }
                 }
