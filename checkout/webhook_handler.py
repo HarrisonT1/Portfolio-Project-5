@@ -1,5 +1,4 @@
 # Standard libary imports
-import json
 import time
 # Third-party imports
 import stripe
@@ -10,7 +9,6 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 # Local imports
 from .models import Order
-from .utils import create_line_items
 from accounts.models import UserAccount
 
 
@@ -55,7 +53,6 @@ class StripeWH_Handler:
         pid = intent.id
 
         metadata = intent.metadata or {}
-        bag = metadata.get('bag', '{}')
         save_info = metadata.get(
             'save_info', False)  # default False if missing
         username = metadata.get('username', 'AnonymousUser')
@@ -126,7 +123,6 @@ class StripeWH_Handler:
         else:
             order = None
             try:
-                bag_data = json.loads(bag)
                 order = Order.objects.create(
                     full_name=shipping_details.name,
                     email=email,
@@ -140,7 +136,6 @@ class StripeWH_Handler:
                     grand_total=grand_total,
                     stripe_pid=pid
                 )
-                create_line_items(bag_data, order=order)
                 order.update_total()
             except Exception as e:
                 if order:
