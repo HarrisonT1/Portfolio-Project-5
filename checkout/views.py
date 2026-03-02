@@ -196,13 +196,16 @@ def cache_checkout_data(request):
     Saves delivery method name and save-info
     """
     try:
-        email = request.POST.get('id_email')
+        email = request.POST.get('email')
         print(email)
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
             'save_info': request.POST.get('save_info'),
-            'username': request.user.username,
+            'username': (
+                request.user.username
+                if request.user.is_authenicated
+                else 'Guest'),
             'email': email,
         })
         return HttpResponse(status=200)
