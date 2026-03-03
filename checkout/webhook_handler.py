@@ -71,12 +71,12 @@ class StripeWH_Handler:
             if value == "":
                 shipping_details.address[field] = None
 
+        username = metadata.get('username', 'AnonymousUser')
         # Update profile information if save_info was checked
         profile = None
-        username = metadata.get('username', 'AnonymousUser')
         if username != 'AnonymousUser':
             profile = UserAccount.objects.get(user__username=username)
-            if profile and save_info:
+            if save_info:
                 profile.default_phone_number = shipping_details.phone
                 profile.default_country = shipping_details.address.country
                 profile.default_postcode = shipping_details.address.postal_code
@@ -84,7 +84,7 @@ class StripeWH_Handler:
                 profile.default_street_address1 = (
                     shipping_details.address.line1)
                 profile.default_street_address2 = (
-                    shipping_details.address.line2 or "")
+                    shipping_details.address.line2)
                 profile.save()
 
         order_exists = False
@@ -99,11 +99,10 @@ class StripeWH_Handler:
                         postcode__iexact=shipping_details.address.postal_code,
                         city__iexact=shipping_details.address.city,
                         street_address1__iexact=shipping_details.address.line1,
-                        street_address2__iexact=(
-                            shipping_details.address.line2 or ""),
+                        street_address2__iexact=shipping_details.address.line2,
                         delivery_method=delivery_method,
                         grand_total=grand_total,
-                        stripe_pid=pid,
+                        stripe_pid=pid
                     )
                 order_exists = True
                 break
@@ -121,7 +120,6 @@ class StripeWH_Handler:
             try:
                 order = Order.objects.create(
                     full_name=shipping_details.name,
-                    email=email,
                     phone_number=shipping_details.phone,
                     country=shipping_details.address.country,
                     postcode=shipping_details.address.postal_code,
@@ -132,7 +130,6 @@ class StripeWH_Handler:
                     grand_total=grand_total,
                     stripe_pid=pid
                 )
-                order.update_total()
             except Exception as e:
                 if order:
                     order.delete()
