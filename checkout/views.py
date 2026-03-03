@@ -72,7 +72,7 @@ def checkout(request):
                 account.default_city = order.city
                 account.default_town = order.town
                 account.default_street_address1 = order.street_address1
-                account.default_street_address2 = order.street_address2
+                account.default_street_address2 = order.street_address2 or ""
 
                 account.save()
 
