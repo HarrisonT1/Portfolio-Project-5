@@ -99,8 +99,6 @@ class StripeWH_Handler:
                         postcode__iexact=shipping_details.address.postal_code,
                         city__iexact=shipping_details.address.city,
                         street_address1__iexact=shipping_details.address.line1,
-                        street_address2__iexact=(
-                            shipping_details.address.line2 or ""),
                         delivery_method=delivery_method,
                         grand_total=grand_total,
                         stripe_pid=pid
@@ -127,8 +125,6 @@ class StripeWH_Handler:
                     postcode=shipping_details.address.postal_code,
                     city=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
-                    street_address2=(
-                        shipping_details.address.line2 or ""),
                     delivery_method=delivery_method,
                     grand_total=grand_total,
                     stripe_pid=pid

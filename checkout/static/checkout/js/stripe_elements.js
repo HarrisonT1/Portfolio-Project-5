@@ -72,6 +72,7 @@ $(document).ready(function() {
                             line1: $.trim(form.street_address1.value),
                             line2: $.trim(form.street_address2.value),
                             city: $.trim(form.city.value),
+                            state: $.trim(form.town.value),
                             country: $.trim(form.country.value),
                         }
                     }
@@ -83,6 +84,7 @@ $(document).ready(function() {
                         line1: $.trim(form.street_address1.value),
                         line2: $.trim(form.street_address2.value),
                         city: $.trim(form.city.value),
+                        state: $.trim(form.town.value),
                         postal_code: $.trim(form.postcode.value),
                         country: $.trim(form.country.value),
                     }
